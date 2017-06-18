@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-
-export interface User {
-
-}
+import { IUser, User } from '../classes/user';
 
 @Injectable()
 export class UserService {
 
-  private user: User;
+  private user: IUser;
 
   constructor(private api: ApiService) {
     // setTimeout(() => {
@@ -16,9 +13,14 @@ export class UserService {
     //     this.user = user;
     //   });
     // });
+    this.user = new User({
+      username: 'asda asd as',
+      type: 'patient',
+      email: 'asd@asd.ru',
+    } as IUser);
   }
 
-  getUser(): User {
+  getUser(): IUser {
     return this.user;
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService, User} from "../shared/services/user.service";
+import { UserService } from '../shared/services/user.service';
+import { IUser } from '../shared/classes/user';
 
 @Component({
   selector: 'app-member-area',
@@ -10,7 +11,7 @@ import {UserService, User} from "../shared/services/user.service";
 })
 export class MemberAreaComponent implements OnInit {
 
-  user: User;
+  user: IUser;
 
   constructor(private userService: UserService) { }
 

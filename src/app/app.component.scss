@@ -139,6 +139,11 @@ a:focus {
   }
 }
 
+ul.nav {
+  display: flex;
+  flex-direction: column;
+}
+
 h1{
   font-family: 'Ubuntu', serif;
   font-size : 26px;
@@ -184,7 +189,6 @@ h2{
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius:  5px;
-  padding: 45px;
 
 }
 .site-error__building{
