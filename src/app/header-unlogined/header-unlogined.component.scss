@@ -1,0 +1,46 @@
+@import "../app.style.constants";
+
+:host{
+
+  .log-in-out {
+    height: 44px;
+    display: inline-flex;
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
+    align-items: center;
+    border: 1px solid #999999;
+    padding: 0px 19px;
+  }
+  .log-in-out>ul{
+    margin: 0;
+  }
+
+  .log-in-out .log-in-out-item {
+    margin: 0 10px;
+  }
+
+  .log-in-out-item a {
+    font-family : 'Ubuntu', serif;
+    font-weight: 300;
+    font-size: 15px;
+    /* color: #000000; */
+  }
+
+  .top-nav{
+    display: inline-flex;
+    align-items: center;
+  }
+  .top-nav>li{
+    margin: 0 20px;
+    padding: 0;
+    white-space: nowrap;
+  }
+  .top-user-bar {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20px;
+  }
+}

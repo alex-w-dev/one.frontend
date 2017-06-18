@@ -1,0 +1,11 @@
+<div class="form-group field-form-{{name}} {{className}}"
+   [ngClass]="{'has-danger': !!errorText}">
+  <input type="text"
+         class="form-control"
+         [attr.placeholder]="placeholder"
+         [attr.name]="name"
+         [(ngModel)]="ngModel"
+         (change)="errorText = ''"
+  >
+  <div class="form-control-feedback">{{errorText}}</div>
+</div>

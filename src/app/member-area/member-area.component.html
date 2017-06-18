@@ -1,0 +1,19 @@
+<div class="member-area_header" *ngIf="user">
+  <app-header></app-header>
+</div>
+<div class="member-area_header member-area_header_unlogined" *ngIf="!user">
+  <app-header-unlogined></app-header-unlogined>
+</div>
+<div class="member-area_body">
+  <div class="member-area_left-nav" *ngIf="user">
+    <app-left-nav></app-left-nav>
+  </div>
+  <div class="member-area_center">
+    <div class="member-area_content">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="member-area_footer">
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

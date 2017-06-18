@@ -1,0 +1,52 @@
+@import '../app.style.constants';
+
+:host{
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  .member-area_header{
+    height: $member-area_header---height;
+    width: 100%;
+    box-shadow: 0 6px 16px -3px rgba(0, 0, 0, 0.12);
+    position: relative;
+    z-index: 1;
+    &_unlogined{
+      height: $member-area_header_unlogined---height;
+      + .member-area_body {
+        height: calc(100% - #{$member-area_header_unlogined---height});
+      }
+    }
+  }
+  .member-area_body{
+    height: calc(100% - #{$member-area_header---height});
+    width: 100%;
+    display: flex;
+
+    .member-area_left-nav {
+      width: $member-area_left-nav---width;
+      max-width: $member-area_left-nav---max-with;
+      height: 100%;
+      overflow-y: auto;
+
+      + .member-area_center {
+        width: calc(100% - #{$member-area_left-nav---width});
+      }
+    }
+    .member-area_center {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      .member-area_content {}
+      .member-area_footer {}
+    }
+  }
+
+}

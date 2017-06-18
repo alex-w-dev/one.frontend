@@ -1,0 +1,169 @@
+@import "../app.style.constants";
+
+:host{
+  #avatar-dropdown-menu {
+    top: calc(100% + 20px);
+    right: 10px;
+  }
+
+  #avatar-dropdown-menu:before {
+    right: 52px;
+  }
+
+  #bell-dropdown-menu {
+    top: calc(100% + 28px);
+  }
+
+  .top-nav{
+    display: flex;
+  }
+  .top-user-bar,
+  .top-nav-bar{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .top-nav-account{
+    display: flex;
+    align-items: center;
+  }
+  .top-avatar-more{
+    padding: 0 10px;
+  }
+
+  #dropdown-account-menu {
+    top: 100px !important;
+    left: -5px !important;
+  }
+  .top-nav_callback {
+    font-size: 16px;
+    border-bottom: 1px dashed;
+  }
+
+  .top-nav_callback:hover {
+    text-decoration: none;
+  }
+
+  .top-nav-bar {
+    height: $top-nav-bar---height;
+    background: #ecedef;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .top-nav {
+    font-family: 'Ubuntu', serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: black;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .top-nav > li {
+    margin-right: 10px;
+  }
+
+  .top-user-bar {
+    min-height: 99px;
+  }
+
+  .fixed-top {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    background: white;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+
+  .top {
+    -moz-box-shadow: 0 6px 16px -3px rgba(0, 0, 0, 0.12);
+    -webkit-box-shadow: 0 6px 16px -3px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 16px -3px rgba(0, 0, 0, 0.12);
+    z-index: 1;
+    position: relative;
+    width: 100%;
+  }
+
+  .left-menu {
+    position: fixed;
+    top: 154px;
+    left: 0;
+    background: #fff;
+    max-height: calc(100% - 154px);
+    overflow: auto;
+    max-width: 345px;
+  }
+
+  .top-user-bar-logo {
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+
+  .top-account-widget {
+    display: inline-table;
+    text-align: left;
+    height: 99px;
+  }
+
+  .top-account-widget td {
+    vertical-align: middle;
+    padding: 5px;
+  }
+
+  .top-account-widget-name-item {
+    font-family: 'Ubuntu', serif;
+    font-size: 16px;
+    color: black;
+    text-align: right;
+    min-width: 150px;
+    padding: 4px 0;
+  }
+
+  .top-bell {
+    background: url("../../public/img/top-bell.png") center no-repeat;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .top-bell-count {
+    font-family: 'Ubuntu', serif;
+    font-size: 12px;
+    color: white;
+    background: #F2693F;
+    border-style: Solid;
+    border-color: white;
+    border-width: 2px;
+    width: 24px;
+    height: 24px;
+    -moz-border-radius: 50% / 50%;
+    -webkit-border-radius: 50% 50%;
+    border-radius: 50% / 50%;
+    text-align: center;
+    padding-top: 3px;
+    position: absolute;
+    top: 8px;
+    right: 4px;
+  }
+
+  .top-avatar {
+    width: 63px;
+    height: 63px;
+    -moz-border-radius: 50% / 50%;
+    -webkit-border-radius: 50% 50%;
+    border-radius: 50% / 50%;
+    margin-left: 10px;
+  }
+
+  .top-avatar-more {
+    background: url("../../public/img/arrow-down-top.png") center no-repeat;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+}

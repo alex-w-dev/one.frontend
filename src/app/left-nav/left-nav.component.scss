@@ -1,0 +1,32 @@
+:host{
+  height: 100%;
+  .left-menu{
+    height: 100%;
+  }
+
+  /* left menu */
+  .left-nav-bar .nav li a {
+    padding: 20px 30px;
+    font-family: 'Ubuntu', serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    position: relative;
+    display: block;
+  }
+
+  .left-nav-bar .nav li.active a, .left-nav-bar .nav li a:hover {
+    color: #fff;
+    background: #53C4CE;
+  }
+
+  .left-social {
+    margin-left: 30px;
+    margin-top: 50px;
+  }
+
+  .left-social a {
+    margin-right: 10px;
+    font: icon;
+  }
+}

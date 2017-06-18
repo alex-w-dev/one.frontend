@@ -1,0 +1,495 @@
+/*!
+ * override materialize REM sizes!
+ * from https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css
+ */
+
+blockquote {
+  padding-left: 22.5rem;
+}
+i.tiny {
+  font-size: 15rem
+}
+
+i.small {
+  font-size: 30rem
+}
+
+i.medium {
+  font-size: 60rem
+}
+
+i.large {
+  font-size: 90rem
+}
+.pagination li a {
+  font-size: 18rem;
+}
+.pagination li i {
+  font-size: 30rem
+}
+.collection {
+  margin: 7.5rem 0 15rem 0;
+}
+
+.collection .collection-item {
+  line-height: 22.5rem;
+}
+span.badge {
+  min-width: 45rem;
+  font-size: 15rem;
+}
+
+span.badge.new {
+  font-size: 12rem;
+}
+
+.progress {
+  margin: 7.5rem 0 15rem 0;
+}
+
+.container .row {
+  margin-left: -11.25rem;
+  margin-right: -11.25rem;
+}
+
+.section {
+  padding-top: 15rem;
+  padding-bottom: 15rem
+}
+
+.row .col {
+  padding: 0 11.25rem;
+}
+
+nav i,nav [class^="mdi-"],nav [class*="mdi-"],nav i.material-icons {
+  font-size: 30rem;
+}
+
+nav .button-collapse i {
+  font-size: 40.5rem;
+}
+
+
+
+
+
+nav .brand-logo {
+  font-size: 31.5rem;
+}
+
+@media only screen and (max-width: 992px) {
+  nav .brand-logo.left {
+    left: 7.5rem
+  }
+  nav .brand-logo.right {
+    right: 7.5rem;
+  }
+}
+
+nav .brand-logo.right {
+  right: 7.5rem;
+}
+
+nav ul a {
+  font-size: 15rem;
+}
+
+nav .input-field input {
+  font-size: 18rem;
+  padding-left: 30rem
+}
+
+h1 {
+  font-size: 63rem;
+  margin: 31.5rem 0 25.2rem 0
+}
+
+h2 {
+  font-size: 53.4rem;
+  margin: 26.7rem 0 21.36rem 0
+}
+
+h3 {
+  font-size: 43.8rem;
+  margin: 21.9rem 0 17.52rem 0
+}
+
+h4 {
+  font-size: 34.2rem;
+  margin: 17.1rem 0 13.68rem 0
+}
+
+h5 {
+  font-size: 24.6rem;
+  margin: 12.3rem 0 9.84rem 0
+}
+
+h6 {
+  font-size: 15rem;
+  margin: 7.5rem 0 6rem 0
+}
+
+@media only screen and (min-width: 360px) {
+  .flow-text {
+    font-size:18rem
+  }
+}
+
+@media only screen and (min-width: 390px) {
+  .flow-text {
+    font-size:18.36rem
+  }
+}
+
+@media only screen and (min-width: 420px) {
+  .flow-text {
+    font-size:18.72rem
+  }
+}
+
+@media only screen and (min-width: 450px) {
+  .flow-text {
+    font-size:19.08rem
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .flow-text {
+    font-size:19.44rem
+  }
+}
+
+@media only screen and (min-width: 510px) {
+  .flow-text {
+    font-size:19.8rem
+  }
+}
+
+@media only screen and (min-width: 540px) {
+  .flow-text {
+    font-size:20.16rem
+  }
+}
+
+@media only screen and (min-width: 570px) {
+  .flow-text {
+    font-size:20.52rem
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .flow-text {
+    font-size:20.88rem
+  }
+}
+
+@media only screen and (min-width: 630px) {
+  .flow-text {
+    font-size:21.24rem
+  }
+}
+
+@media only screen and (min-width: 660px) {
+  .flow-text {
+    font-size:21.6rem
+  }
+}
+
+@media only screen and (min-width: 690px) {
+  .flow-text {
+    font-size:21.96rem
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  .flow-text {
+    font-size:22.32rem
+  }
+}
+
+@media only screen and (min-width: 750px) {
+  .flow-text {
+    font-size:22.68rem
+  }
+}
+
+@media only screen and (min-width: 780px) {
+  .flow-text {
+    font-size:23.04rem
+  }
+}
+
+@media only screen and (min-width: 810px) {
+  .flow-text {
+    font-size:23.4rem
+  }
+}
+
+@media only screen and (min-width: 840px) {
+  .flow-text {
+    font-size:23.76rem
+  }
+}
+
+@media only screen and (min-width: 870px) {
+  .flow-text {
+    font-size:24.12rem
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .flow-text {
+    font-size:24.48rem
+  }
+}
+
+@media only screen and (min-width: 930px) {
+  .flow-text {
+    font-size:24.84rem
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  .flow-text {
+    font-size:25.2rem
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .flow-text {
+    font-size:18rem
+  }
+}
+
+.card-panel {
+  margin: 7.5rem 0 15rem 0;
+}
+
+.card {
+  margin: 7.5rem 0 15rem 0;
+}
+
+.toast {
+  font-size: 16.5rem;
+}
+
+.toast .btn,.toast .btn-large,.toast .btn-flat {
+  margin-left: 45rem
+}
+
+.material-tooltip {
+  font-size: 15rem;
+}
+
+.btn,.btn-large,.btn-flat {
+  padding: 0 30rem;
+}
+
+.btn i,.btn-large i,.btn-floating i,.btn-large i,.btn-flat i {
+  font-size: 19.5rem;
+}
+
+.btn-floating i {
+  font-size: 24rem;
+}
+
+.btn-large i {
+  font-size: 24rem
+}
+
+.dropdown-content li {
+  line-height: 22.5rem;
+}
+
+.collapsible {
+  margin: 7.5rem 0 15rem 0
+}
+
+.collapsible-header {
+  min-height: 45rem;
+  line-height: 45rem;
+  padding: 0 15rem;
+}
+
+.collapsible-header i {
+  width: 30rem;
+  font-size: 24rem;
+  line-height: 45rem;
+  margin-right: 15rem
+}
+
+.collapsible-body p {
+  padding: 30rem
+}
+
+label {
+  font-size: 12rem;
+}
+
+input:not([type]),input[type=text],input[type=password],input[type=email],input[type=url],input[type=time],input[type=date],input[type=datetime],input[type=datetime-local],input[type=tel],input[type=number],input[type=search],textarea.materialize-textarea {
+  height: 45rem;
+  font-size: 15rem;
+}
+
+.input-field {
+  margin-top: 15rem
+}
+
+.input-field.col label {
+  left: 11.25rem
+}
+
+.input-field.col .prefix ~ label,.input-field.col .prefix ~ .validate ~ label {
+  width: calc(100% - 45rem - 22.5rem)
+}
+
+.input-field label {
+  top: 12rem;
+  font-size: 15rem;
+}
+
+.input-field label.active {
+  font-size: 12rem;
+}
+
+.input-field .prefix {
+  width: 45rem;
+  font-size: 30rem;
+}
+
+.input-field .prefix ~ input,.input-field .prefix ~ textarea,.input-field .prefix ~ label,.input-field .prefix ~ .validate ~ label,.input-field .prefix ~ .autocomplete-content {
+  margin-left: 45rem;
+  width: calc(100% - 45rem)
+}
+
+.input-field .prefix ~ label {
+  margin-left: 45rem
+}
+
+@media only screen and (max-width: 992px) {
+  .input-field .prefix ~ input {
+    width: calc(100% - 45rem)
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .input-field .prefix ~ input {
+    width: calc(100% - 45rem)
+  }
+}
+
+.input-field input[type=search] {
+  padding-left: 4rem;
+  width: calc(100% - 4rem)
+}
+
+.input-field input[type=search]+label {
+  left: 15rem
+}
+
+.input-field input[type=search] ~ .mdi-navigation-close,.input-field input[type=search] ~ .material-icons {
+  right: 15rem;
+  font-size: 30rem;
+}
+
+textarea {
+  height: 45rem;
+}
+
+textarea.materialize-textarea {
+  padding: 12rem 0 24rem 0;
+  min-height: 45rem
+}
+
+.hiddendiv {
+  padding-top: 18rem
+}
+
+[type="radio"]:not(:checked)+label,[type="radio"]:checked+label {
+  font-size: 15rem;
+}
+
+[type="checkbox"]+label {
+  font-size: 15rem;
+}
+select {
+  height: 45rem
+}
+
+.select-wrapper input.select-dropdown {
+  height: 45rem;
+  line-height: 45rem;
+  font-size: 15rem;
+}
+
+.select-wrapper+label {
+  font-size: 12rem
+}
+
+.prefix ~ .select-wrapper {
+  margin-left: 45rem;
+  width: calc(100% - 45rem)
+}
+
+.prefix ~ label {
+  margin-left: 45rem
+}
+
+.select-dropdown li.optgroup ~ li.optgroup-option {
+  padding-left: 15rem
+}
+
+.file-field .btn,.file-field .btn-large {
+  height: 45rem;
+  line-height: 45rem
+}
+
+.table-of-contents a {
+  height: 22.5rem;
+  line-height: 22.5rem;
+}
+
+.picker__table {
+  font-size: 15rem;
+}
+
+.picker__day--today {
+  padding: 11.25rem 0;
+}
+
+.picker__day--outfocus {
+  padding: 11.25rem 0;
+}
+
+.picker__weekday-display {
+  font-size: 15rem;
+}
+
+.picker__month-display {
+  font-size: 30rem
+}
+
+.picker__day-display {
+  font-size: 67.5rem;
+}
+
+.picker__year-display {
+  font-size: 27rem;
+}
+
+.picker__calendar-container {
+  padding: 0 15rem
+}
+
+.picker__day--infocus {
+  padding: 11.25rem 0;
+}
+
+.picker__weekday {
+  font-size: 13.5rem
+}
+
+.picker__close,.picker__today {
+  font-size: 16.5rem;
+  padding: 0 15rem;
+}
