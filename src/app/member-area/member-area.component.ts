@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/services/user.service';
-import { IUser } from '../shared/classes/user';
+import { IUser } from '../../interfaces';
 
 @Component({
   selector: 'app-member-area',

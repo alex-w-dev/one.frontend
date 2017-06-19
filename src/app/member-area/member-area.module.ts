@@ -21,7 +21,6 @@ import { memberAreaRoutes } from './member-area.routes';
 
 
 
-
 @NgModule({
   imports: [
     CommonModule,

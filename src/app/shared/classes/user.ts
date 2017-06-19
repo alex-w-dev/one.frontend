@@ -1,21 +1,6 @@
 import { Patient } from './pacient';
-
-export interface IUser {
-  type: 'doctor' | 'patient';
-  username: string;
-  email: string;
-  phone?: string;
-  birthDay?: number;
-  birthMonth?: string;
-  birthYear?: number;
-  male?: 0 | 1;
-  district_name?: string;
-
-  entity: Patient;
-
-  password?: string;
-  promo?: string;
-}
+import { IUser } from '../../../interfaces';
+import { Doctor } from './doctor';
 
 export class User implements IUser {
   type: 'doctor' | 'patient' = 'patient';
@@ -30,5 +15,13 @@ export class User implements IUser {
 
   constructor (user: IUser) {
     Object.assign(this, user);
+
+    switch (this.type) {
+      case 'patient':
+        this.entity = new Patient({});
+        break;
+      default:
+        this.entity = new Doctor({});
+    }
   }
 }

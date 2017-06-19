@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { IUser, User } from '../classes/user';
+import { User } from '../classes/user';
+import { IUser } from '../../../interfaces';
 
 @Injectable()
 export class UserService {
@@ -15,7 +16,7 @@ export class UserService {
     // });
     this.user = new User({
       username: 'asda asd as',
-      type: 'patient',
+      type: 'doctor',
       email: 'asd@asd.ru',
     } as IUser);
   }

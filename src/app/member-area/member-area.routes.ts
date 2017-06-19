@@ -21,7 +21,11 @@ export const memberAreaRoutes: Routes = [
     redirectTo: '/account',
     pathMatch: 'full'
   },
-  { path: 'site',
+  { path: 'site/:action/:id',
+    redirectTo: '/dev',
+    pathMatch: 'full'
+  },
+  { path: 'site/:action',
     redirectTo: '/dev',
     pathMatch: 'full'
   },

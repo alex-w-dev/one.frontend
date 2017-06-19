@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../shared/services/user.service';
+import { IUserLeftMenuItem } from '../../interfaces';
 
 @Component({
   selector: 'app-left-nav',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeftNavComponent implements OnInit {
 
-  constructor() { }
+  menuItems: IUserLeftMenuItem[];
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.menuItems = this.userService.getUser().entity.getLeftMenu();
   }
 
 }

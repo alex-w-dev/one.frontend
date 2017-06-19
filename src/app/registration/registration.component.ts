@@ -2,7 +2,8 @@ import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { ApiService } from '../shared/services/api.service';
 import { ISelectInputOption } from '../shared/components/form/select-input/select-input.component';
-import { IUser, User } from '../shared/classes/user';
+import { User } from '../shared/classes/user';
+import { IUser } from '../../interfaces';
 
 @Component({
   selector: 'app-registration',
