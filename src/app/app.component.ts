@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
     // './materilize.rem.scss',
     '../../node_modules/ubuntu-fontface/_ubuntu-base.scss',
     '../../node_modules/bootstrap/scss/bootstrap.scss',
+    'biogenom-theme.scss',
     'app.component.scss',
   ],
   encapsulation: ViewEncapsulation.None
