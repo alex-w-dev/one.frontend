@@ -1,0 +1,15 @@
+<div id="{{modalId}}"  class=" js-popup" [ngClass]="{'all-hide': !isOpenValue}">
+  <div class="popup-wall"  (click)="closeByCross()"></div>
+  <div class="popup-window">
+    <div class="popup-close-button" (click)="closeByCross()"></div>
+    <div class="popup-title">
+      <ng-content select="[modal-header]"></ng-content>
+    </div>
+    <div class="popup-content">
+      <ng-content select="[modal-content]"></ng-content>
+    </div>
+    <div class="popup-footer">
+      <ng-content select="[modal-footer]"></ng-content>
+    </div>
+  </div>
+</div>

@@ -26,13 +26,14 @@
   .top-nav-account{
     display: flex;
     align-items: center;
+    margin-right: 40px;
   }
   .top-avatar-more{
     padding: 0 10px;
   }
 
   #dropdown-account-menu {
-    top: 100px !important;
+    top: 75px !important;
     left: -5px !important;
   }
   .top-nav_callback {

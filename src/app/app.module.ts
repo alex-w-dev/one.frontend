@@ -5,17 +5,17 @@ import * as intrfaces from '../interfaces';
 
 import { AppComponent } from './app.component';
 import { MemberAreaModule } from './member-area/member-area.module';
-import { AccountComponent } from './account/account.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { PageInDevComponent } from './page-in-dev/page-in-dev.component';
 import { DropDownButtonDirective } from './shared/directives/dropdown-button.directive';
+import { AccountModule } from './account/account.module';
+import { ModalWindowModule } from './shared/components/modal/modal.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent,
     PageNotFoundComponent,
     PageInDevComponent,
     LoginComponent,
@@ -24,7 +24,9 @@ import { DropDownButtonDirective } from './shared/directives/dropdown-button.dir
   imports: [
     BrowserModule,
     MemberAreaModule,
-    RouterModule
+    RouterModule,
+    AccountModule,
+    ModalWindowModule,
   ],
   exports: [
     BrowserModule,

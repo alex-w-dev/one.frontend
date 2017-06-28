@@ -130,8 +130,10 @@ a:focus {
 .form-group{
   margin-bottom:15px;
   input {
-    padding-left: 15px;
     height: 40px;
+  }
+  input:not(.button) {
+    padding-left: 15px;
   }
 
   .js-password-icon {
@@ -894,75 +896,10 @@ a.bio-slick-list-item:hover .bio-slick-list-item_title {
 /*??>ASd */
 
 /* popup */
-.popup-wall, .popup-window{
-  position: fixed;
-  z-index: 2;
-  left: 0;
-  right: 0;
-  top: 0;
-}
-.popup-wall{
-  background: rgba(0, 0, 0, 0.3);
-  height: 100%;
-}
+
 #callback-popup .popup-window{
   width: 335px;
 }
-.popup-window{
-  width: 335px;
-  margin: 0 auto;
-  background: #fff;
-  top: 15%;
-  padding: 30px 30px 40px 30px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-.popup-close-button{
-  background: url('../public/img/close-popup.png') center no-repeat;
-  width: 20px;
-  height: 20px;
-  background-color: transparent;
-  position: absolute;
-  top: -35px;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  cursor: pointer;
-}
-.popup-title{
-  font-family: 'Ubuntu', serif;
-  font-size : 25px;
-  color : #000000;
-  margin-bottom: 35px;
-  text-align: center;
-}
-.popup-content{}
-.popup-content .form-group{
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 0;
-}
-.popup-content .popup-input-text{
-  border-color: #E3E3E3;
-  text-align: center;
-  outline: none;
-  line-height: 40px;
-  height: 40px;
-}
-.popup-content .form-control[type="text"]{
-  font-family: 'Ubuntu', serif;
-  font-weight: 300;
-  font-size : 14px;
-  outline: none;
-  -webkit-box-shadow:none;
-  -moz-box-shadow:none;
-  box-shadow:none;
-}
-.popup-content [type="submit"]{
-  margin-top: 18px;
-}
-.popup-content .form-control[type="submit"]{width: inherit;margin-top: 18px;}
 
 #edit-profile-popup .popup-window{
   width: 539px;

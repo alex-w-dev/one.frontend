@@ -1,0 +1,299 @@
+<div class="row prfl-main">
+  <div class="prfl-avatar relative">
+    <img src="/public/img/main-avatar.png" alt="">
+    <div class="mobile-show prfl-avatar_actions prfl-avatar_actions-top"></div>
+    <div class="prfl-avatar_actions">
+      <span class="prfl-avatar_actions--name mobile-show">
+          test
+      </span>
+
+
+      <!-- форма новой фотографии начало -->
+      <span (click)="changePhotoIsOpen = true">
+        <img src="/public/img/photo-icon.png" alt="">
+      </span>
+
+      <div class="all-hide js-popup" id="change-profile-photo">
+        <div class="popup-wall js-close-popup"></div>
+        <div class="popup-window">
+          <div class="popup-close-button js-close-popup"></div>
+          <div class="popup-title">Фотография</div>
+          <div class="popup-content">
+            <div class="change-profile-photo-link">Выбрать из галереи</div>
+            <div class="change-profile-photo-link">Сделать фотографию</div>
+            <div class="change-profile-photo-link"
+                 onclick="openPopup('#change-profile-photo-load'); closePopup('#change-profile-photo'); return false">
+              Загрузить фотографию
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="all-hide js-popup" id="change-profile-photo-load">
+        <div class="popup-wall js-close-popup"></div>
+        <div class="popup-window">
+          <div class="popup-close-button js-close-popup"></div>
+          <div class="popup-title">Загрузить фотографию</div>
+          <div class="popup-content">
+            <form id="w0" action="/account/upload-photo" method="post" enctype="multipart/form-data">
+              <div class="form-group field-uploadform-file">
+                <label class="control-label" for="uploadform-file">File</label>
+                <input type="hidden" name="UploadForm[file]" value=""><input type="file" id="uploadform-file"
+                                                                             name="UploadForm[file]">
+
+                <div class="help-block"></div>
+              </div>
+              <button>Отправить</button>
+
+            </form>
+          </div>
+        </div>
+      </div>                <!-- форма новой фотографии конец-->
+    </div>
+
+  </div>
+  <div class="col-sm-8 prfl-contacts">
+    <div class="prfl-main-title mobile-hide">
+      <h1>Личные данные</h1>
+    </div>
+    <div class="contacts-table">
+      <table>
+        <tbody>
+        <tr class="mobile-hide">
+          <td>ФИО</td>
+          <td>test</td>
+        </tr>
+        <tr>
+          <td>Дата рождения</td>
+          <td>04.06.2013 <span class="gray-4">(4 года)</span></td>
+        </tr>
+        <tr>
+          <td>Регион проживания</td>
+          <td>Баевский район</td>
+        </tr>
+        <tr>
+          <td>Номер полиса ОМС</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Первое обследование</td>
+          <td>16.09.2016</td>
+        </tr>
+        <tr>
+          <td>Повторная сдача анализа</td>
+          <td>27.11.2016</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prfl-contacts-buttonset">
+      <div class="button" (click)="editProfileIsOpen = true">Редактировать</div>
+    </div>
+  </div>
+</div>
+
+
+<modal-window [(isOpen)]="editProfileIsOpen" id="edit-profile-popup" >
+  <div modal-header>Личные данные</div>
+  <div modal-content>
+    <form id="edit-form" action="/" method="post">
+      <table class="edit-prfl-table">
+        <tbody>
+        <tr>
+          <td>ФИО</td>
+          <td>
+            <div class="form-group field-registrationform-username required">
+              <input type="text" id="registrationform-username" class="form-control" name="RegistrationForm[username]"
+                     value="test" autofocus="" placeholder="ФИО">
+              <div class="">
+                <div class="help-block"></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Ваш телефон</td>
+          <td>
+            <div class="form-group field-registrationform-phone required">
+              <input type="text" id="registrationform-phone" class="form-control" name="RegistrationForm[phone]"
+                     value="+79999999999" placeholder="Ваш телефон">
+              <div class="">
+                <div class="help-block"></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Ваш телефон</td>
+          <td>
+            <div class="form-group field-registrationform-email required">
+              <input type="text" id="registrationform-email" class="form-control" name="RegistrationForm[email]"
+                     value="test_mail@gmail.com" placeholder="Email">
+              <div class="">
+                <div class="help-block"></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Дата</td>
+          <td>
+            <div class="edit-prfl-date">
+              <div class="edit-prfl-date__day edit-prfl-date__item">
+                <div class="form-group field-registrationform-birthday">
+                  <select id="registrationform-birthday" class="form-control" name="RegistrationForm[birthDay]">
+                    <option value="0">День</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4" selected="">4</option>
+                    <option value="5">5</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                  </select>
+                  <div class="">
+                    <div class="help-block"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="edit-prfl-date__month edit-prfl-date__item">
+                <div class="form-group field-registrationform-birthmonth">
+                  <select id="registrationform-birthmonth" class="form-control" name="RegistrationForm[birthMonth]">
+                    <option value="0">Месяц</option>
+                    <option value="Январь">Январь</option>
+                    <option value="Февраль">Февраль</option>
+                    <option value="Март">Март</option>
+                    <option value="Апрель">Апрель</option>
+                    <option value="Май">Май</option>
+                    <option value="Июнь" selected="">Июнь</option>
+                    <option value="Июль">Июль</option>
+                    <option value="Август">Август</option>
+                    <option value="Сентябрь">Сентябрь</option>
+                    <option value="Октябрь">Октябрь</option>
+                    <option value="Ноябрь">Ноябрь</option>
+                    <option value="Декабрь">Декабрь</option>
+                  </select>
+                  <div class="">
+                    <div class="help-block"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="edit-prfl-date__year edit-prfl-date__item">
+                <div class="form-group field-registrationform-birthyear">
+                  <select id="registrationform-birthyear" class="form-control" name="RegistrationForm[birthYear]">
+                    <option value="0">Год</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013" selected="">2013</option>
+                    <option value="2012">2012</option>
+                    <option value="1904">1904</option>
+                    <option value="1903">1903</option>
+                    <option value="1902">1902</option>
+                    <option value="1901">1901</option>
+                    <option value="1900">1900</option>
+                  </select>
+                  <div class="">
+                    <div class="help-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Регион проживания</td>
+          <td>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group field-registrationform-district_name">
+                  <select id="registrationform-district_name" class="form-control"
+                          name="RegistrationForm[district_name]">
+                    <option value="0">Регоин проживания</option>
+                    <option value="Российская Федерация">Российская Федерация</option>
+                    <option value="Алтайский край">Алтайский край</option>
+                    <option value="Астана">Астана</option>
+                  </select>
+                  <div class="">
+                    <div class="help-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Пол</td>
+          <td>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group field-registrationform-male required">
+                  <div class="registration-radio-list"><input type="hidden" name="RegistrationForm[male]" value="">
+                    <div id="registrationform-male"><label><input type="radio" name="RegistrationForm[male]" value="0">
+                      Женский</label>
+                      <label><input type="radio" name="RegistrationForm[male]" value="1" checked=""> Мужской</label>
+                    </div>
+                  </div>
+                  <div class="">
+                    <div class="help-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Номер полиса ОМС</td>
+          <td>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group field-registrationform-polis">
+                  <input type="text" id="registrationform-polis" class="form-control" name="RegistrationForm[polis]"
+                         value="" placeholder="Номер полиса ОМС
+">
+                  <div class="">
+                    <div class="help-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="form-group mobile-hide">
+        <input type="submit" name="phone" class="button">
+      </div>
+      <div class="mobile-show edit-profile-actions">
+        <div class="edit-profile-actions__item">
+          <a class="go-back js-close-popup" href="#">
+            Редактирование профиля
+          </a>
+        </div>
+        <div class="edit-profile-actions__item">
+          <button type="submit"><img src="/public/img/all-right-mobile.png" alt=""></button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</modal-window>
+
+<modal-window [(isOpen)]="changePhotoIsOpen">
+  <div modal-header>Фотография</div>
+  <div modal-content>
+    <div class="change-profile-photo-link">Выбрать из галереи</div>
+    <div class="change-profile-photo-link">Сделать фотографию</div>
+    <div class="change-profile-photo-link">Загрузить фотографию</div>
+  </div>
+</modal-window>
