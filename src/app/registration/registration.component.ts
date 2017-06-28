@@ -31,7 +31,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
   active = true;
 
   /* example : {username: 'Fio is required'} */
-  formErrors = {};
+  formErrors = {} as any;
 
   registrationForm: NgForm;
   @ViewChild('registrationForm') currentForm: NgForm;

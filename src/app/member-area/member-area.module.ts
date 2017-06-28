@@ -10,7 +10,6 @@ import { HeaderUnloginedModule } from '../header-unlogined/header-unlogined.modu
 import { LeftNavModule } from '../left-nav/left-nav.module';
 import { ContentModule } from '../content/content.module';
 import { FooterModule } from '../footer/footer.module';
-import { MaterializeModule } from '../materializecss/materizalizecss.module';
 import { HttpModule } from '@angular/http';
 import { RegistrationModule } from '../registration/registration.module';
 import { MemberAreaComponent } from './member-area.component';
@@ -18,6 +17,7 @@ import { UserService } from '../shared/services/user.service';
 import { ApiService } from '../shared/services/api.service';
 
 import { memberAreaRoutes } from './member-area.routes';
+import { MaterializeModule } from 'angular2-materialize';
 
 
 
