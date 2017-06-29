@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @types jquery
 
 PATH: 
-  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin;C:\Program Files (x86)\Skype\Phone\;C:\ProgramData\ComposerSetup\bin;C:\Users\Alexander\AppData\Local\Microsoft\WindowsApps;C:\Users\Alexander\AppData\Roaming\npm;C:\Users\Alexander\AppData\Local\Yarn\.bin;C:\Program Files\MongoDB\Server\3.4\bin;C:\Program Files\Git\cmd;C:\xampp\php;C:\Users\Alexander\AppData\Roaming\Composer\vendor\bin;
+  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files (x86)\Skype\Phone\;C:\ProgramData\ComposerSetup\bin;C:\Program Files (x86)\Yarn\bin;C:\Program Files (x86)\Windows Live\Shared;C:\Users\Alexander\AppData\Local\Microsoft\WindowsApps;C:\Users\Alexander\AppData\Roaming\npm;C:\Program Files\MongoDB\Server\3.4\bin;C:\Program Files\Git\cmd;C:\xampp\php;C:\Users\Alexander\AppData\Roaming\Composer\vendor\bin;C:\Users\Alexander\AppData\Local\Yarn\bin
 
 Yarn version: 
   0.24.6
@@ -2538,13 +2538,13 @@ Lockfile:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/jasminewd2/-/jasminewd2-2.1.0.tgz#da595275d1ae631de736ac0a7c7d85c9f73ef652"
   
-  jquery@>=1.9.1, jquery@^2.1.4:
-    version "2.2.4"
-    resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.2.4.tgz#2c89d6889b5eac522a7eea32c14521559c6cbf02"
-  
-  jquery@^3.2.1:
+  jquery@>=1.9.1, jquery@^3.2.1:
     version "3.2.1"
     resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
+  
+  jquery@^2.1.4:
+    version "2.2.4"
+    resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.2.4.tgz#2c89d6889b5eac522a7eea32c14521559c6cbf02"
   
   js-base64@^2.1.5, js-base64@^2.1.8, js-base64@^2.1.9:
     version "2.1.9"
@@ -5264,4 +5264,14 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.12.tgz#86ff5053c98aec291a0bf4bbac501d694a05cfbb"
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\Alexander\Desktop\biogenom.frontend\node_modules\node-sass\vendor\win32-x64-51\binding.node'
+  Error: https://registry.yarnpkg.com/@types: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\yarn-cli.js:56255:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\yarn-cli.js:107854:22)
+      at emitTwo (events.js:106:13)
+      at Request.emit (events.js:192:7)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\yarn-cli.js:108837:10)
+      at emitOne (events.js:96:13)
+      at Request.emit (events.js:189:7)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\yarn-cli.js:108757:12)
+      at Object.onceWrapper (events.js:291:19)
+      at emitNone (events.js:91:20)

@@ -1,0 +1,34 @@
+<div class="row prfl-row">
+  <div class="prfl-row-title">
+    <h2>Дополнительные исследования проблемных зон</h2>
+  </div>
+  <div class="prfl-row-content slider-carusel"
+       [ngClass]="{'unslicked': !isSliderActive}">
+    <div class="prfl-issledovaniya bio-slick-list__container relative text-center">
+      <div class="bio-slick-list" data-slick-count="4">
+        <div  class="bio-slick-list-item__container"
+              *ngFor="let slide of slides">
+          <a class="bio-slick-list-item"
+             [routerLink]="slide.href">
+            <div class="bio-slick-list-item_image">
+              <img [attr.src]="slide.img" [attr.alt]="slide.text">
+            </div>
+            <div class="bio-slick-list-item_title"
+                 [innerText]="slide.text"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slider-carusel-menu">
+      <div  class="button bio-slick-list-button" (click)="sliderToggle()">Показать все</div>
+      <div class="bio-slick-list-arrows"
+           *ngIf="isSliderActive">
+        <div class="slick-prev slick-arrow"
+             (click)="goPrev()"></div>
+        <div class="slick-next slick-arrow"
+             (click)="goNext()"></div>
+      </div>
+    </div>
+  </div>
+</div>

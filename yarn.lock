@@ -133,9 +133,19 @@
     magic-string "^0.19.0"
     source-map "^0.5.6"
 
+"@types/bootstrap@^3.3.34":
+  version "3.3.34"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-3.3.34.tgz#fc1e8b8dc8e85a9b6422948e9fb221ebd9f56dd2"
+  dependencies:
+    "@types/jquery" "*"
+
 "@types/jasmine@2.5.45":
   version "2.5.45"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.45.tgz#58928a621d014ce6ab59c5a9c41071f7328b0ca9"
+
+"@types/jquery@*", "@types/jquery@^3.2.5":
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.2.5.tgz#c082efaab6a791b98131c011343b1d92a56b6019"
 
 "@types/node@^6.0.46", "@types/node@~6.0.60":
   version "6.0.78"
@@ -2463,7 +2473,7 @@ jasminewd2@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/jasminewd2/-/jasminewd2-2.1.0.tgz#da595275d1ae631de736ac0a7c7d85c9f73ef652"
 
-jquery@>=1.9.1, jquery@^3.2.1:
+jquery@>=1.7.2, jquery@>=1.9.1, jquery@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 
@@ -4231,6 +4241,12 @@ silent-error@^1.0.0:
   resolved "https://registry.yarnpkg.com/silent-error/-/silent-error-1.1.0.tgz#2209706f1c850a9f1d10d0d840918b46f26e1bc9"
   dependencies:
     debug "^2.2.0"
+
+slick-carousel@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/slick-carousel/-/slick-carousel-1.6.0.tgz#780f378e470f4e6f6bec1aa2bae0475f4f9eb085"
+  dependencies:
+    jquery ">=1.7.2"
 
 sntp@1.x.x:
   version "1.0.9"

@@ -1,0 +1,117 @@
+
+.slick-slide img {
+  display: inline;
+}
+
+.slick-arrow {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  bottom: 0;
+}
+
+.slick-prev {
+  right: 60px;
+  background: url("../../../../public/img/slick-arrow-left.png") no-repeat center;
+}
+
+.slick-next {
+  right: 4px;
+  background: url("../../../../public/img/slick-arrow-right.png") no-repeat center;
+}
+
+.bio-slick-list {
+  position: absolute;
+  height: auto !important;
+  transition: left .5s;
+  left: 0;
+}
+
+.bio-slick-list .slick-list {
+  height: auto;
+}
+
+.bio-slick-list-item {
+  display: block;
+  outline: none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 6px 16px -3px rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 6px 16px -3px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 16px -3px rgba(0, 0, 0, 0.12);
+  margin: 15px;
+  padding: 15px 30px;
+}
+
+.bio-slick-list-item:focus {
+  outline: none;
+}
+
+.bio-slick-list-item_image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 140px;
+}
+
+.bio-slick-list-item_image img {
+  max-width: 100%;
+}
+
+.bio-slick-list-item_title {
+  margin-top: 30px;
+  min-height: 40px;
+  font-family: 'Ubuntu', serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #000000;
+}
+
+.unslicked .bio-slick-list {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.unslicked .bio-slick-list__container {
+  height: auto !important;
+}
+
+.unslicked .prfl-recomended .bio-slick-list-item {
+  width: 27%;
+}
+
+.unslicked .prfl-issledovaniya .bio-slick-list-item {
+  width: 19%;
+}
+
+a.bio-slick-list-item:hover .bio-slick-list-item_title {
+  opacity: 0.6;
+}
+
+.bio-slick-list__container{
+  overflow: hidden;
+
+  .bio-slick-list{
+    display: flex;
+  }
+
+  .bio-slick-list-item__container{
+  }
+  .bio-slick-list-item{
+    min-width: 200px;
+  }
+}
+
+.slider-carusel-menu{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  .bio-slick-list-arrows{
+    display: flex;
+    justify-content: space-between;
+  }
+}
