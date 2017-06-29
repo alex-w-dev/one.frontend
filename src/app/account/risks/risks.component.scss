@@ -1,0 +1,17 @@
+.prfl-riski{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .prfl-riski-left,
+  .prfl-riski-right{
+    width: 50%;
+  }
+
+  .prfl-riski-left{
+    margin-right: 30px;
+  }
+  .prfl-riski-list{
+    overflow-y: auto;
+  }
+}

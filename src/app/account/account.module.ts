@@ -4,6 +4,7 @@ import { AccountComponent } from './account.component';
 import { ProfileInfoModule } from './profile-info/profile-info.module';
 import { ClosestActionsModule } from './closest-actions/closest-actions.module';
 import { ServicesModule } from './services/services.module';
+import { RisksModule } from './risks/risks.module';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { ServicesModule } from './services/services.module';
     ProfileInfoModule,
     ClosestActionsModule,
     ServicesModule,
+    RisksModule,
   ],
   declarations: [
     AccountComponent,
