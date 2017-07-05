@@ -12,18 +12,19 @@ export class ApiService {
     this.accessToken = localStorage.getItem('accessToken');
   }
 
-  request(route: string, getParams?: any, data: any = {}, type?: 'get' | 'post', accessIgnore: boolean = false): Promise<any> {
-    if (!this.accessToken && !accessIgnore) {
-      this.router.navigate(['login']);
-      return new Promise((resolve, reject) => {
-        reject('Unloginned');
-      });
-    }
+  setAccessToken(token) {
+    this.accessToken = token;
+  }
 
-    route = 'http://biogenom.loc/api/' + route;
+  isPublicPage(): boolean {
+    return ['/login', '/registration'].indexOf(location.pathname) !== -1;
+  }
+
+  request(route: string, getParams?: any, data: any = {}, type?: 'get' | 'post'): Promise<any> {
+    route = 'http://api.biogenom.ru/' + route;
 
     const search = new URLSearchParams();
-    search.set('access_token', this.accessToken);
+    if (this.accessToken) search.set('access_token', this.accessToken);
 
     if (getParams && Object.keys(getParams).length) {
       Object.keys(getParams).forEach(key => {
@@ -31,8 +32,9 @@ export class ApiService {
       });
     }
 
-
-    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
     let options = new RequestOptions({headers: headers, search: search});
 
 

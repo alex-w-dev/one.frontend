@@ -4,6 +4,7 @@ import { ApiService } from '../shared/services/api.service';
 import { ISelectInputOption } from '../shared/components/form/select-input/select-input.component';
 import { User } from '../shared/classes/user';
 import { IUser } from '../../interfaces';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-registration',
@@ -36,7 +37,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
   registrationForm: NgForm;
   @ViewChild('registrationForm') currentForm: NgForm;
 
-  constructor(private api: ApiService) {
+  constructor(private userService: UserService) {
     this.birthDays = [];
     this.birthDays.push({
       value: '0',
@@ -84,15 +85,16 @@ export class RegistrationComponent implements OnInit, OnChanges {
 
 
   onSubmit() {
-    this.api.request('user/register', {}, this.registrationForm.value, 'post', true)
-      .then(data => {
-        if (data.success) {
-          console.log(data);
-        } else {
-          this.formErrors = data.errors;
-        }
+    this.userService.register(this.registrationForm.value)
+      .then((data) => {
+        console.log(data);
+        console.log(1111111);
       })
-      .catch(console.error);
+      .catch((data) => {
+        this.formErrors = data.errors;
+        console.log(2222222222);
+        console.log(this.formErrors);
+      });
     this.submitted = true;
   }
 
