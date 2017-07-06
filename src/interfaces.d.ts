@@ -26,3 +26,30 @@ export interface IUser {
   password?: string;
   promo?: string;
 }
+
+export interface IUserInfoFromServer {
+  user_info: {
+    access_token: string;
+    auth_key: string;
+    created: number;
+    email: string;
+    id: number;
+    passwd: string;
+    path_key: string;
+    phone: string;
+    status: number;
+    type: string;
+    updated: number;
+    username: string;
+  };
+  pacient_info?: {
+    birthString: string;
+    birthUnix: number;
+    district_code: string;
+    male: number;
+    parent?: IUserInfoFromServer;
+    polis?: string;
+    user_doctor_id?: number;
+    user_id: number
+  };
+}

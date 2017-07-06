@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { User } from '../classes/user';
-import { IUser } from '../../../interfaces';
+import { IUser, IUserInfoFromServer } from '../../../interfaces';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -26,6 +26,10 @@ export class UserService {
     //   type: 'doctor',
     //   email: 'asd@asd.ru',
     // } as IUser);
+  }
+
+  afterGetUserFromServer(userFromServer: IUserInfoFromServer) {
+    this.api.setAccessToken(userFromServer.user_info.access_token);
   }
 
   getUser(): IUser {
