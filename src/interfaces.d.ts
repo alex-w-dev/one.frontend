@@ -15,10 +15,10 @@ export interface IUser {
   username: string;
   email: string;
   phone?: string;
-  birthDay?: number;
+  birthDay?: string;
   birthMonth?: string;
-  birthYear?: number;
-  male?: 0 | 1;
+  birthYear?: string;
+  male?: '0' | '1' | string;  // 0 - female | 1 male
   district_name?: string;
 
   entity: IUserEntity;

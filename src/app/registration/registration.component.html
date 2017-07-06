@@ -6,8 +6,24 @@
         </span>
   </a>
 
-  <!-- -->
+  <div class="site-log-in-out-form">
+    <select-input [(ngModel)]="roleType"
+                  [name]="'roleType'"
+                  [options]="roleTypes"
+                  [className]="'field-registrationform-roletype'"
+                  ngDefaultControl></select-input>
+  </div>
+
+  <!--
+
+
+  REGISTRATION FORM FOR PATIENT
+
+
+   -->
+
   <form class="site-log-in-out-form"
+        *ngIf="roleType === 'patient'"
         #registrationForm="ngForm"
         (ngSubmit)="onSubmit()">
     <text-input [(ngModel)]="patient.username"
@@ -51,7 +67,7 @@
     <div class="form-group field-registrationform-male"
          [ngClass]="{'has-danger': !!formErrors.male}">
       <div class="registration-radio-list"><input type="hidden" name="RegistrationForm[male]" value="">
-        <div id="registrationform-male" aria-required="true">
+        <div>
           <div class="radio">
             <label>
               <input type="radio"
@@ -103,13 +119,129 @@
     <div class="form-group field-registrationform-password relative"
          [ngClass]="{'has-danger': !!formErrors.password}">
       <input type="password"
+             #passwordInput
              class="form-control js-password"
              placeholder="Пароль"
              required
              [(ngModel)]="patient.password"
              name="password">
       <div class="form-control-feedback">{{formErrors.password}}</div>
-      <div class="js-password-icon"></div>
+      <div class="js-password-icon"
+           [ngClass]="{'active': passwordInput.type === 'text'}"
+           (click)="passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password'"></div>
+    </div>
+    <div class="form-group text-center">
+      <button type="submit"
+              class="button"
+              name="login-button">Присоединиться
+      </button>
+    </div>
+
+  </form>
+
+  <!--
+
+
+  REGISTRATION FORM FOR DOCTOR
+
+
+   -->
+
+  <form class="site-log-in-out-form"
+        *ngIf="roleType === 'doctor'"
+        #registrationForm="ngForm"
+        (ngSubmit)="onSubmit()">
+    <text-input [(ngModel)]="doctor.username"
+                [name]="'username'"
+                [(errorText)]="formErrors.username"
+                [placeholder]="'ФИО'"
+                ngDefaultControl></text-input>
+    <div class="text-left registration-label">
+      Дата рождения
+    </div>
+    <div class="edit-prfl-date">
+      <div class="edit-prfl-date__day edit-prfl-date__item">
+        <select-input [(ngModel)]="doctor.birthDay"
+                      [name]="'birthDay'"
+                      [options]="birthDays"
+                      [className]="'field-registrationform-birthday'"
+                      [(errorText)]="formErrors.birthDay"
+                      ngDefaultControl></select-input>
+      </div>
+      <div class="edit-prfl-date__month edit-prfl-date__item">
+        <select-input [(ngModel)]="doctor.birthMonth"
+                      [name]="'birthMonth'"
+                      [options]="birthMonths"
+                      [className]="'field-registrationform-birthmonth'"
+                      [(errorText)]="formErrors.birthMonth"
+                      ngDefaultControl></select-input>
+      </div>
+      <div class="edit-prfl-date__year edit-prfl-date__item">
+        <select-input [(ngModel)]="doctor.birthYear"
+                      [name]="'birthYear'"
+                      [options]="birthYears"
+                      [className]="'field-registrationform-birthyear'"
+                      [(errorText)]="formErrors.birthYear"
+                      ngDefaultControl></select-input>
+      </div>
+    </div>
+
+    <div class="text-left registration-label">
+      Пол
+    </div>
+    <div class="form-group field-registrationform-male"
+         [ngClass]="{'has-danger': !!formErrors.male}">
+      <div class="registration-radio-list"><input type="hidden" name="RegistrationForm[male]" value="">
+        <div>
+          <div class="radio">
+            <label>
+              <input type="radio"
+                     [(ngModel)]="doctor.male"
+                     name="male"
+                     required
+                     value="0">
+              Женский
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio"
+                     [(ngModel)]="doctor.male"
+                     name="male"
+                     required
+                     value="1">
+              Мужской
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-control-feedback">{{formErrors.male}}</div>
+    </div>
+    <text-input [(ngModel)]="doctor.email"
+                [name]="'email'"
+                [(errorText)]="formErrors.email"
+                [className]="'field-registrationform-email'"
+                [placeholder]="'Email'"
+                ngDefaultControl></text-input>
+    <text-input [(ngModel)]="doctor.phone"
+                [name]="'phone'"
+                [(errorText)]="formErrors.phone"
+                [className]="'field-registrationform-phone'"
+                [placeholder]="'Ваш телефон'"
+                ngDefaultControl></text-input>
+    <div class="form-group field-registrationform-password relative"
+         [ngClass]="{'has-danger': !!formErrors.password}">
+      <input type="password"
+             #passwordInput
+             class="form-control js-password"
+             placeholder="Пароль"
+             required
+             [(ngModel)]="doctor.password"
+             name="password">
+      <div class="form-control-feedback">{{formErrors.password}}</div>
+      <div class="js-password-icon"
+           [ngClass]="{'active': passwordInput.type === 'text'}"
+           (click)="passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password'"></div>
     </div>
     <div class="form-group text-center">
       <button type="submit"

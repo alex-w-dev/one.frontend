@@ -8,10 +8,10 @@ export class User implements IUser {
   username = '';
   email = '';
   phone = '';
-  birthDay = 1;
-  birthMonth = '';
-  birthYear = 1910;
-  male;
+  birthDay = '1';
+  birthMonth = 'Январь';
+  birthYear = '1910';
+  male = '1';
 
   constructor (user: IUser) {
     Object.assign(this, user);

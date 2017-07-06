@@ -13,7 +13,9 @@ import { UserService } from '../shared/services/user.service';
 })
 export class RegistrationComponent implements OnInit, OnChanges {
 
-  districts = ['Really Smart', 'Super Flexible', 'Weather Changer'];
+  roleType: string = 'patient';
+  roleTypes: ISelectInputOption[];
+
   birthDays: ISelectInputOption[];
   birthMonths: ISelectInputOption[];
   birthYears: ISelectInputOption[];
@@ -27,6 +29,12 @@ export class RegistrationComponent implements OnInit, OnChanges {
     type: 'patient',
   } as IUser);
 
+  doctor: IUser = new User({
+    username: '',
+    email: '',
+    type: 'doctor',
+  } as IUser);
+
   submitted = false;
 
   active = true;
@@ -38,6 +46,15 @@ export class RegistrationComponent implements OnInit, OnChanges {
   @ViewChild('registrationForm') currentForm: NgForm;
 
   constructor(private userService: UserService) {
+    this.roleTypes = [];
+    this.roleTypes.push({
+      value: 'patient',
+      text: 'Пациент',
+    });
+    this.roleTypes.push({
+      value: 'doctor',
+      text: 'Доктор',
+    });
     this.birthDays = [];
     this.birthDays.push({
       value: '0',
@@ -61,7 +78,6 @@ export class RegistrationComponent implements OnInit, OnChanges {
       });
     }
     this.birthMonths = [
-      {value: '0', text: 'Месяц'},
       {value: 'Январь', text: 'Январь'},
       {value: 'Февраль', text: 'Февраль'},
       {value: 'Март', text: 'Март'},
@@ -85,14 +101,12 @@ export class RegistrationComponent implements OnInit, OnChanges {
 
 
   onSubmit() {
-    this.userService.register(this.registrationForm.value)
+    this.userService.register(Object.assign({ type: this.roleType.replace('patient', 'pacient') }, this.registrationForm.value))
       .then((data) => {
         console.log(data);
-        console.log(1111111);
       })
       .catch((data) => {
         this.formErrors = data.errors;
-        console.log(2222222222);
         console.log(this.formErrors);
       });
     this.submitted = true;

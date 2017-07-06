@@ -21,7 +21,8 @@ export class ApiService {
   }
 
   request(route: string, getParams?: any, data: any = {}, type?: 'get' | 'post'): Promise<any> {
-    route = 'http://api.biogenom.ru/' + route;
+    route = 'http://api.biogenom.ru/api/' + route;
+    // route = 'http://api.biogenom.ru/testAjax.php';
 
     const search = new URLSearchParams();
     if (this.accessToken) search.set('access_token', this.accessToken);

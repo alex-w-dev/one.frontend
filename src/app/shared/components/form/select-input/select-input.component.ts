@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export interface ISelectInputOption {
-    value: string,
-    text: string,
+  value: string;
+  text: string;
 }
 
 @Component({
@@ -11,33 +11,40 @@ export interface ISelectInputOption {
   styleUrls: ['./select-input.component.scss']
 })
 export class SelectInputComponent implements OnInit {
-    ngModelValue: string = '';
-    @Input()
-    get ngModel() {
-        return this.ngModelValue;
-    }
-    set ngModel(value) {
-        this.ngModelValue = value;
-        this.onNgModelChanged.emit(this.ngModelValue);
-    }
-    @Output() onNgModelChanged: EventEmitter<string> = new EventEmitter();
+  ngModelValue: string = '';
 
-    errorTextValue: string = '';
-    @Input()
-    get errorText() {
-        return this.errorTextValue;
-    }
-    set errorText(value) {
-        this.errorTextValue = value;
-        this.onErrorTextChanged.emit(this.errorTextValue);
-    }
-    @Output() onErrorTextChanged: EventEmitter<string> = new EventEmitter();
+  @Input()
+  get ngModel() {
+    return this.ngModelValue;
+  }
 
-    @Input() options: ISelectInputOption[];
-    @Input() name: string = '';
-    @Input() className: string = '';
+  set ngModel(value) {
+    this.ngModelValue = value;
+    this.onNgModelChanged.emit(this.ngModelValue);
+  }
 
-  constructor() { }
+  @Output() onNgModelChanged: EventEmitter<string> = new EventEmitter();
+
+  errorTextValue: string = '';
+
+  @Input()
+  get errorText() {
+    return this.errorTextValue;
+  }
+
+  set errorText(value) {
+    this.errorTextValue = value;
+    this.onErrorTextChanged.emit(this.errorTextValue);
+  }
+
+  @Output() onErrorTextChanged: EventEmitter<string> = new EventEmitter();
+
+  @Input() options: ISelectInputOption[];
+  @Input() name: string = '';
+  @Input() className: string = '';
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

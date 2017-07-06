@@ -129,15 +129,12 @@ a:focus {
 
 .form-group{
   margin-bottom:15px;
+  .js-password-icon,
   input {
     height: 40px;
   }
   input:not(.button) {
     padding-left: 15px;
-  }
-
-  .js-password-icon {
-    height: 100%;
   }
 }
 
