@@ -8,8 +8,8 @@ export class Doctor implements IUserEntity {
     return [
       {text: 'Мой профиль', link: '/account'},
       {text: 'Список клиентов', link: '/client-list'},
-      {text: 'Рассписание', link: '/account'},
-      {text: 'Сотрудничество c Biogenom', link: '/account'},
+      {text: 'Рассписание', link: '/schedule'},
+      {text: 'Сотрудничество c Biogenom', link: '/cooperation'},
     ];
   }
 }

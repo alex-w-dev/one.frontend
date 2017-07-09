@@ -105,6 +105,9 @@ body {
 .all-hide {
   display: none;
 }
+p:not(:first-child) {
+  margin-top: 10px;
+}
 
 a {
   color: black;
@@ -552,7 +555,7 @@ h2{
 }
 
 .prfl-row-content {
-  margin-top: 30px;
+  margin-top: 15px;
   width: 100%;
 }
 

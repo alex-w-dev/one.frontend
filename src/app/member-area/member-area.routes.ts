@@ -5,6 +5,8 @@ import { RegistrationComponent } from '../registration/registration.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { PageInDevComponent } from '../page-in-dev/page-in-dev.component';
 import { ClientListComponent } from '../client-list/client-list.component';
+import { CooperationComponent } from '../cooperation/cooperation.component';
+import { ScheduleComponent } from '../schedule/schedule.component';
 
 export const memberAreaRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,6 +19,16 @@ export const memberAreaRoutes: Routes = [
     path: 'client-list',
     component: ClientListComponent,
     data: { title: 'Список клиентов' }
+  },
+  {
+    path: 'schedule',
+    component: ScheduleComponent,
+    data: { title: 'Расписание' }
+  },
+  {
+    path: 'cooperation',
+    component: CooperationComponent,
+    data: { title: 'Сотрудничество' }
   },
   {
     path: 'registration',

@@ -20,6 +20,8 @@ import { memberAreaRoutes } from './member-area.routes';
 import { MaterializeModule } from 'angular2-materialize';
 import { LoginModule } from '../login/login.module';
 import { ClientListModule } from '../client-list/client-list.module';
+import { CooperationModule } from '../cooperation/cooperation.module';
+import { ScheduleModule } from '../schedule/schedule.module';
 
 
 
@@ -36,6 +38,8 @@ import { ClientListModule } from '../client-list/client-list.module';
     RegistrationModule,
     LoginModule,
     ClientListModule,
+    CooperationModule,
+    ScheduleModule,
     RouterModule.forRoot(memberAreaRoutes)
   ],
   exports: [
