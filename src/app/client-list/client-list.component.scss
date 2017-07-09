@@ -21,3 +21,118 @@
     background: url('../../public/img/big-search-icon.png') no-repeat center center;
   }
 }
+
+
+/* SIMPLE PAGINATION!  */
+.simple-pagination{
+  margin-top: 40px;
+  display: flex;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+
+  .simple-pagination-page{
+    width: 15px;
+    height: 15px;
+    margin: 5px;
+    border-radius: 50%;
+    background: #00C4CF;
+    cursor: pointer;
+    border: 3px solid white;
+
+    &.active,
+    &:hover{
+      border-color: #00C4CF;
+    }
+  }
+}
+
+
+
+.client-list-table{
+  .client-list-table-row{
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 20px;
+    border: 1px solid #E3E3E3;
+
+    .client-list-table-cell{
+      height: 100%;
+      padding: 10px;
+
+      &.client-list-table-cell__date,
+      &.client-list-table-cell__name,
+      &.client-list-table-cell__access{
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        &.sorted{
+          color: #00C4CF;
+          border: 1px solid #00C4CF;
+          &.sorted_asc,
+          &.sorted_desc{
+            position: relative;
+            &:before{
+              content: '';
+              left: calc(50% - 9px);
+              top: 0;
+              width: 0;
+              height: 0;
+              border-style: solid;
+              border-width: 8px 9px 0 9px;
+              border-color: #00C4CF transparent transparent transparent;
+              position: absolute;
+            }}
+          &.sorted_asc{
+          }
+          &.sorted_desc{
+            &:before{
+              border-width: 0 9px 8px 9px;
+            }
+          }
+        }
+      }
+      &.client-list-table-cell__date{
+        width: 135px;
+      }
+      &.client-list-table-cell__name{
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+
+        .client-list-table-cell__name-img{
+          margin-right: 10px;
+        }
+        .client-list-table-cell__name-name{
+          flex-grow: 1;
+        }
+      }
+      &.client-list-table-cell__access{
+        width: 135px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .client-list-table-row_header{
+    height: 52px;
+
+    .client-list-table-cell{
+      &:not(:last-child){
+        border-right: 1px solid #E3E3E3;
+      }
+
+      cursor: pointer;
+
+      &:hover{
+        color: #00C4CF;
+      }
+    }
+  }
+
+}

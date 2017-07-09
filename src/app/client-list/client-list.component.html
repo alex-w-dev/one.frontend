@@ -7,5 +7,52 @@
       <input type="text" [(ngModel)]="searchValue" placeholder="Поиск по клиенту...">
       <div class="search-button" (click)="search()"></div>
     </div>
+
+    <div class="client-list-table">
+      <div class="client-list-table-row client-list-table-row_header">
+        <div class="client-list-table-cell client-list-table-cell__name">
+          <span class="sort-link">А-Я</span>
+        </div>
+        <div class="client-list-table-cell client-list-table-cell__date sorted sorted_asc">
+          <span class="sort-link">Прохождение обследования</span>
+        </div>
+        <div class="client-list-table-cell client-list-table-cell__date">
+          <span class="sort-link">Последний прием</span>
+        </div>
+        <div class="client-list-table-cell client-list-table-cell__access">
+          <span class="sort-link">Доступ</span>
+        </div>
+      </div>
+      <div class="client-list-table-row" *ngFor="let client of clients">
+        <div class="client-list-table-cell client-list-table-cell__name">
+          <div class="client-list-table-cell__name-img"
+               *ngIf="client.img">
+            <img [src]="client.img"
+                 alt="">
+          </div>
+          <div class="client-list-table-cell__name-name">{{client.name}}</div>
+        </div>
+        <div class="client-list-table-cell client-list-table-cell__date">
+          <span>{{client.lastSurvey}}</span>
+        </div>
+        <div class="client-list-table-cell client-list-table-cell__date">
+          <span>{{client.lastAppointment}}</span>
+        </div>
+        <div class="client-list-table-cell client-list-table-cell__access">
+          <div class="client-list-table-cell__access-img"
+               [ngSwitch]="client.access">
+            <img src="../../public/img/client-list-access-forbid.png" *ngSwitchCase="false" alt="">
+            <img src="../../public/img/client-list-access-allow.png" *ngSwitchCase="true" alt="">
+            <img src="../../public/img/client-list-access-unknown.png" *ngSwitchDefault alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="simple-pagination">
+      <div class="simple-pagination-page"></div>
+      <div class="simple-pagination-page"></div>
+      <div class="simple-pagination-page active"></div>
+    </div>
   </div>
 </div>
