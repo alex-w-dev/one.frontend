@@ -43,13 +43,17 @@ export interface IUserInfoFromServer {
     username: string;
   };
   pacient_info?: {
-    birthString: string;
-    birthUnix: number;
-    district_code: string;
-    male: number;
-    parent?: IUserInfoFromServer;
-    polis?: string;
-    user_doctor_id?: number;
+    birthString: string,
+    birthUnix: number,
+    district_code: string,
+    male: number,
+    parent?: IUserInfoFromServer,
+    polis?: string,
+    user_doctor_id?: number,
+    user_id: number
+  };
+  doctor_info?: {
+    license: number,
     user_id: number
   };
 }

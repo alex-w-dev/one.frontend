@@ -12,8 +12,8 @@ export class UserService {
 
   constructor(private api: ApiService, private router: Router) {
     setTimeout(() => {
-      this.api.request('user').then((user: User) => {
-        this.user = user;
+      this.api.request('user/user').then((user: any) => {
+        this.afterGetUserFromServer(user.user);
         this.userLoaded.emit(user);
       }).catch((data) => {
         if (!this.api.isPublicPage()) {
@@ -30,6 +30,8 @@ export class UserService {
 
   afterGetUserFromServer(userFromServer: IUserInfoFromServer) {
     this.api.setAccessToken(userFromServer.user_info.access_token);
+
+    this.user = new User(userFromServer);
   }
 
   getUser(): IUser {
@@ -42,7 +44,7 @@ export class UserService {
 
   register(formData) {
     return new Promise((resolve, reject) => {
-      this.api.request('user/register', {}, formData, 'post')
+      this.api.request('user/register', formData)
         .then(data => {
           if (data.success) {
             resolve(data);

@@ -13,6 +13,7 @@ export class ApiService {
   }
 
   setAccessToken(token) {
+    localStorage.setItem('accessToken', token);
     this.accessToken = token;
   }
 
@@ -20,29 +21,33 @@ export class ApiService {
     return ['/login', '/registration'].indexOf(location.pathname) !== -1;
   }
 
-  request(route: string, getParams?: any, data: any = {}, type?: 'get' | 'post'): Promise<any> {
+  request(route: string, data: any = {}, type: 'get' | 'post' = 'post'): Promise<any> {
     route = 'http://api.biogenom.ru/api/' + route;
     // route = 'http://api.biogenom.ru/testAjax.php';
 
-    const search = new URLSearchParams();
-    if (this.accessToken) search.set('access_token', this.accessToken);
+    // const search = new URLSearchParams();
+    // if (this.accessToken) search.set('access_token', this.accessToken);
 
-    if (getParams && Object.keys(getParams).length) {
-      Object.keys(getParams).forEach(key => {
-        search.set(key, JSON.stringify(getParams[key]));
-      });
-    }
+    // if (getParams && Object.keys(getParams).length) {
+    //   Object.keys(getParams).forEach(key => {
+    //     search.set(key, JSON.stringify(getParams[key]));
+    //   });
+    // }
 
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
-    let options = new RequestOptions({headers: headers, search: search});
+    let options = new RequestOptions({headers: headers/*, search: search*/});
 
 
     let request;
     switch (type) {
       case 'post':
         let postBody = new URLSearchParams();
+        if (this.accessToken) postBody.append('token', this.accessToken);
+
+        console.log(this.accessToken);
+
         Object.keys(data).forEach(key => {
           let dataType = typeof data[key];
           postBody.append(key, (dataType === 'string' || dataType === 'number') ? data[key] : JSON.stringify(data[key]));

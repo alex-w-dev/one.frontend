@@ -2,7 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { ApiService } from '../shared/services/api.service';
 import { ISelectInputOption } from '../shared/components/form/select-input/select-input.component';
-import { User } from '../shared/classes/user';
+import { User, UserRegister } from '../shared/classes/user';
 import { IUser } from '../../interfaces';
 import { UserService } from '../shared/services/user.service';
 
@@ -23,13 +23,13 @@ export class RegistrationComponent implements OnInit, OnChanges {
 
   firstFormChecked: boolean = false;
 
-  patient: IUser = new User({
+  patient: IUser = new UserRegister({
     username: '',
     email: '',
     type: 'patient',
   } as IUser);
 
-  doctor: IUser = new User({
+  doctor: IUser = new UserRegister({
     username: '',
     email: '',
     type: 'doctor',
@@ -102,12 +102,11 @@ export class RegistrationComponent implements OnInit, OnChanges {
 
   onSubmit() {
     this.userService.register(Object.assign({ type: this.roleType.replace('patient', 'pacient') }, this.registrationForm.value))
-      .then((data) => {
-        console.log(data);
+      .then((data: any) => {
+        this.userService.afterGetUserFromServer(data.user);
       })
       .catch((data) => {
         this.formErrors = data.errors;
-        console.log(this.formErrors);
       });
     this.submitted = true;
   }
