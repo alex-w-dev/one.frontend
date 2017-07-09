@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { UserService } from '../shared/services/user.service';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { IUserLogin } from '../../interfaces';
+import { UserLogin } from '../shared/classes/user';
 
 @Component({
   selector: 'app-login',
@@ -7,15 +12,55 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  passwordInputType: 'text'|'password' = 'password'
+  passwordInputType: 'text'|'password' = 'password';
 
-  constructor() { }
+  /* example : {username: 'Fio is required'} */
+  formErrors = {} as any;
+
+  firstFormChecked: boolean = false;
+
+  submitted = false;
+
+  loginForm: NgForm;
+  @ViewChild('loginForm') currentForm: NgForm;
+
+  user: IUserLogin = new UserLogin();
+
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
   }
 
   togglePasswordInputType () {
     this.passwordInputType = (this.passwordInputType === 'text') ? 'password' : 'text';
+  }
+
+  ngAfterViewChecked() {
+    this.formChanged();
+  }
+
+  formChanged() {
+    this.firstFormChecked = true;
+
+    if (this.currentForm === this.loginForm) {
+      return;
+    }
+    this.loginForm = this.currentForm;
+    this.loginForm.valueChanges.subscribe(value => {
+      console.log(value);
+    });
+  }
+
+  onSubmit() {
+    this.userService.login(this.loginForm.value)
+      .then((data: any) => {
+        this.userService.afterGetUserFromServer(data.user);
+        this.router.navigate(['/account']);
+      })
+      .catch((data) => {
+        this.formErrors = data.errors;
+      });
+    this.submitted = true;
   }
 
 }

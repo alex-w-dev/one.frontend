@@ -6,17 +6,30 @@
         </span>
   </a>
 
-  <form id="login-form" class="site-log-in-out-form" action="/site/login" method="post">
-    <div class="form-group field-loginform-username required">
-      <input type="text" id="loginform-username" class="form-control" autofocus=""
-             placeholder="ФИО">
-    </div>
-    <div class="form-group field-loginform-password required relative">
-      <input id="loginform-password"
+  <form id="login-form"
+        class="site-log-in-out-form"
+        #loginForm="ngForm"
+        (ngSubmit)="onSubmit()">
+    <text-input [(ngModel)]="user.email"
+                [name]="'email'"
+                [(errorText)]="formErrors.email"
+                [className]="'field-registrationform-email'"
+                [placeholder]="'E-Mail'"
+                ngDefaultControl></text-input>
+
+    <div class="form-group field-registrationform-password relative"
+         [ngClass]="{'has-danger': !!formErrors.password}">
+      <input type="password"
+             #passwordInput
              class="form-control js-password"
              placeholder="Пароль"
-             [attr.type]="passwordInputType">
-      <div class="js-password-icon" (click)="togglePasswordInputType()"></div>
+             required
+             [(ngModel)]="user.password"
+             name="password">
+      <div class="form-control-feedback">{{formErrors.password}}</div>
+      <div class="js-password-icon"
+           [ngClass]="{'active': passwordInput.type === 'text'}"
+           (click)="passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password'"></div>
     </div>
 
     <div class="form-group text-center">

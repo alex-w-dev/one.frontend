@@ -5,6 +5,7 @@ import { ISelectInputOption } from '../shared/components/form/select-input/selec
 import { User, UserRegister } from '../shared/classes/user';
 import { IUser } from '../../interfaces';
 import { UserService } from '../shared/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -43,9 +44,9 @@ export class RegistrationComponent implements OnInit, OnChanges {
   formErrors = {} as any;
 
   registrationForm: NgForm;
-  @ViewChild('registrationForm') currentForm: NgForm;
+  @ViewChild('loginForm') currentForm: NgForm;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.roleTypes = [];
     this.roleTypes.push({
       value: 'patient',
@@ -104,6 +105,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
     this.userService.register(Object.assign({ type: this.roleType.replace('patient', 'pacient') }, this.registrationForm.value))
       .then((data: any) => {
         this.userService.afterGetUserFromServer(data.user);
+        this.router.navigate(['/account']);
       })
       .catch((data) => {
         this.formErrors = data.errors;

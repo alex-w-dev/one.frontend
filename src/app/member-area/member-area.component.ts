@@ -16,6 +16,6 @@ export class MemberAreaComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.user = this.userService.getUser();
+    this.userService.userLoaded.forEach(user => this.user = user);
   }
 }

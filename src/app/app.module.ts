@@ -18,7 +18,6 @@ import { ModalWindowModule } from './shared/components/modal/modal.module';
     AppComponent,
     PageNotFoundComponent,
     PageInDevComponent,
-    LoginComponent,
     DropDownButtonDirective,
   ],
   imports: [

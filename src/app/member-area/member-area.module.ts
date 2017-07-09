@@ -18,6 +18,7 @@ import { ApiService } from '../shared/services/api.service';
 
 import { memberAreaRoutes } from './member-area.routes';
 import { MaterializeModule } from 'angular2-materialize';
+import { LoginModule } from '../login/login.module';
 
 
 
@@ -32,6 +33,7 @@ import { MaterializeModule } from 'angular2-materialize';
     MaterializeModule,
     HttpModule,
     RegistrationModule,
+    LoginModule,
     RouterModule.forRoot(memberAreaRoutes)
   ],
   exports: [

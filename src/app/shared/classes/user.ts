@@ -1,5 +1,5 @@
 import { Patient } from './pacient';
-import { IUser, IUserInfoFromServer } from '../../../interfaces';
+import { IUser, IUserInfoFromServer, IUserLogin } from '../../../interfaces';
 import { Doctor } from './doctor';
 
 export class User implements IUser {
@@ -15,7 +15,9 @@ export class User implements IUser {
 
   constructor (user: IUserInfoFromServer) {
     user.user_info.type.replace('pacient', 'patient');
-    Object.assign(this, user);
+    Object.assign(this, user.user_info);
+
+    console.log(this.type)
 
     switch (this.type) {
       case 'patient':
@@ -48,5 +50,12 @@ export class UserRegister implements IUser {
       default:
         this.entity = new Doctor({});
     }
+  }
+}
+
+export class UserLogin implements IUserLogin {
+  email = '';
+
+  constructor () {
   }
 }

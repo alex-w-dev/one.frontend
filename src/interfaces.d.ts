@@ -27,6 +27,11 @@ export interface IUser {
   promo?: string;
 }
 
+export interface IUserLogin {
+  email: string;
+  password?: string;
+}
+
 export interface IUserInfoFromServer {
   user_info: {
     access_token: string;
