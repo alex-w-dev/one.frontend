@@ -1,5 +1,8 @@
 <app-profile-info [user]="user"></app-profile-info>
+
 <app-closest-actions *ngIf="isPatient()"></app-closest-actions>
 <app-services *ngIf="isPatient()"></app-services>
 <app-carusel *ngIf="isPatient()"></app-carusel>
 <app-risks *ngIf="isPatient()"></app-risks>
+
+<app-schedule *ngIf="isDoctor()" [editable]="false"></app-schedule>

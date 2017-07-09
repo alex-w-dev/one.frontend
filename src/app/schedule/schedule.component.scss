@@ -1,0 +1,52 @@
+.prfl-calendar-list-item_title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.prfl-calendar-list{
+  overflow: auto;
+}
+
+
+
+/* CALENDAR MORE */
+.calendar-more{
+  margin-top: 10px;
+  padding: 23px 26px;
+
+  .calendar-more-title{}
+  .calendar-more-content{
+    margin-top: 17px;
+    table{
+      tr{
+        td{
+          padding: 5px 10px;
+        }
+      }
+    }
+  }
+
+  .calendar-more-actions{
+    display: none;
+  }
+}
+.calendar-more__editable{
+  background: #D4FFFC;
+
+  .calendar-more-actions{
+    display: flex;
+    margin-top: 25px;
+
+    .calendar-more-action{
+      cursor: pointer;
+
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
+
+      img{
+
+      }
+    }
+  }
+}

@@ -35,7 +35,8 @@ export class UserService {
     this.userLoaded.emit(this.user);
   }
 
-  getUser(): IUser {
+  getUser(component?: any): IUser {
+    if (component) this.userLoaded.forEach(user => component.user = user);
     return this.user;
   }
 

@@ -12,6 +12,7 @@ import { PageInDevComponent } from './page-in-dev/page-in-dev.component';
 import { DropDownButtonDirective } from './shared/directives/dropdown-button.directive';
 import { AccountModule } from './account/account.module';
 import { ModalWindowModule } from './shared/components/modal/modal.module';
+import { CalendarComponent } from './shared/components/calendar/calendar.component';
 
 @NgModule({
   declarations: [

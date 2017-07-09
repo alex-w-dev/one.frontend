@@ -6,6 +6,7 @@ import { ClosestActionsModule } from './closest-actions/closest-actions.module';
 import { ServicesModule } from './services/services.module';
 import { RisksModule } from './risks/risks.module';
 import { CaruselModule } from '../shared/components/carusel/carusel.module';
+import { ScheduleModule } from '../schedule/schedule.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { CaruselModule } from '../shared/components/carusel/carusel.module';
     ServicesModule,
     RisksModule,
     CaruselModule,
+    ScheduleModule
   ],
   declarations: [
     AccountComponent,

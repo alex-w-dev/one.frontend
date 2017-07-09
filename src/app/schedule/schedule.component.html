@@ -3,6 +3,75 @@
     <h2>Рассписание</h2>
   </div>
   <div class="prfl-row-content">
-    Работает
+    <div class="prfl-calendar">
+      <div class="prfl-calendar-left">
+        <app-calendar></app-calendar>
+
+        <div class="calendar-more"
+             [ngClass]="{'calendar-more__editable': editable}">
+          <div class="calendar-more-title">
+            <span>Текущий график на 24 ноября</span>
+          </div>
+          <div class="calendar-more-content">
+            <table>
+              <tr>
+                <td colspan="2"></td>
+              </tr>
+              <tr>
+                <td>
+                  <span>Цена:</span>
+                </td>
+                <td>
+                  <span>1 500 руб.</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>Работа:</span>
+                </td>
+                <td>
+                  <span>с 8:00 до 16:00</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span>Обед:</span>
+                </td>
+                <td>
+                  <span>с 13:00 до 13:30</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="calendar-more-actions">
+            <div class="calendar-more-action"
+                 (click)="addAction()">
+              <img src="../../public/img/calendar-add.png" alt="">
+            </div>
+            <div class="calendar-more-action"
+                 (click)="deleteAction()">
+              <img src="../../public/img/calendar-delete.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="prfl-calendar-right">
+        <div class="prfl-calendar-list">
+          <div class="prfl-calendar-list-title">
+            Запись на 24 ноября
+          </div>
+          <div class="prfl-calendar-list-item" *ngFor="let entry of entries">
+            <div class="prfl-calendar-list-item_title prfl-calendar-text">
+              <div>{{entry.name}}</div>
+              <div>{{entry.time}}</div>
+            </div>
+            <div class="prfl-calendar-list-item_timesmap">
+              <div class="prfl-calendar-list-item_timesmap-item">{{entry.place}}</div>
+              <div class="prfl-calendar-list-item_timesmap-item">{{entry.price}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
