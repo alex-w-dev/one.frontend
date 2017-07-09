@@ -4,6 +4,7 @@ import { AccountComponent } from '../account/account.component';
 import { RegistrationComponent } from '../registration/registration.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { PageInDevComponent } from '../page-in-dev/page-in-dev.component';
+import { ClientListComponent } from '../client-list/client-list.component';
 
 export const memberAreaRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -11,6 +12,11 @@ export const memberAreaRoutes: Routes = [
     path: 'account',
     component: AccountComponent,
     data: { title: 'Личный кабинет' }
+  },
+  {
+    path: 'client-list',
+    component: ClientListComponent,
+    data: { title: 'Список клиентов' }
   },
   {
     path: 'registration',

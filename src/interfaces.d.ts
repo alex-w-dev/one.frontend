@@ -25,6 +25,9 @@ export interface IUser {
 
   password?: string;
   promo?: string;
+
+  isDoctor?(): boolean;
+  isPatient?(): boolean;
 }
 
 export interface IUserLogin {

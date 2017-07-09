@@ -1,5 +1,5 @@
-<app-profile-info></app-profile-info>
-<app-closest-actions></app-closest-actions>
-<app-services></app-services>
-<app-carusel></app-carusel>
-<app-risks></app-risks>
+<app-profile-info [user]="user"></app-profile-info>
+<app-closest-actions *ngIf="isPatient()"></app-closest-actions>
+<app-services *ngIf="isPatient()"></app-services>
+<app-carusel *ngIf="isPatient()"></app-carusel>
+<app-risks *ngIf="isPatient()"></app-risks>

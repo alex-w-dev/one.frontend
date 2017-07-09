@@ -27,6 +27,14 @@ export class User implements IUser {
         this.entity = new Doctor(user.doctor_info);
     }
   }
+
+  isPatient() {
+    return this.type === 'patient';
+  }
+
+  isDoctor() {
+    return this.type === 'doctor';
+  }
 }
 
 export class UserRegister implements IUser {

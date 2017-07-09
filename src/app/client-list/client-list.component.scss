@@ -1,0 +1,23 @@
+
+
+/* BIG SEARCH BOX!  */
+.big-search-box{
+  position: relative;
+
+  input {
+    padding-left: 60px;
+    height: 42px;
+    width: 100%;
+    border: 1px solid #E3E3E3;
+  }
+
+  .search-button{
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url('../../public/img/big-search-icon.png') no-repeat center center;
+  }
+}
