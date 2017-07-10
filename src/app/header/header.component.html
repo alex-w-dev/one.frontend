@@ -17,7 +17,7 @@
       </li>
     </ul>
   </div>
-  <div class="top-user-bar">
+  <div class="top-user-bar" *ngIf="user">
     <div class="mobile-logo-bar ">
       <a href="http://biogenom.ru">
         <img src="/public/img/logo.png" class="top-user-bar-logo">
@@ -25,7 +25,7 @@
     </div>
     <div class="top-nav-account relative">
       <div class="top-account-widget-name-item">
-        Маргарита
+        {{user.username}}
       </div>
       <div class="top-under-avatar ">
         <img class="top-avatar" src="/public/img/top-avatar.png">

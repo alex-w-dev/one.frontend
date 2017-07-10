@@ -43,6 +43,9 @@ export class UserRegister implements IUser {
   username = '';
   email = '';
   phone = '';
+  district_name = '';
+  promo = '';
+  password = '';
   birthDay = '1';
   birthMonth = 'Январь';
   birthYear = '1910';
