@@ -38,11 +38,11 @@
           materialize
           class="dropdown-menu dropdown-menu-right">
         <li>
-          <a href="/account/index">Мой профиль</a></li>
+          <a [routerLink]="['/account']">Мой профиль</a></li>
         <li>
-          <a href="/account/anketa">Анкета</a></li>
+          <a [routerLink]="['/account']">Анкета</a></li>
         <li class="divider"></li>
-        <li><a href="/site/logout">Выйти</a></li>
+        <li><a [routerLink]="['/login']">Выйти</a></li>
       </ul>
     </div>
   </div>

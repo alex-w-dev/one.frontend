@@ -100,6 +100,8 @@ export class UserService {
 
   logout() {
     this.api.deleteAccessToken();
+    this.user = undefined;
+    this.userLoaded.emit(this.user);
   }
 
 }
