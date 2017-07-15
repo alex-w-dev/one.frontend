@@ -1,4 +1,4 @@
-<app-profile-info [user]="user"></app-profile-info>
+<app-profile-info *ngIf="user" [user]="user"></app-profile-info>
 
 <app-closest-actions *ngIf="isPatient()"></app-closest-actions>
 <app-services *ngIf="isPatient()"></app-services>

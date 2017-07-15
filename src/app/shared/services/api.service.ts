@@ -17,6 +17,10 @@ export class ApiService {
     this.accessToken = token;
   }
 
+  deleteAccessToken() {
+    this.accessToken = '';
+  }
+
   isPublicPage(): boolean {
     return ['/login', '/registration'].indexOf(location.pathname) !== -1;
   }
@@ -45,8 +49,6 @@ export class ApiService {
       case 'post':
         let postBody = new URLSearchParams();
         if (this.accessToken) postBody.append('token', this.accessToken);
-
-        console.log(this.accessToken);
 
         Object.keys(data).forEach(key => {
           let dataType = typeof data[key];

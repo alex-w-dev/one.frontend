@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.userService.logout();
   }
 
   togglePasswordInputType () {
@@ -47,19 +48,15 @@ export class LoginComponent implements OnInit {
     }
     this.loginForm = this.currentForm;
     this.loginForm.valueChanges.subscribe(value => {
-      console.log(value);
     });
   }
 
   onSubmit() {
-    this.userService.login(this.loginForm.value)
+    this.userService.login(Object.assign({}, this.loginForm.value))
       .then((data: any) => {
-        this.userService.afterGetUserFromServer(data.user);
+        this.userService.afterGetUserFromServer(data.result);
         this.router.navigate(['/account']);
       })
-      .catch((data) => {
-        this.formErrors = data.errors;
-      });
     this.submitted = true;
   }
 

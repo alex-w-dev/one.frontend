@@ -1,4 +1,4 @@
-<div class="site-login">
+<div class="site-login" >
   <h1>Войти</h1>
   <a [routerLink]="['/registration']">
         <span>
@@ -10,11 +10,11 @@
         class="site-log-in-out-form"
         #loginForm="ngForm"
         (ngSubmit)="onSubmit()">
-    <text-input [(ngModel)]="user.email"
-                [name]="'email'"
-                [(errorText)]="formErrors.email"
-                [className]="'field-registrationform-email'"
-                [placeholder]="'E-Mail'"
+    <text-input [(ngModel)]="user.username"
+                [name]="'username'"
+                [(errorText)]="formErrors.username"
+                [className]="'field-registrationform-username'"
+                [placeholder]="'ФИО'"
                 ngDefaultControl></text-input>
 
     <div class="form-group field-registrationform-password relative"

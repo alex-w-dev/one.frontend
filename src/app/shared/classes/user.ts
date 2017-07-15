@@ -3,7 +3,17 @@ import { IUser, IUserInfoFromServer, IUserLogin } from '../../../interfaces';
 import { Doctor } from './doctor';
 
 export class User implements IUser {
-  type: 'doctor' | 'patient' = 'patient';
+  typeValue: 'doctor' | 'patient' = 'patient';
+  get type() {
+    return this.typeValue;
+  }
+  set type(type) {
+    if (type === 'pacient' as any) {
+      type = 'patient';
+    }
+    this.typeValue = type;
+  }
+
   entity;
   username = '';
   email = '';
@@ -12,12 +22,11 @@ export class User implements IUser {
   birthMonth = 'Январь';
   birthYear = '1910';
   male = '1';
+  avatar = '';
 
-  constructor (user: IUserInfoFromServer) {
+  constructor(user: IUserInfoFromServer) {
     user.user_info.type.replace('pacient', 'patient');
     Object.assign(this, user.user_info);
-
-    console.log(this.type)
 
     switch (this.type) {
       case 'patient':
@@ -28,11 +37,16 @@ export class User implements IUser {
     }
   }
 
-  isPatient() {
+  getAvatarUrl(): string {
+    if (this.avatar) return this.avatar;
+    return this.isDoctor() ? '/public/img/doctor-main-avatar.png' : '/public/img/main-avatar.png';
+  }
+
+  isPatient(): boolean {
     return this.type === 'patient';
   }
 
-  isDoctor() {
+  isDoctor(): boolean {
     return this.type === 'doctor';
   }
 }
@@ -51,7 +65,7 @@ export class UserRegister implements IUser {
   birthYear = '1910';
   male = '1';
 
-  constructor (user: IUser) {
+  constructor(user: IUser) {
     Object.assign(this, user);
 
     switch (this.type) {
@@ -65,8 +79,8 @@ export class UserRegister implements IUser {
 }
 
 export class UserLogin implements IUserLogin {
-  email = '';
+  username = '';
 
-  constructor () {
+  constructor() {
   }
 }

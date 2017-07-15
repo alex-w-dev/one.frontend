@@ -1,6 +1,6 @@
 <div class="row prfl-main" *ngIf="user">
   <div class="prfl-avatar relative">
-    <img [src]="user.isDoctor() ? '/public/img/doctor-main-avatar.png' : '/public/img/main-avatar.png'" alt="">
+    <img [src]="user.getAvatarUrl()" alt="">
     <div class="mobile-show prfl-avatar_actions prfl-avatar_actions-top"></div>
     <div class="prfl-avatar_actions">
       <span class="prfl-avatar_actions--name mobile-show">

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { User } from '../../shared/classes/user';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -12,9 +13,10 @@ export class ProfileInfoComponent implements OnInit, AfterViewInit {
 
   @Input() user: User;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    if (! this.user ) this.userService.getUser();
   }
 
   ngAfterViewInit(): void {

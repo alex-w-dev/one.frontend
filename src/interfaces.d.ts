@@ -26,12 +26,14 @@ export interface IUser {
   password?: string;
   promo?: string;
 
+  avatar?: string;
+
   isDoctor?(): boolean;
   isPatient?(): boolean;
 }
 
 export interface IUserLogin {
-  email: string;
+  username: string;
   password?: string;
 }
 
@@ -64,4 +66,5 @@ export interface IUserInfoFromServer {
     license: number,
     user_id: number
   };
+  avatar?: any;
 }

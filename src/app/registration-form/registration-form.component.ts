@@ -22,17 +22,9 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
 
   firstFormChecked: boolean = false;
 
-  @Input() patient: UserRegister = new UserRegister({
-    username: '',
-    email: '',
-    type: 'patient',
-  } as UserRegister);
+  @Input() patient: UserRegister;
 
-  @Input() doctor: UserRegister = new UserRegister({
-    username: '',
-    email: '',
-    type: 'doctor',
-  } as UserRegister);
+  @Input() doctor: UserRegister;
 
   submitted = false;
 
@@ -93,7 +85,7 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
   onSubmit() {
     this.userService.register(Object.assign({ type: this.roleType.replace('patient', 'pacient') }, this.registrationForm.value))
       .then((data: any) => {
-        this.userService.afterGetUserFromServer(data.user);
+        this.userService.afterGetUserFromServer(data.result);
         this.router.navigate(['/account']);
       })
       .catch((data) => {
@@ -103,6 +95,17 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
+    if (!this.patient) this.patient = new UserRegister({
+      username: '',
+      email: '',
+      type: 'patient',
+    } as UserRegister);
+    if (!this.doctor) this.doctor = new UserRegister({
+      username: '',
+      email: '',
+      type: 'doctor',
+    } as UserRegister);
+
     this.formChanged();
   }
 
@@ -114,7 +117,6 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
     }
     this.registrationForm = this.currentForm;
     this.registrationForm.valueChanges.subscribe(value => {
-      console.log(value);
     });
   }
 

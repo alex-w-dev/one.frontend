@@ -7,13 +7,20 @@ import { Router } from '@angular/router';
 @Injectable()
 export class UserService {
 
+  noticeCountChanged: EventEmitter<number> = new EventEmitter();
+
   userLoaded: EventEmitter<IUser> = new EventEmitter();
+
+  private noticeAskingInterval;
+
+  private noticeCount: number;
+
   private user: IUser;
 
   constructor(private api: ApiService, private router: Router) {
     setTimeout(() => {
       this.api.request('user/user').then((user: any) => {
-        this.afterGetUserFromServer(user.user);
+        this.afterGetUserFromServer(user.result);
       }).catch((data) => {
         if (!this.api.isPublicPage()) {
           this.router.navigate(['login']);
@@ -33,10 +40,27 @@ export class UserService {
     this.user = new User(userFromServer);
 
     this.userLoaded.emit(this.user);
+
+    this.startNoticeAsk();
+  }
+
+  startNoticeAsk(): void {
+    if (this.noticeAskingInterval) return;
+
+    this.noticeAskingInterval = setInterval(() => {
+      this.api.request('user/getusernotices').then((data) => {
+        console.log(data);
+        this.noticeCount = data.result;
+      }).catch(console.error);
+    }, 10000);
+  }
+
+  getNoticeCount(): number {
+    return this.noticeCount;
   }
 
   getUser(component?: any): IUser {
-    if (component) this.userLoaded.forEach(user => component.user = user);
+    if (component) this.userLoaded.subscribe(user => component.user = user);
     return this.user;
   }
 
@@ -72,6 +96,10 @@ export class UserService {
         .catch(console.error);
     });
 
+  }
+
+  logout() {
+    this.api.deleteAccessToken();
   }
 
 }

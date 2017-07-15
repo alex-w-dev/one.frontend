@@ -22,7 +22,6 @@ export class AccountComponent implements OnInit {
   }
 
   isDoctor() {
-    console.log(this.user && this.user.isDoctor())
     return this.user && this.user.isDoctor();
   }
 
