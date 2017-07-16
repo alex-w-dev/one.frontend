@@ -38,7 +38,7 @@ export class ClientListComponent implements OnInit {
     this.getPatientList();
     this.userService.userLoaded.subscribe(() => {
       this.getPatientList();
-    })
+    });
 
     for (let i = 1; i < 11; i++) {
       this.clients.push({
@@ -77,6 +77,6 @@ export class ClientListComponent implements OnInit {
   }
 
   search() {
-    alert(`Поиск по клиенту: "${this.searchValue}" ... (необходимо добавить на сервере)`);
+    this.dialogService.alert(`Поиск по клиенту: "${this.searchValue}" ... (необходимо добавить на сервере)`);
   }
 }

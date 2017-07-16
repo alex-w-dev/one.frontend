@@ -55,3 +55,37 @@
     2013-2017 ООО “Биогеном” все права защищены
   </div>
 </div>
+
+<modal-window
+  [isOpen]="isOpenModal"
+  (isOpenChange)="handleOpenChange($event)"
+  class="dialog-modal"
+>
+  <div modal-header *ngIf="params.title">
+    <div class="caption"
+         [innerHtml]="params.title"></div>
+  </div>
+
+  <div modal-content>
+    <div class="dialog-text"
+         *ngIf="params.text"
+         [innerHtml]="params.text">
+    </div>
+    <div *ngIf="params.mode == 'prompt'">
+      <input type="text"
+             [(ngModel)]="params.promptValue">
+    </div>
+  </div>
+  <div modal-footer>
+    <button class="waves-effect waves-light btn grey left"
+            *ngIf="params.mode != 'alert'"
+            (click)="cancelModal()"
+            [innerHtml]="params.cancelBtnText">
+    </button>
+
+    <button class="waves-effect waves-light btn btn-blue right"
+            (click)="applyModal()"
+            [innerHtml]="params.okBtnText" >
+    </button>
+  </div>
+</modal-window>

@@ -67,3 +67,21 @@
     margin-bottom: 25px;
   }
 }
+
+.dialog-modal {
+  .modal {
+    width: 65%;
+    max-height: 75%;
+  }
+
+  .dialog-text{
+    font-size: 1.3rem;
+    margin-bottom: 35px;
+  }
+
+  [modal-content]:empty{
+    margin: 0;
+    padding: 0;
+  }
+}
+

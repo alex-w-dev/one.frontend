@@ -22,7 +22,7 @@ import { LoginModule } from '../login/login.module';
 import { ClientListModule } from '../client-list/client-list.module';
 import { CooperationModule } from '../cooperation/cooperation.module';
 import { ScheduleModule } from '../schedule/schedule.module';
-import DialogModule from '../shared/services/dialog/dialog.module';
+import { DialogService } from '../shared/services/dialog/dialog.service';
 
 
 
@@ -40,7 +40,6 @@ import DialogModule from '../shared/services/dialog/dialog.module';
     LoginModule,
     ClientListModule,
     CooperationModule,
-    DialogModule,
     ScheduleModule,
     RouterModule.forRoot(memberAreaRoutes)
   ],
@@ -51,6 +50,7 @@ import DialogModule from '../shared/services/dialog/dialog.module';
   providers: [
     UserService,
     ApiService,
+    DialogService,
   ]
 })
 export class MemberAreaModule {
