@@ -1,0 +1,44 @@
+
+.top-bell {
+  background: url("../../../public/img/top-bell.png") center no-repeat;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  cursor: pointer;
+}
+
+.top-bell-count {
+  font-family: 'Ubuntu', serif;
+  font-size: 12px;
+  color: white;
+  background: #F2693F;
+  border-style: Solid;
+  border-color: white;
+  border-width: 2px;
+  width: 24px;
+  height: 24px;
+  -moz-border-radius: 50% / 50%;
+  -webkit-border-radius: 50% 50%;
+  border-radius: 50% / 50%;
+  text-align: center;
+  padding-top: 3px;
+  position: absolute;
+  top: 8px;
+  right: 4px;
+}
+
+.bell-notice{
+  &:hover{
+    color: black;
+  }
+
+  .notice-actions{
+
+    .notice-action{
+      &:hover{
+        color: #53C4CE;
+        cursor: pointer;
+      }
+    }
+  }
+}

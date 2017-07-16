@@ -412,18 +412,21 @@ h2{
   left: 22px;
 }
 
-.dropdown-menu > li > a {
+.dropdown-menu > li > a,
+.dropdown-menu > li > span {
   display: block;
   padding: 6px 23px;
   color: black;
   outline: none;
 }
 
-.dropdown-menu > li > a:hover {
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > span:hover {
   background: none;
   color: #53C4CE;
 }
 
+.dropdown-menu > li > span .under-a,
 .dropdown-menu > li > a .under-a {
   font-family: 'Ubuntu', serif;
   font-weight: 300;

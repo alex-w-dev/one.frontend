@@ -75,6 +75,18 @@ interface DialogParams {
   cancelBtnText?: string;
 }
 
+interface INotice {
+  id: string;
+  read: number;
+  type: 'doctor_pacient_connect' | string;
+  time: string;
+  extra_data: {
+    doctor_id?: string,
+    pacient_id?: string,
+  };
+
+}
+
 interface DialogComponentParams extends DialogParams {
   mode: 'alert' | 'confirm' | 'prompt';
 }

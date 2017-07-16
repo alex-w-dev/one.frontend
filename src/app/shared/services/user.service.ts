@@ -6,14 +6,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class UserService {
-
-  noticeCountChanged: EventEmitter<number> = new EventEmitter();
-
   userLoaded: EventEmitter<IUser> = new EventEmitter();
-
-  private noticeAskingInterval;
-
-  private noticeCount: number;
 
   private user: IUser;
 
@@ -27,11 +20,6 @@ export class UserService {
         }
       });
     });
-    // this.user = new User({
-    //   username: 'asda asd as',
-    //   type: 'doctor',
-    //   email: 'asd@asd.ru',
-    // } as IUser);
   }
 
   afterGetUserFromServer(userFromServer: IUserInfoFromServer) {
@@ -40,23 +28,6 @@ export class UserService {
     this.user = new User(userFromServer);
 
     this.userLoaded.emit(this.user);
-
-    this.startNoticeAsk();
-  }
-
-  startNoticeAsk(): void {
-    if (this.noticeAskingInterval) return;
-
-    this.noticeAskingInterval = setInterval(() => {
-      this.api.request('user/getusernotices').then((data) => {
-        console.log(data);
-        this.noticeCount = data.result;
-      }).catch(console.error);
-    }, 10000);
-  }
-
-  getNoticeCount(): number {
-    return this.noticeCount;
   }
 
   getUser(component?: any): IUser {
