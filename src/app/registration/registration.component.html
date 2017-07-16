@@ -6,8 +6,8 @@
         </span>
   </a>
 
-  <div class="site-log-in-out-form">
-    <select-input [(ngModel)]="roleType"
+  <div class="site-log-in-out-form" *ngIf="user">
+    <select-input [(ngModel)]="user.type"
                   [name]="'roleType'"
                   [options]="roleTypes"
                   [className]="'field-registrationform-roletype'"

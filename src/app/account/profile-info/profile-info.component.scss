@@ -1,0 +1,15 @@
+.drop-file-area{
+  display: flex;
+  border: 2px dashed gainsboro;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  height: 70px;
+}
+
+.file-upload-modal {
+  .popup-window{
+    width: 80vw;
+    max-width: 800px;
+  }
+}

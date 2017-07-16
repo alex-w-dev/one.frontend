@@ -52,6 +52,9 @@ export class LoginComponent implements OnInit {
       .then((data: any) => {
         this.userService.afterGetUserFromServer(data.result);
         this.router.navigate(['/account']);
+      })
+      .catch((data) => {
+        this.formErrors = data.result;
       });
     this.submitted = true;
   }

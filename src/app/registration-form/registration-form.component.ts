@@ -88,25 +88,23 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
           this.userService.afterGetUserFromServer(data.result);
         })
         .catch((data) => {
-          this.formErrors = data.errors;
+          this.formErrors = data.result;
         });
       this.submitted = true;
     } else {
-      this.userService.register(Object.assign({}, this.registrationForm.value, { type: this.roleType.replace('patient', 'pacient') }))
+      this.userService.register(Object.assign({}, this.registrationForm.value, { type: this.user.type.replace('patient', 'pacient') }))
         .then((data: any) => {
           this.userService.afterGetUserFromServer(data.result);
           this.router.navigate(['/account']);
         })
         .catch((data) => {
-          this.formErrors = data.errors;
+          this.formErrors = data.result;
         });
       this.submitted = true;
     }
   }
 
   ngAfterViewChecked() {
-    if (!this.user) this.user = new User();
-
     this.formChanged();
   }
 

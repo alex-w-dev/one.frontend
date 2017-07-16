@@ -70,11 +70,11 @@
   </div>
 
   <text-input *ngIf="user.isDoctor()"
-              [(ngModel)]="user.phone"
-              [name]="'phone'"
-              [(errorText)]="formErrors.phone"
-              [className]="'field-registrationform-phone'"
-              [placeholder]="'Ваш телефон'"
+              [(ngModel)]="user.license"
+              [name]="'license'"
+              [(errorText)]="formErrors.license"
+              [className]="'field-registrationform-license'"
+              [placeholder]="'Лицензия'"
               ngDefaultControl></text-input>
   <select-input *ngIf="user.isPatient()"
                 [(ngModel)]="user.district_name"

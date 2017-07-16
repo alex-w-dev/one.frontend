@@ -27,6 +27,7 @@
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
     "materialize-css": "^0.98.2",
+    "ng2-file-upload": "^1.2.1",
     "rxjs": "^5.1.0",
     "slick-carousel": "^1.6.0",
     "ubuntu-fontface": "^0.1.13",

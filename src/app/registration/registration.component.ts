@@ -30,7 +30,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    if (!this.user) this.user = new User();
   }
 
 }
