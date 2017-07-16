@@ -83,6 +83,21 @@ export class UserService {
 
   }
 
+  edit(formData) {
+    return new Promise((resolve, reject) => {
+      this.api.request('user/edituser', formData)
+        .then(data => {
+          if (data.success) {
+            resolve(data);
+          } else {
+            reject(data);
+          }
+        })
+        .catch(console.error);
+    });
+
+  }
+
   login(formData) {
     return new Promise((resolve, reject) => {
       this.api.request('user/login', formData)

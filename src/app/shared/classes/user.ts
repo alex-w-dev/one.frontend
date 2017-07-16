@@ -1,6 +1,4 @@
-import { Patient } from './pacient';
-import { IUser, IUserInfoFromServer, IUserLogin } from '../../../interfaces';
-import { Doctor } from './doctor';
+import { IUser, IUserInfoFromServer, IUserLeftMenuItem, IUserLogin } from '../../../interfaces';
 
 export class User implements IUser {
   typeValue: 'doctor' | 'patient' = 'patient';
@@ -14,7 +12,6 @@ export class User implements IUser {
     this.typeValue = type;
   }
 
-  entity;
   username = '';
   email = '';
   phone = '';
@@ -23,17 +20,35 @@ export class User implements IUser {
   birthYear = '1910';
   male = '1';
   avatar = '';
+  id = '';
+  password = '';
 
-  constructor(user: IUserInfoFromServer) {
-    user.user_info.type.replace('pacient', 'patient');
-    Object.assign(this, user.user_info);
+  promo = '';
+  license = '';
+  district_name = '';
 
-    switch (this.type) {
-      case 'patient':
-        this.entity = new Patient(user.pacient_info);
-        break;
-      default:
-        this.entity = new Doctor(user.doctor_info);
+
+  constructor(user?: IUserInfoFromServer) {
+    if (user) {
+      user.user_info.type.replace('pacient', 'patient');
+
+      switch (this.type) {
+        case 'patient':
+          Object.assign(this, user.pacient_info);
+          break;
+        default:
+          Object.assign(this, user.doctor_info);
+      }
+
+      Object.assign(this, user.user_info);
+
+      /* check string values from server */
+      let tempUser = new User();
+      let self = this;
+      Object.keys(tempUser).forEach(tempUserParameterName => {
+        if (typeof tempUser[tempUserParameterName] === 'string') self[tempUserParameterName] = self[tempUserParameterName].toString();
+      });
+
     }
   }
 
@@ -42,39 +57,40 @@ export class User implements IUser {
     return this.isDoctor() ? '/public/img/doctor-main-avatar.png' : '/public/img/main-avatar.png';
   }
 
+  getLeftMenu(): IUserLeftMenuItem[] {
+    if (this.isDoctor()) {
+      return [
+        {text: 'Мой профиль', link: '/account'},
+        {text: 'Список клиентов', link: '/client-list'},
+        {text: 'Рассписание', link: '/schedule'},
+        {text: 'Сотрудничество c Biogenom', link: '/cooperation'},
+      ];
+    }
+
+    if (this.isPatient()) {
+      return [
+        {text: 'Мой профиль', link: '/account'},
+        {text: 'Полный отчет по состоянию здоровья', link: '/site/stub/'},
+        {text: 'Риски для здоровья', link: '/site/stub/'},
+        {text: 'Медико-профилактические мероприятия', link: '/site/stub/'},
+        {text: 'Комплексная индивидуальная программа', link: '/site/stub'},
+        {text: 'История лечения', link: '/site/stub'},
+        {text: 'Результаты анализов', link: '/site/stub'},
+        {text: 'История покупок', link: '/site/stub/'},
+        {text: 'Возврат 2-НДФЛ', link: '/site/stub/'},
+        {text: 'Анкета', link: '/questionnaire'},
+      ];
+    }
+
+    return [];
+  }
+
   isPatient(): boolean {
     return this.type === 'patient';
   }
 
   isDoctor(): boolean {
     return this.type === 'doctor';
-  }
-}
-
-export class UserRegister implements IUser {
-  type: 'doctor' | 'patient' = 'patient';
-  entity;
-  username = '';
-  email = '';
-  phone = '';
-  district_name = '';
-  promo = '';
-  password = '';
-  birthDay = '1';
-  birthMonth = 'Январь';
-  birthYear = '1910';
-  male = '1';
-
-  constructor(user: IUser) {
-    Object.assign(this, user);
-
-    switch (this.type) {
-      case 'patient':
-        this.entity = new Patient({});
-        break;
-      default:
-        this.entity = new Doctor({});
-    }
   }
 }
 

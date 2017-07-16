@@ -1,9 +1,9 @@
 import { AfterContentChecked, AfterViewChecked, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ISelectInputOption } from '../shared/components/form/select-input/select-input.component';
-import { UserRegister } from '../shared/classes/user';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../shared/services/user.service';
 import { Router } from '@angular/router';
+import { User } from '../shared/classes/user';
 
 @Component({
   selector: 'app-registration-form',
@@ -22,9 +22,7 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
 
   firstFormChecked: boolean = false;
 
-  @Input() patient: UserRegister;
-
-  @Input() doctor: UserRegister;
+  @Input() user: User;
 
   submitted = false;
 
@@ -83,28 +81,31 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
 
 
   onSubmit() {
-    this.userService.register(Object.assign({ type: this.roleType.replace('patient', 'pacient') }, this.registrationForm.value))
-      .then((data: any) => {
-        this.userService.afterGetUserFromServer(data.result);
-        this.router.navigate(['/account']);
-      })
-      .catch((data) => {
-        this.formErrors = data.errors;
-      });
-    this.submitted = true;
+    if (this.isEditMode) {
+      this.userService.edit(Object.assign({}, this.registrationForm.value))
+        .then((data: any) => {
+          console.log(data);
+          this.userService.afterGetUserFromServer(data.result);
+        })
+        .catch((data) => {
+          this.formErrors = data.errors;
+        });
+      this.submitted = true;
+    } else {
+      this.userService.register(Object.assign({}, this.registrationForm.value, { type: this.roleType.replace('patient', 'pacient') }))
+        .then((data: any) => {
+          this.userService.afterGetUserFromServer(data.result);
+          this.router.navigate(['/account']);
+        })
+        .catch((data) => {
+          this.formErrors = data.errors;
+        });
+      this.submitted = true;
+    }
   }
 
   ngAfterViewChecked() {
-    if (!this.patient) this.patient = new UserRegister({
-      username: '',
-      email: '',
-      type: 'patient',
-    } as UserRegister);
-    if (!this.doctor) this.doctor = new UserRegister({
-      username: '',
-      email: '',
-      type: 'doctor',
-    } as UserRegister);
+    if (!this.user) this.user = new User();
 
     this.formChanged();
   }

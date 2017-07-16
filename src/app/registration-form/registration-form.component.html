@@ -1,16 +1,8 @@
-<!--
-
-
-REGISTRATION FORM FOR PATIENT
-
-
- -->
-
 <form class="site-log-in-out-form"
-      *ngIf="roleType === 'patient' && patient"
+      *ngIf="user"
       #registrationForm="ngForm"
       (ngSubmit)="onSubmit()">
-  <text-input [(ngModel)]="patient.username"
+  <text-input [(ngModel)]="user.username"
               [name]="'username'"
               [(errorText)]="formErrors.username"
               [placeholder]="'ФИО'"
@@ -20,7 +12,7 @@ REGISTRATION FORM FOR PATIENT
   </div>
   <div class="edit-prfl-date">
     <div class="edit-prfl-date__day edit-prfl-date__item">
-      <select-input [(ngModel)]="patient.birthDay"
+      <select-input [(ngModel)]="user.birthDay"
                     [name]="'birthDay'"
                     [options]="birthDays"
                     [className]="'field-registrationform-birthday'"
@@ -28,7 +20,7 @@ REGISTRATION FORM FOR PATIENT
                     ngDefaultControl></select-input>
     </div>
     <div class="edit-prfl-date__month edit-prfl-date__item">
-      <select-input [(ngModel)]="patient.birthMonth"
+      <select-input [(ngModel)]="user.birthMonth"
                     [name]="'birthMonth'"
                     [options]="birthMonths"
                     [className]="'field-registrationform-birthmonth'"
@@ -36,7 +28,7 @@ REGISTRATION FORM FOR PATIENT
                     ngDefaultControl></select-input>
     </div>
     <div class="edit-prfl-date__year edit-prfl-date__item">
-      <select-input [(ngModel)]="patient.birthYear"
+      <select-input [(ngModel)]="user.birthYear"
                     [name]="'birthYear'"
                     [options]="birthYears"
                     [className]="'field-registrationform-birthyear'"
@@ -55,7 +47,7 @@ REGISTRATION FORM FOR PATIENT
         <div class="radio">
           <label>
             <input type="radio"
-                   [(ngModel)]="patient.male"
+                   [(ngModel)]="user.male"
                    name="male"
                    required
                    value="0">
@@ -65,7 +57,7 @@ REGISTRATION FORM FOR PATIENT
         <div class="radio">
           <label>
             <input type="radio"
-                   [(ngModel)]="patient.male"
+                   [(ngModel)]="user.male"
                    name="male"
                    required
                    value="1">
@@ -76,151 +68,50 @@ REGISTRATION FORM FOR PATIENT
     </div>
     <div class="form-control-feedback">{{formErrors.male}}</div>
   </div>
-  <select-input [(ngModel)]="patient.district_name"
+
+  <text-input *ngIf="user.isDoctor()"
+              [(ngModel)]="user.phone"
+              [name]="'phone'"
+              [(errorText)]="formErrors.phone"
+              [className]="'field-registrationform-phone'"
+              [placeholder]="'Ваш телефон'"
+              ngDefaultControl></text-input>
+  <select-input *ngIf="user.isPatient()"
+                [(ngModel)]="user.district_name"
                 [name]="'district_name'"
                 [options]="districtNames"
                 [className]="'field-registrationform-district_name'"
                 [(errorText)]="formErrors.district_name"
                 ngDefaultControl></select-input>
-  <text-input [(ngModel)]="patient.email"
+  <text-input [(ngModel)]="user.email"
               [name]="'email'"
               [(errorText)]="formErrors.email"
               [className]="'field-registrationform-email'"
               [placeholder]="'Email'"
               ngDefaultControl></text-input>
-  <text-input [(ngModel)]="patient.phone"
+  <text-input [(ngModel)]="user.phone"
               [name]="'phone'"
               [(errorText)]="formErrors.phone"
               [className]="'field-registrationform-phone'"
               [placeholder]="'Ваш телефон'"
               ngDefaultControl></text-input>
-  <text-input [(ngModel)]="patient.promo"
+  <text-input *ngIf="user.isPatient()"
+              [(ngModel)]="user.promo"
               [name]="'promo'"
               [(errorText)]="formErrors.promo"
               [className]="'field-registrationform-promo'"
               [placeholder]="'Промокод'"
               ngDefaultControl></text-input>
+
   <div class="form-group field-registrationform-password relative"
+       *ngIf="!isEditMode"
        [ngClass]="{'has-danger': !!formErrors.password}">
     <input type="password"
            #passwordInput
            class="form-control js-password"
            placeholder="Пароль"
            required
-           [(ngModel)]="patient.password"
-           name="password">
-    <div class="form-control-feedback">{{formErrors.password}}</div>
-    <div class="js-password-icon"
-         [ngClass]="{'active': passwordInput.type === 'text'}"
-         (click)="passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password'"></div>
-  </div>
-  <div class="form-group text-center">
-    <button type="submit"
-            class="button"
-            name="login-button">Присоединиться
-    </button>
-  </div>
-
-</form>
-
-<!--
-
-
-REGISTRATION FORM FOR DOCTOR
-
-
- -->
-<form class="site-log-in-out-form"
-      *ngIf="roleType === 'doctor' && doctor"
-      #registrationForm="ngForm"
-      (ngSubmit)="onSubmit()">
-  <text-input [(ngModel)]="doctor.username"
-              [name]="'username'"
-              [(errorText)]="formErrors.username"
-              [placeholder]="'ФИО'"
-              ngDefaultControl></text-input>
-  <div class="text-left registration-label">
-    Дата рождения
-  </div>
-  <div class="edit-prfl-date">
-    <div class="edit-prfl-date__day edit-prfl-date__item">
-      <select-input [(ngModel)]="doctor.birthDay"
-                    [name]="'birthDay'"
-                    [options]="birthDays"
-                    [className]="'field-registrationform-birthday'"
-                    [(errorText)]="formErrors.birthDay"
-                    ngDefaultControl></select-input>
-    </div>
-    <div class="edit-prfl-date__month edit-prfl-date__item">
-      <select-input [(ngModel)]="doctor.birthMonth"
-                    [name]="'birthMonth'"
-                    [options]="birthMonths"
-                    [className]="'field-registrationform-birthmonth'"
-                    [(errorText)]="formErrors.birthMonth"
-                    ngDefaultControl></select-input>
-    </div>
-    <div class="edit-prfl-date__year edit-prfl-date__item">
-      <select-input [(ngModel)]="doctor.birthYear"
-                    [name]="'birthYear'"
-                    [options]="birthYears"
-                    [className]="'field-registrationform-birthyear'"
-                    [(errorText)]="formErrors.birthYear"
-                    ngDefaultControl></select-input>
-    </div>
-  </div>
-
-  <div class="text-left registration-label">
-    Пол
-  </div>
-  <div class="form-group field-registrationform-male"
-       [ngClass]="{'has-danger': !!formErrors.male}">
-    <div class="registration-radio-list"><input type="hidden" name="RegistrationForm[male]" value="">
-      <div>
-        <div class="radio">
-          <label>
-            <input type="radio"
-                   [(ngModel)]="doctor.male"
-                   name="male"
-                   required
-                   value="0">
-            Женский
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio"
-                   [(ngModel)]="doctor.male"
-                   name="male"
-                   required
-                   value="1">
-            Мужской
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="form-control-feedback">{{formErrors.male}}</div>
-  </div>
-  <text-input [(ngModel)]="doctor.email"
-              [name]="'email'"
-              [(errorText)]="formErrors.email"
-              [className]="'field-registrationform-email'"
-              [placeholder]="'Email'"
-              ngDefaultControl></text-input>
-  <text-input [(ngModel)]="doctor.phone"
-              [name]="'phone'"
-              [(errorText)]="formErrors.phone"
-              [className]="'field-registrationform-phone'"
-              [placeholder]="'Ваш телефон'"
-              ngDefaultControl></text-input>
-  <div class="form-group field-registrationform-password relative"
-       [hidden]="isEditMode"
-       [ngClass]="{'has-danger': !!formErrors.password}">
-    <input type="password"
-           #passwordInput
-           class="form-control js-password"
-           placeholder="Пароль"
-           required
-           [(ngModel)]="doctor.password"
+           [(ngModel)]="user.password"
            name="password">
     <div class="form-control-feedback">{{formErrors.password}}</div>
     <div class="js-password-icon"

@@ -14,7 +14,7 @@ export class LeftNavComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.menuItems = this.userService.getUser().entity.getLeftMenu();
+    this.menuItems = this.userService.getUser().getLeftMenu();
   }
 
 }

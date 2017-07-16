@@ -6,12 +6,9 @@ export interface IUserLeftMenuItem {
   link: string;
 }
 
-export interface IUserEntity {
-  getLeftMenu(): IUserLeftMenuItem[];
-}
-
 export interface IUser {
   type: 'doctor' | 'patient';
+  id?: string;
   username: string;
   email: string;
   phone?: string;
@@ -20,8 +17,7 @@ export interface IUser {
   birthYear?: string;
   male?: '0' | '1' | string;  // 0 - female | 1 male
   district_name?: string;
-
-  entity: IUserEntity;
+  license?: string;
 
   password?: string;
   promo?: string;
@@ -30,6 +26,7 @@ export interface IUser {
 
   isDoctor?(): boolean;
   isPatient?(): boolean;
+  getLeftMenu?(): IUserLeftMenuItem[];
 }
 
 export interface IUserLogin {

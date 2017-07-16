@@ -32,10 +32,6 @@ export class LoginComponent implements OnInit {
     this.userService.logout();
   }
 
-  togglePasswordInputType () {
-    this.passwordInputType = (this.passwordInputType === 'text') ? 'password' : 'text';
-  }
-
   ngAfterViewChecked() {
     this.formChanged();
   }
@@ -56,7 +52,7 @@ export class LoginComponent implements OnInit {
       .then((data: any) => {
         this.userService.afterGetUserFromServer(data.result);
         this.router.navigate(['/account']);
-      })
+      });
     this.submitted = true;
   }
 

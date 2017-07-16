@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ISelectInputOption } from '../shared/components/form/select-input/select-input.component';
-import { User, UserRegister } from '../shared/classes/user';
+import { User } from '../shared/classes/user';
 import { UserService } from '../shared/services/user.service';
 import { Router } from '@angular/router';
 
@@ -15,10 +15,7 @@ export class RegistrationComponent implements OnInit {
   @Input() roleType: string = 'patient';
   roleTypes: ISelectInputOption[];
 
-  @Input() patient: UserRegister;
-
-  @Input() doctor: UserRegister;
-
+  @Input() user: User;
 
   constructor(private userService: UserService, private router: Router) {
     this.roleTypes = [];
