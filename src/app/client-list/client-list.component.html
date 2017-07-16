@@ -4,6 +4,11 @@
   </div>
   <div class="prfl-row-content">
     <div class="big-search-box">
+      <input type="text" [(ngModel)]="patientId" placeholder="Добавить пациента по ИД">
+      <div class="search-button" (click)="addPatient()">+</div>
+    </div>
+    <hr>
+    <div class="big-search-box">
       <input type="text" [(ngModel)]="searchValue" placeholder="Поиск по клиенту...">
       <div class="search-button" (click)="search()"></div>
     </div>

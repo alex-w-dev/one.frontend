@@ -65,3 +65,16 @@ export interface IUserInfoFromServer {
   };
   avatar?: any;
 }
+
+
+interface DialogParams {
+  text?: string;
+  title?: string;
+  promptValue?: string;
+  okBtnText?: string;
+  cancelBtnText?: string;
+}
+
+interface DialogComponentParams extends DialogParams {
+  mode: 'alert' | 'confirm' | 'prompt';
+}
