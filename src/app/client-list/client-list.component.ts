@@ -35,7 +35,10 @@ export class ClientListComponent implements OnInit {
   ngOnInit() {
     this.userService.getUser(this);
 
-
+    this.getPatientList();
+    this.userService.userLoaded.subscribe(() => {
+      this.getPatientList();
+    })
 
     for (let i = 1; i < 11; i++) {
       this.clients.push({
@@ -46,6 +49,16 @@ export class ClientListComponent implements OnInit {
         access: i % 2 ? !!(i % 3) : undefined,
       });
     }
+  }
+
+  getPatientList() {
+    if (! this.user) return;
+    this.apiService.request('user/getdoctorspacients').then(data => {
+      console.log(data);
+    });
+    this.apiService.request('user/getdoctorspacients').then(data => {
+      console.log(data);
+    });
   }
 
   addPatient() {

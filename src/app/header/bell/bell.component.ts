@@ -88,4 +88,18 @@ export class BellComponent implements OnInit {
     }).catch(console.error);
   }
 
+  /* notices */
+  approveConnection(notice: INotice) {
+    if (this.user.isPatient()) {
+      this.apiService.request('user/approveconnection', { doctor_id: notice.extra_data.doctor_id, pacient_id: this.user.id }).then((data) => {
+        console.log(data);
+      });
+    }
+
+    if (this.user.isDoctor()) {
+      this.dialogService.alert('Try to add functionality!');
+    }
+
+  }
+
 }

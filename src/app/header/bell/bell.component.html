@@ -16,7 +16,10 @@
             (mouseenter)="setNoticeRead(notice)">
         <span *ngSwitchCase="'doctor_pacient_connect'">
           <span>Доктор (ИД: {{notice.extra_data.doctor_id}}) просит у Вас доступы</span>
-          <span class="notice-actions"><span class="notice-action">Подтвердить</span> | <span class="notice-action">Отказать</span></span>
+          <span class="notice-actions">
+            <span class="notice-action" (click)="approveConnection(notice)">Подтвердить</span> |
+            <span class="notice-action">Отказать</span>
+          </span>
           <span class="under-a">{{notice.time}}</span>
         </span>
         <span *ngSwitchDefault="">
