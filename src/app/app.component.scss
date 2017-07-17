@@ -388,6 +388,8 @@ h2{
 /* top end */
 /* dropdown-menu */
 .dropdown-menu {
+  max-height: 60vh;
+  overflow: auto;
   padding: 10px 0;
   margin: 0;
   background-color: #fff;
@@ -431,6 +433,8 @@ h2{
   font-family: 'Ubuntu', serif;
   font-weight: 300;
   font-size: 13px;
+  width: 100%;
+  display: inline-block;
   color: #808080 !important;
 }
 

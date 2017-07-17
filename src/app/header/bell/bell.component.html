@@ -6,7 +6,8 @@
   </div>
   <ul class="dropdown-menu  dropdown-menu-right"
       materialize
-      id="submenu-bell">
+      id="submenu-bell"
+      (click)="$event.stopPropagation()">
     <li>
       <span class="dropdown-menu_title">Мои уведомления</span>
     </li>
@@ -14,17 +15,35 @@
       <span [ngSwitch]="notice.type"
             class="bell-notice"
             (mouseenter)="setNoticeRead(notice)">
+
         <span *ngSwitchCase="'doctor_pacient_connect'">
-          <span>Доктор (ИД: {{notice.extra_data.doctor_id}}) просит у Вас доступы</span>
+          <span *ngIf="user.isPatient()">Доктор (ИД: {{notice.extra_data.doctor_id}}) просит у Вас доступы</span>
+          <span *ngIf="user.isDoctor()">Пациент (ИД: {{notice.extra_data.pacient_id}}) просит у Вас доступы</span>
           <span class="notice-actions">
             <span class="notice-action" (click)="approveConnection(notice)">Подтвердить</span> |
-            <span class="notice-action">Отказать</span>
+            <span class="notice-action" (click)="disconnectPacientFromDoctor(notice)">Отказать</span>
           </span>
-          <span class="under-a">{{notice.time}}</span>
         </span>
+
+        <span *ngSwitchCase="'doctor_pacient_connection_approve'">
+          <span *ngIf="user.isPatient()">Доктор (ИД: {{notice.extra_data.doctor_id}}) теперь имеет доступ к вашей учетной записи</span>
+          <span *ngIf="user.isDoctor()">Пациент (ИД: {{notice.extra_data.pacient_id}}) теперь имеет доступ к вашей учетной записи</span>
+          <span class="notice-actions">
+            <span class="notice-action" (click)="disconnectPacientFromDoctor(notice)">Отказать</span>
+          </span>
+        </span>
+
+        <span *ngSwitchCase="'doctor_pacient_disconnect'">
+          <span *ngIf="user.isPatient()">Доктор (ИД: {{notice.extra_data.doctor_id}}) теперь не имеет доступ к вашей учетной записи</span>
+          <span *ngIf="user.isDoctor()">Пациент (ИД: {{notice.extra_data.pacient_id}}) теперь не имеет доступ к вашей учетной записи</span>
+        </span>
+
         <span *ngSwitchDefault="">
           <span>Неизвестный тип уведомления</span>
         </span>
+
+        <span class="under-a">{{notice.time}}</span>
+        <span class="top-bell-delete-notice" (click)="deleteUserNotice(notice)" > x </span>
       </span>
     </li>
   </ul>

@@ -83,7 +83,7 @@ interface DialogParams {
 
 interface INotice {
   id: string;
-  read: number;
+  read: number | string;
   type: 'doctor_pacient_connect' | string;
   time: string;
   extra_data: {

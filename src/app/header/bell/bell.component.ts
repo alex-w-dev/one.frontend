@@ -17,14 +17,17 @@ export class BellComponent implements OnInit {
   private noticeAskingInterval;
 
   private noticeCountValue: number = 0;
-  get noticeCount(){
+
+  get noticeCount() {
     return this.noticeCountValue;
   }
-  set noticeCount(value){
+
+  set noticeCount(value) {
     this.noticeCountValue = value;
   }
 
-  constructor(private apiService: ApiService, private dialogService: DialogService, private userService: UserService) { }
+  constructor(private apiService: ApiService, private dialogService: DialogService, private userService: UserService) {
+  }
 
   ngOnInit() {
     this.user = this.userService.getUser(this);
@@ -45,15 +48,15 @@ export class BellComponent implements OnInit {
   }
 
   askNoticeCountFromServer() {
-    this.apiService.request('user/getusernotices', { 'read': 0 }).then((data) => {
-      let noticeCount = data.result && (data.result.length || Object.keys(data.result).length)  || 0;
-      if ( noticeCount !== this.noticeCount ) this.noticeCount = noticeCount;
+    this.apiService.request('user/getusernotices', {'read': 0}).then((data) => {
+      let noticeCount = data.result && (data.result.length || Object.keys(data.result).length) || 0;
+      if (noticeCount !== this.noticeCount) this.noticeCount = noticeCount;
     }).catch(console.error);
   }
 
-  getNoticesAllFromServer () {
+  getNoticesAllFromServer() {
     if (this.user) {
-      this.apiService.request('user/getusernotices', { 'read': 'all' }).then(data => {
+      this.apiService.request('user/getusernotices', {'read': 'all'}).then(data => {
         this.applyNotices(data.result);
       }).catch(console.error);
     }
@@ -65,7 +68,7 @@ export class BellComponent implements OnInit {
       this.notices.push({
         id: serverNotice.notice_id,
         type: serverNotice.notice_type,
-        read: serverNotice.read,
+        read: parseInt(serverNotice.read, 10),
         time: serverNotice.c_time,
         extra_data: serverNotice.extra_data,
       });
@@ -73,17 +76,15 @@ export class BellComponent implements OnInit {
   }
 
   setNoticeRead(notice: INotice) {
+    if (notice.read) return;
     this.apiService.request('user/setnoticeread', {notice_id: notice.id}).then(console.log).catch(console.error);
     notice.read = 1;
   }
 
-  deleteNotice(notice: INotice) {
+  deleteUserNotice(notice: INotice) {
     this.apiService.request('user/deleteusernotice', {notice_id: notice.id}).then((data) => {
       if (data.success) {
-        this.dialogService.alert('Уведомление удалено и больше не будет показываться Вам');
         this.notices.splice(this.notices.indexOf(notice), 1);
-      } else {
-        this.dialogService.alert('Что-то пошло не так при удалении уведомления...');
       }
     }).catch(console.error);
   }
@@ -91,13 +92,34 @@ export class BellComponent implements OnInit {
   /* notices */
   approveConnection(notice: INotice) {
     if (this.user.isPatient()) {
-      this.apiService.request('user/approveconnection', { doctor_id: notice.extra_data.doctor_id, pacient_id: this.user.id }).then((data) => {
-        console.log(data);
+      this.apiService.request('user/approveconnection', {doctor_id: notice.extra_data.doctor_id, pacient_id: this.user.id}).then((data) => {
+        if (data.success) this.dialogService.alert('Вы успешно передали доступы доктору (ИД ' + data.result.doctor_id + ')');
       });
     }
 
     if (this.user.isDoctor()) {
-      this.dialogService.alert('Try to add functionality!');
+      this.apiService.request('user/approveconnection', {pacient_id: notice.extra_data.pacient_id, doctor_id: this.user.id}).then((data) => {
+        if (data.success) this.dialogService.alert('Вы успешно передали доступы пациенту (ИД ' + data.result.pacient_id + ')');
+      });
+    }
+
+  }
+
+  disconnectPacientFromDoctor(notice: INotice) {
+    if (this.user.isPatient()) {
+      this.apiService.request('user/disconnectpacientfromdoctor', {doctor_id: notice.extra_data.doctor_id, pacient_id: this.user.id}).then((data) => {
+        if (data.success) this.dialogService.alert('Вы запретили показывать вашу четную запиь доктору (ИД ' + data.result.doctor_id + ')');
+        this.dialogService.alert('Вы запретили показывать вашу четную запиь доктору (ИД ' + notice.extra_data.doctor_id + ')');
+      });
+    }
+
+    if (this.user.isDoctor()) {
+      this.apiService.request('user/disconnectpacientfromdoctor', {
+        pacient_id: notice.extra_data.pacient_id,
+        doctor_id: this.user.id
+      }).then((data) => {
+        if (data.success) this.dialogService.alert('Вы запретили показывать вашу четную запиь пациенту (ИД ' + notice.extra_data.pacient_id + ')');
+      });
     }
 
   }
