@@ -23,10 +23,13 @@ export interface IUser {
   promo?: string;
 
   avatar?: string;
+  avatarSmall?: string;
 
   isDoctor?(): boolean;
   isPatient?(): boolean;
   getLeftMenu?(): IUserLeftMenuItem[];
+  getAvatarUrl?(): string;
+  getAvatarSmallUrl?(): string;
 }
 
 export interface IUserLogin {
@@ -63,7 +66,10 @@ export interface IUserInfoFromServer {
     license: number,
     user_id: number
   };
-  avatar?: any;
+  avatar?: {
+    big: string,
+    min: string,
+  };
 }
 
 

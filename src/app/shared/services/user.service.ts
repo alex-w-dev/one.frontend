@@ -12,13 +12,17 @@ export class UserService {
 
   constructor(private api: ApiService, private router: Router) {
     setTimeout(() => {
-      this.api.request('user/user').then((user: any) => {
-        this.afterGetUserFromServer(user.result);
-      }).catch((data) => {
-        if (!this.api.isPublicPage()) {
-          this.router.navigate(['login']);
-        }
-      });
+      this.renewUserFromServer();
+    });
+  }
+
+  renewUserFromServer() {
+    this.api.request('user/user').then((user: any) => {
+      this.afterGetUserFromServer(user.result);
+    }).catch((data) => {
+      if (!this.api.isPublicPage()) {
+        this.router.navigate(['login']);
+      }
     });
   }
 

@@ -125,13 +125,22 @@
     padding: 4px 0;
   }
 
-  .top-avatar {
+  .top-under-avatar {
     width: 63px;
     height: 63px;
     -moz-border-radius: 50% / 50%;
     -webkit-border-radius: 50% 50%;
     border-radius: 50% / 50%;
     margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    .top-avatar {
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 
   .top-avatar-more {

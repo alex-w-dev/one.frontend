@@ -30,7 +30,7 @@
         {{user.username}}
       </div>
       <div class="top-under-avatar ">
-        <img class="top-avatar" src="/public/img/top-avatar.png">
+        <img class="top-avatar" [src]="user.getAvatarSmallUrl()">
       </div>
       <div class="top-avatar-more dropdown-button"
            materialize='dropdown'
@@ -42,7 +42,7 @@
         <li>
           <a [routerLink]="['/account']">Мой профиль</a></li>
         <li>
-          <a [routerLink]="['/account']">Анкета</a></li>
+          <a [routerLink]="['/questionnaire']">Анкета</a></li>
         <li class="divider"></li>
         <li><a [routerLink]="['/login']">Выйти</a></li>
       </ul>

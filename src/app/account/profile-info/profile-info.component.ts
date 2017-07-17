@@ -27,12 +27,9 @@ export class ProfileInfoComponent implements OnInit, AfterViewInit {
     this.uploader = new FileUploader({
       url: this.apiService.apiServerUrl + 'user/upload',
       additionalParameter: {'token': this.apiService.accessToken},
-      autoUpload: true,
     });
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-
-
-    console.log(this.uploader);
+    this.uploader.onSuccessItem = (file) => { this.userService.renewUserFromServer(); };
   }
 
   ngAfterViewInit(): void {

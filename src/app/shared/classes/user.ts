@@ -1,4 +1,5 @@
 import { IUser, IUserInfoFromServer, IUserLeftMenuItem, IUserLogin } from '../../../interfaces';
+import { HelpersService } from '../services/helpers.service';
 
 export class User implements IUser {
   typeValue: 'doctor' | 'patient' = 'patient';
@@ -20,6 +21,7 @@ export class User implements IUser {
   birthYear = '1910';
   male = '1';
   avatar = '';
+  avatarSmall = '';
   id = '';
   password = '';
 
@@ -31,6 +33,9 @@ export class User implements IUser {
   constructor(user?: IUserInfoFromServer) {
     if (user) {
       user.user_info.type.replace('pacient', 'patient');
+
+      this.avatar = HelpersService.deepFind(user, 'avatar.big') || '';
+      this.avatarSmall = HelpersService.deepFind(user, 'avatar.min') || '';
 
       switch (this.type) {
         case 'patient':
@@ -53,8 +58,13 @@ export class User implements IUser {
   }
 
   getAvatarUrl(): string {
-    if (this.avatar) return this.avatar;
+    if (this.avatar) return `http://api.biogenom.ru/${this.avatar}`;
     return this.isDoctor() ? '/public/img/doctor-main-avatar.png' : '/public/img/main-avatar.png';
+  }
+
+  getAvatarSmallUrl(): string {
+    if (this.avatarSmall) return `http://api.biogenom.ru/${this.avatarSmall}`;
+    return this.isDoctor() ? '/public/img/top-avatar.png' : '/public/img/top-avatar.png';
   }
 
   getLeftMenu(): IUserLeftMenuItem[] {
