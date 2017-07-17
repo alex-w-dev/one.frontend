@@ -50,7 +50,10 @@ export class BellComponent implements OnInit {
   askNoticeCountFromServer() {
     this.apiService.request('user/getusernotices', {'read': 0}).then((data) => {
       let noticeCount = data.result && (data.result.length || Object.keys(data.result).length) || 0;
-      if (noticeCount !== this.noticeCount) this.noticeCount = noticeCount;
+      if (noticeCount !== this.noticeCount) {
+        this.noticeCount = noticeCount;
+        this.getNoticesAllFromServer();
+      }
     }).catch(console.error);
   }
 
@@ -63,6 +66,7 @@ export class BellComponent implements OnInit {
   }
 
   applyNotices(serverNotics) {
+    this.notices = [];
     Object.keys(serverNotics).forEach(noticeKey => {
       let serverNotice = serverNotics[noticeKey];
       this.notices.push({
@@ -108,7 +112,7 @@ export class BellComponent implements OnInit {
   disconnectPacientFromDoctor(notice: INotice) {
     if (this.user.isPatient()) {
       this.apiService.request('user/disconnectpacientfromdoctor', {doctor_id: notice.extra_data.doctor_id, pacient_id: this.user.id}).then((data) => {
-        if (data.success) this.dialogService.alert('Вы запретили показывать вашу четную запиь доктору (ИД ' + data.result.doctor_id + ')');
+        if (data.success) this.dialogService.alert('Вы запретили показывать вашу четную запиь доктору (ИД ' + notice.extra_data.doctor_id + ')');
         this.dialogService.alert('Вы запретили показывать вашу четную запиь доктору (ИД ' + notice.extra_data.doctor_id + ')');
       });
     }

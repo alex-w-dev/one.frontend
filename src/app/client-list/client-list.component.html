@@ -30,25 +30,26 @@
       </div>
       <div class="client-list-table-row" *ngFor="let client of clients">
         <div class="client-list-table-cell client-list-table-cell__name">
-          <div class="client-list-table-cell__name-img"
-               *ngIf="client.img">
-            <img [src]="client.img"
+          <div class="client-list-table-cell__name-img small-avatar"
+               *ngIf="client.avatarSmall">
+            <img [src]="client.getAvatarSmallUrl()"
                  alt="">
           </div>
-          <div class="client-list-table-cell__name-name">{{client.name}}</div>
+          <div class="client-list-table-cell__name-name">{{client.username}}</div>
         </div>
         <div class="client-list-table-cell client-list-table-cell__date">
-          <span>{{client.lastSurvey}}</span>
+          <span>(not served)</span>
         </div>
         <div class="client-list-table-cell client-list-table-cell__date">
-          <span>{{client.lastAppointment}}</span>
+          <span>(not served)</span>
         </div>
         <div class="client-list-table-cell client-list-table-cell__access">
           <div class="client-list-table-cell__access-img"
-               [ngSwitch]="client.access">
-            <img src="../../public/img/client-list-access-forbid.png" *ngSwitchCase="false" alt="">
-            <img src="../../public/img/client-list-access-allow.png" *ngSwitchCase="true" alt="">
-            <img src="../../public/img/client-list-access-unknown.png" *ngSwitchDefault alt="">
+               [ngSwitch]="client.approved">
+            <!-- TODO: check 3 pieces of approved -->
+            <img src="../../public/img/client-list-access-unknown.png" *ngSwitchCase="0" alt="">
+            <img src="../../public/img/client-list-access-allow.png" *ngSwitchCase="1" alt="">
+            <img src="../../public/img/client-list-access-forbid.png" *ngSwitchDefault alt="">
           </div>
         </div>
       </div>

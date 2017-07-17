@@ -4,14 +4,7 @@ import { UserService } from '../shared/services/user.service';
 import { User } from '../shared/classes/user';
 import { DialogService } from '../shared/services/dialog/dialog.service';
 import { HelpersService } from '../shared/services/helpers.service';
-
-interface IClientListClient {
-  img: string;
-  name: string;
-  lastSurvey: string; // date
-  lastAppointment: string; // date
-  access?: boolean;
-}
+import { IUser } from '../../interfaces';
 
 @Component({
   selector: 'app-client-list',
@@ -24,7 +17,7 @@ export class ClientListComponent implements OnInit {
 
   user: User;
 
-  clients: IClientListClient[] = [];
+  clients: IUser[] = [];
 
   constructor(
     private apiService: ApiService,
@@ -39,25 +32,16 @@ export class ClientListComponent implements OnInit {
     this.userService.userLoaded.subscribe(() => {
       this.getPatientList();
     });
-
-    for (let i = 1; i < 11; i++) {
-      this.clients.push({
-        img: '../../public/img/client-list-avatear.png',
-        name: `Пручковская Маргарита Сергеевна`,
-        lastSurvey: `${i}.01.2017`,
-        lastAppointment: `${i}.04.2017`,
-        access: i % 2 ? !!(i % 3) : undefined,
-      });
-    }
   }
 
   getPatientList() {
     if (! this.user) return;
-    this.apiService.request('user/getdoctorspacients').then(data => {
-      console.log(data);
-    });
-    this.apiService.request('user/getdoctorspacients').then(data => {
-      console.log(data);
+    this.apiService.request('user/getdoctorspacients', { approved: 'all' }).then(data => {
+      if (data.success && data.result) {
+        Object.keys(data.result).forEach(serverUserId => {
+          this.clients.push(new User(data.result[serverUserId]));
+        });
+      }
     });
   }
 
@@ -69,7 +53,7 @@ export class ClientListComponent implements OnInit {
           pacient_id: this.patientId,
         })
         .then(data => {
-          if (data.success) this.dialogService.alert('Все хорошо. Данные пользователя запрошены!');
+          if (data.success) this.getPatientList();
           else this.dialogService.alert(HelpersService.deepFind(data, 'result.doctor_id.0') || 'Что-то пошло не так. ...');
 
         })

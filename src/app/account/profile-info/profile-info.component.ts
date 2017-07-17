@@ -29,7 +29,11 @@ export class ProfileInfoComponent implements OnInit, AfterViewInit {
       additionalParameter: {'token': this.apiService.accessToken},
     });
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onSuccessItem = (file) => { this.userService.renewUserFromServer(); };
+    this.uploader.onSuccessItem = (file) => {
+      setTimeout(() => {
+        this.userService.renewUserFromServer();
+      }, 1000);
+    };
   }
 
   ngAfterViewInit(): void {

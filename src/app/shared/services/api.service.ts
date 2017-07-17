@@ -38,7 +38,7 @@ export class ApiService {
     }
   }
 
-  request(route: string, data: any = {}, type: 'file' | 'data' = 'data'): Promise<any> {
+  request(route: string, data: any = {}, type: 'file' | 'data' = 'data'): Promise<{ success: boolean, result: any}> {
     route = this.apiServerUrl + route;
 
     let headers;

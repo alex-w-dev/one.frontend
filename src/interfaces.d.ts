@@ -21,6 +21,7 @@ export interface IUser {
 
   password?: string;
   promo?: string;
+  approved?: string;
 
   avatar?: string;
   avatarSmall?: string;
