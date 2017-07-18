@@ -7,10 +7,15 @@ import { Observable } from 'rxjs/Observable';
 export class ApiService {
 
   accessToken: string;
-  apiServerUrl: string = 'http://api.biogenom.ru/api/';
+  apiServerUrl: string;
+  locationProtocol: string;
 
   constructor(private http: Http,
               private router: Router) {
+    this.locationProtocol = window.location.protocol;
+
+    this.apiServerUrl = this.locationProtocol + '//api.biogenom.ru/api/';
+
     this.accessToken = localStorage.getItem('accessToken');
   }
 

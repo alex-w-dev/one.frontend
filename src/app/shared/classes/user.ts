@@ -29,8 +29,12 @@ export class User implements IUser {
   license = '';
   district_name = '';
 
+  private locationProtocol: string;
+
 
   constructor(user?: IUserInfoFromServer) {
+    this.locationProtocol = window.location.protocol;
+
     if (user) {
       user.user_info.type.replace('pacient', 'patient');
 
@@ -58,12 +62,12 @@ export class User implements IUser {
   }
 
   getAvatarUrl(): string {
-    if (this.avatar) return `http://api.biogenom.ru/${this.avatar}`;
+    if (this.avatar) return `${this.locationProtocol}//api.biogenom.ru/${this.avatar}`;
     return this.isDoctor() ? '/public/img/doctor-main-avatar.png' : '/public/img/main-avatar.png';
   }
 
   getAvatarSmallUrl(): string {
-    if (this.avatarSmall) return `http://api.biogenom.ru/${this.avatarSmall}`;
+    if (this.avatarSmall) return `${this.locationProtocol}//api.biogenom.ru/${this.avatarSmall}`;
     return this.isDoctor() ? '/public/img/top-avatar.png' : '/public/img/top-avatar.png';
   }
 
