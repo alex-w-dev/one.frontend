@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   passwordInputType: 'text'|'password' = 'password';
 
-  /* example : {username: 'Fio is required'} */
+  /* example : {email: 'Fio is required'} */
   formErrors = {} as any;
 
   firstFormChecked: boolean = false;

@@ -39,11 +39,4 @@ export class ProfileInfoComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
 
-  uploadAvatar(element: HTMLInputElement): void {
-    this.apiService.fileLoadingFormInput('user/upload', element).then(data => {
-      console.log(data);
-    }).catch(console.error);
-
-  }
-
 }

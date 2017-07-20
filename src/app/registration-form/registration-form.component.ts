@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../shared/services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../shared/classes/user';
+import { ApiService } from '../shared/services/api.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -28,13 +29,13 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
 
   active = true;
 
-  /* example : {username: 'Fio is required'} */
+  /* example : {name: 'Name is required'} */
   formErrors = {} as any;
 
   registrationForm: NgForm;
   @ViewChild('registrationForm') currentForm: NgForm;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private apiService: ApiService, private router: Router) {
     this.birthDays = [];
     this.birthDays.push({
       value: '0',
@@ -71,12 +72,32 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
       {value: 'Ноябрь', text: 'Ноябрь'},
       {value: 'Декабрь', text: 'Декабрь'},
     ];
+  }
+
+  ngOnInit() {
+    this.renewDistrictsList();
+  }
+
+  renewDistrictsList() {
     this.districtNames = [
       {value: '0', text: 'Регоин проживания'},
-      {value: 'Российская Федерация', text: 'Российская Федерация'},
-      {value: 'Алтайский край', text: 'Алтайский край'},
-      {value: 'Алейский район', text: 'Алейский район'},
     ];
+    /* TODO; too long initialisation - needs to FIX */
+    let limit: number = 0;
+    this.apiService.request('settings/districts').then(data => {
+      if (data.success && data.result) {
+        Object.keys(data.result).forEach(districtKey => {
+
+          if (limit > 10) return;
+          limit++;
+
+          this.districtNames.push({
+            value: data.result[districtKey]['dist_name'], // code
+            text: data.result[districtKey]['dist_name'],
+          });
+        });
+      }
+    });
   }
 
 
@@ -117,10 +138,6 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
     this.registrationForm = this.currentForm;
     this.registrationForm.valueChanges.subscribe(value => {
     });
-  }
-
-  ngOnInit() {
-
   }
 
 }

@@ -2,10 +2,15 @@
       *ngIf="user"
       #registrationForm="ngForm"
       (ngSubmit)="onSubmit()">
-  <text-input [(ngModel)]="user.username"
-              [name]="'username'"
-              [(errorText)]="formErrors.username"
-              [placeholder]="'ФИО'"
+  <text-input [(ngModel)]="user.name"
+              [name]="'name'"
+              [(errorText)]="formErrors.name"
+              [placeholder]="'Имя'"
+              ngDefaultControl></text-input>
+  <text-input [(ngModel)]="user.surname"
+              [name]="'surname'"
+              [(errorText)]="formErrors.surname"
+              [placeholder]="'Фамилия'"
               ngDefaultControl></text-input>
   <div class="text-left registration-label">
     Дата рождения
@@ -83,7 +88,8 @@
                 [className]="'field-registrationform-district_name'"
                 [(errorText)]="formErrors.district_name"
                 ngDefaultControl></select-input>
-  <text-input [(ngModel)]="user.email"
+  <text-input *ngIf="!isEditMode"
+              [(ngModel)]="user.email"
               [name]="'email'"
               [(errorText)]="formErrors.email"
               [className]="'field-registrationform-email'"

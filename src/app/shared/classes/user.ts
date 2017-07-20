@@ -13,7 +13,8 @@ export class User implements IUser {
     this.typeValue = type;
   }
 
-  username = '';
+  name = '';
+  surname = '';
   email = '';
   phone = '';
   birthDay = '1';
@@ -109,7 +110,7 @@ export class User implements IUser {
 }
 
 export class UserLogin implements IUserLogin {
-  username = '';
+  email = '';
 
   constructor() {
   }

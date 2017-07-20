@@ -13,12 +13,14 @@ import { DropDownButtonDirective } from './shared/directives/dropdown-button.dir
 import { AccountModule } from './account/account.module';
 import { ModalWindowModule } from './shared/components/modal/modal.module';
 import { CalendarComponent } from './shared/components/calendar/calendar.component';
+import { PageInDev2Component } from './page-in-dev2/page-in-dev2.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     PageInDevComponent,
+    PageInDev2Component,
     DropDownButtonDirective,
   ],
   imports: [

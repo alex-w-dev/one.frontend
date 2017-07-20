@@ -25,6 +25,7 @@ export class ApiService {
   }
 
   deleteAccessToken() {
+    localStorage.removeItem('accessToken');
     this.accessToken = '';
   }
 
@@ -32,35 +33,12 @@ export class ApiService {
     return ['/login', '/registration'].indexOf(location.pathname) !== -1;
   }
 
-  fileLoadingFormInput(route: string, element: HTMLInputElement) {
-    let fileList: FileList = element.files;
-    if (fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData: FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-
-      return this.request(route, formData, 'file');
-    }
-  }
-
-  request(route: string, data: any = {}, type: 'file' | 'data' = 'data'): Promise<{ success: boolean, result: any}> {
+  request(route: string, data: any = {}): Promise<{ success: boolean, result: any}> {
     route = this.apiServerUrl + route;
 
-    let headers;
-    switch (type) {
-      case 'data':
-        headers = new Headers({
-          'Content-Type': 'application/x-www-form-urlencoded'
-        });
-        break;
-      case 'file':
-        headers = new Headers();
-        /** No need to include Content-Type in Angular 4 */
-        headers.append('Content-Type', 'multipart/form-data');
-        headers.append('Accept', 'application/json');
-        break;
-      default: console.error('Unknown data type!');
-    }
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
 
     let options = new RequestOptions({headers: headers});
 

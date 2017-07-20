@@ -9,7 +9,8 @@ export interface IUserLeftMenuItem {
 export interface IUser {
   type: 'doctor' | 'patient';
   id?: string;
-  username: string;
+  name: string;
+  surname: string;
   email: string;
   phone?: string;
   birthDay?: string;
@@ -34,7 +35,7 @@ export interface IUser {
 }
 
 export interface IUserLogin {
-  username: string;
+  email: string;
   password?: string;
 }
 
@@ -51,7 +52,8 @@ export interface IUserInfoFromServer {
     status: number;
     type: string;
     updated: number;
-    username: string;
+    name: string;
+    surname: string;
   };
   pacient_info?: {
     birthString: string,
