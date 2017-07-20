@@ -54,6 +54,7 @@ export interface IUserInfoFromServer {
     updated: number;
     name: string;
     surname: string;
+    patronymic: string;
   };
   pacient_info?: {
     birthString: string,

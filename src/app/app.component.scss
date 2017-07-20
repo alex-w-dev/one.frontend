@@ -454,8 +454,8 @@ h2{
 /*footer */
 
 .small-avatar {
-  width: 63px;
-  height: 63px;
+  width: 59px;
+  height: 59px;
   -moz-border-radius: 50% / 50%;
   -webkit-border-radius: 50% 50%;
   border-radius: 50% / 50%;
@@ -490,6 +490,9 @@ h2{
   padding-left: 0;
   padding-right: 0;
   align-self: flex-start;
+}
+.autocomplete-content.dropdown-content:not(:empty){
+  display: block;
 }
 
 .prfl-avatar > img {
@@ -1100,12 +1103,14 @@ select.form-control option{}
   resize: none;
 }
 
-input[type="radio"]{
+input[type="radio"]:not(:checked), input[type="radio"]:checked{
   position: relative;
   margin: 0;
   width: 16px;
   height: 14px;
   margin-right: 12px;
+  opacity: 1;
+  left: 0;
 }
 .radio{
   display: block;

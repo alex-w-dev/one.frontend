@@ -27,6 +27,7 @@ export class ProfileInfoComponent implements OnInit, AfterViewInit {
     this.uploader = new FileUploader({
       url: this.apiService.apiServerUrl + 'user/upload',
       additionalParameter: {'token': this.apiService.accessToken},
+      autoUpload: true,
     });
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onSuccessItem = (file) => {

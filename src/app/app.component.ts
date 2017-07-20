@@ -6,6 +6,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   styleUrls: [
     // './materilize.rem.scss',
     '../../node_modules/ubuntu-fontface/_ubuntu-base.scss',
+    '../../node_modules/materialize-css/bin/materialize.css',
     '../../node_modules/bootstrap/scss/bootstrap.scss',
     'biogenom-theme.scss',
     'app.component.scss',

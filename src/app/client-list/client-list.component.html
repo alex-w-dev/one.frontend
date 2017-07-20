@@ -3,14 +3,21 @@
     <h2>Список клиентов</h2>
   </div>
   <div class="prfl-row-content">
-    <div class="big-search-box">
-      <input type="text" [(ngModel)]="patientId" placeholder="Добавить пациента по ИД">
-      <div class="search-button" (click)="addPatient()">+</div>
+    <div>
+      <form (submit)="addPatient()">
+        <input type="text"
+               (keyup)="getPossiblePatients()"
+               [(ngModel)]="patientName"
+               materialize="autocomplete"
+               [materializeParams]="possiblePatientsMaterializeParams"
+               [ngModelOptions]="{standalone: true}">
+        <button type="submit" class="btn" [disabled]="!patientId">Добавить пациента</button>
+      </form>
     </div>
     <hr>
     <div class="big-search-box">
       <input type="text" [(ngModel)]="searchValue" placeholder="Поиск по клиенту...">
-      <div class="search-button" (click)="search()"></div>
+      <div class="search-button btn" (click)="search()"></div>
     </div>
 
     <div class="client-list-table">

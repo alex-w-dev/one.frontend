@@ -126,11 +126,13 @@
     <table class="table">
       <thead>
       <tr>
-        <th width="50%">Name</th>
-        <th>Size</th>
-        <th>Progress</th>
+        <th width="50%">Имя файла</th>
+        <th>Размер</th>
+        <th>Прогресс</th>
+        <!--
         <th>Status</th>
         <th>Actions</th>
+        -->
       </tr>
       </thead>
       <tbody>
@@ -142,6 +144,7 @@
             <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
           </div>
         </td>
+        <!--
         <td class="text-center">
           <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
           <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
@@ -161,6 +164,7 @@
             <span class="glyphicon glyphicon-trash"></span> Удалить
           </button>
         </td>
+        -->
       </tr>
       </tbody>
     </table>
