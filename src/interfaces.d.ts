@@ -11,6 +11,7 @@ export interface IUser {
   id?: string;
   name: string;
   surname: string;
+  patronymic: string;
   email: string;
   phone?: string;
   birthDay?: string;
@@ -32,6 +33,7 @@ export interface IUser {
   getLeftMenu?(): IUserLeftMenuItem[];
   getAvatarUrl?(): string;
   getAvatarSmallUrl?(): string;
+  getFio?(): string;
 }
 
 export interface IUserLogin {

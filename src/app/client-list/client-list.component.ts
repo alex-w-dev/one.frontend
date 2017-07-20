@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ApiService } from '../shared/services/api.service';
 import { UserService } from '../shared/services/user.service';
 import { User } from '../shared/classes/user';
@@ -22,6 +22,8 @@ export class ClientListComponent implements OnInit {
   user: User;
 
   clients: IUser[] = [];
+
+  @ViewChild('possiblePatientInput') possiblePatientInput;
 
   possiblePatientsMaterializeParams = [];
   possiblePatientsMaterializeParam;
@@ -84,7 +86,6 @@ export class ClientListComponent implements OnInit {
 
           this.possiblePatientsMaterializeParam.data = materializeData;
           this.possiblePatientsMaterializeParams = [this.possiblePatientsMaterializeParam];
-          console.log(this.possiblePatientsMaterializeParams);
         }
       });
     }, 10);

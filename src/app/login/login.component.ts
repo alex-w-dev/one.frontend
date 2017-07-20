@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../shared/services/user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,8 +10,7 @@ import { UserLogin } from '../shared/classes/user';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-
+export class LoginComponent implements OnInit, OnDestroy {
   passwordInputType: 'text'|'password' = 'password';
 
   /* example : {email: 'Fio is required'} */
@@ -30,6 +29,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.userService.logout();
+  }
+
+  ngOnDestroy(): void {
+    this.currentForm = null;
+    this.loginForm = null;
+    this.firstFormChecked = false;
+    this.submitted = false;
   }
 
   ngAfterViewChecked() {
@@ -56,7 +62,6 @@ export class LoginComponent implements OnInit {
       .catch((data) => {
         this.formErrors = data.result;
       });
-    this.submitted = true;
   }
 
 }

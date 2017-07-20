@@ -6,12 +6,13 @@
     <div>
       <form (submit)="addPatient()">
         <input type="text"
+               #possiblePatientInput
                (keyup)="getPossiblePatients()"
                [(ngModel)]="patientName"
                materialize="autocomplete"
                [materializeParams]="possiblePatientsMaterializeParams"
                [ngModelOptions]="{standalone: true}">
-        <button type="submit" class="btn" [disabled]="!patientId">Добавить пациента</button>
+        <button type="submit" class="btn" [disabled]="!patientId">Запросить</button>
       </form>
     </div>
     <hr>
@@ -42,7 +43,7 @@
             <img [src]="client.getAvatarSmallUrl()"
                  alt="">
           </div>
-          <div class="client-list-table-cell__name-name">{{client.name}}</div>
+          <div class="client-list-table-cell__name-name">{{client.getFio()}}</div>
         </div>
         <div class="client-list-table-cell client-list-table-cell__date">
           <span>(not served)</span>

@@ -35,7 +35,10 @@ export class UserService {
   }
 
   getUser(component?: any): IUser {
-    if (component) this.userLoaded.subscribe(user => component.user = user);
+    if (component) {
+      component.user = this.user;
+      this.userLoaded.subscribe(user => component.user = user);
+    }
     return this.user;
   }
 

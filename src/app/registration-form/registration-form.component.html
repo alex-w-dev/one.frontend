@@ -12,6 +12,11 @@
               [(errorText)]="formErrors.surname"
               [placeholder]="'Фамилия'"
               ngDefaultControl></text-input>
+  <text-input [(ngModel)]="user.patronymic"
+              [name]="'patronymic'"
+              [(errorText)]="formErrors.patronymic"
+              [placeholder]="'Отчество'"
+              ngDefaultControl></text-input>
   <div class="text-left registration-label">
     Дата рождения
   </div>

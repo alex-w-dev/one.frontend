@@ -15,6 +15,7 @@ export class User implements IUser {
 
   name = '';
   surname = '';
+  patronymic = '';
   email = '';
   phone = '';
   birthDay = '1';
@@ -56,7 +57,13 @@ export class User implements IUser {
       let tempUser = new User();
       let self = this;
       Object.keys(tempUser).forEach(tempUserParameterName => {
-        if (typeof tempUser[tempUserParameterName] === 'string') self[tempUserParameterName] = self[tempUserParameterName].toString();
+        if (
+          tempUser &&
+          self &&
+          self[tempUserParameterName] &&
+          tempUser[tempUserParameterName] &&
+          typeof tempUser[tempUserParameterName] === 'string'
+        ) self[tempUserParameterName] = self[tempUserParameterName].toString();
       });
 
     }
@@ -65,6 +72,10 @@ export class User implements IUser {
   getAvatarUrl(): string {
     if (this.avatar) return `${this.locationProtocol}//api.biogenom.ru/${this.avatar}`;
     return this.isDoctor() ? '/public/img/doctor-main-avatar.png' : '/public/img/main-avatar.png';
+  }
+
+  getFio(user: IUser = this): string {
+    return `${user.surname || ''} ${user.name || ''} ${user.patronymic || ''}`;
   }
 
   getAvatarSmallUrl(): string {
