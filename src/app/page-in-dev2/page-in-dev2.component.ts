@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../shared/services/api.service';
+import { DialogService } from '../shared/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-page-in-dev2',
@@ -7,9 +9,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageInDev2Component implements OnInit {
 
-  constructor() { }
+  fields: {name: string, value: string}[] = [];
+
+  method: string = '';
+
+  useAccessToken: boolean = true;
+
+  token;
+
+  constructor(private apiService: ApiService, private dialogService: DialogService) { }
 
   ngOnInit() {
+    this.addField();
+
+    this.token = this.getToken();
+  }
+
+  getToken() {
+    return this.apiService.accessToken;
+  }
+
+  addField() {
+    this.fields.push({
+      name: '',
+      value: ''
+    });
+  }
+
+  testApi() {
+    if (!this.method) {
+      this.dialogService.alert('метод обязателен!');
+      return;
+    }
+
+    let data = {};
+
+    this.fields.forEach(field => {
+      if (field.name) {
+        data[field.name] = field.value;
+      }
+    });
+
+    this.apiService.request(this.method, data, (this.getToken() && !this.useAccessToken));
   }
 
 }

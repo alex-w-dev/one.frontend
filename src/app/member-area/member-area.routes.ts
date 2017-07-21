@@ -7,6 +7,7 @@ import { PageInDevComponent } from '../page-in-dev/page-in-dev.component';
 import { ClientListComponent } from '../client-list/client-list.component';
 import { CooperationComponent } from '../cooperation/cooperation.component';
 import { ScheduleComponent } from '../schedule/schedule.component';
+import { PageInDev2Component } from '../page-in-dev2/page-in-dev2.component';
 
 export const memberAreaRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -49,6 +50,9 @@ export const memberAreaRoutes: Routes = [
   },
   { path: 'dev',
     component: PageInDevComponent,
+  },
+  { path: 'dev2',
+    component: PageInDev2Component,
   },
   { path: '**', component: PageNotFoundComponent }
 ];

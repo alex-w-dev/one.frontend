@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { INotice, IUser } from '../../../interfaces';
 import { ApiService } from '../../shared/services/api.service';
 import { UserService } from '../../shared/services/user.service';
@@ -9,7 +9,7 @@ import { DialogService } from '../../shared/services/dialog/dialog.service';
   templateUrl: './bell.component.html',
   styleUrls: ['./bell.component.scss']
 })
-export class BellComponent implements OnInit {
+export class BellComponent implements OnInit, OnDestroy {
   user: IUser;
 
   notices: INotice[] = [];
@@ -38,6 +38,10 @@ export class BellComponent implements OnInit {
 
     this.askNoticeCountFromServer();
     this.startNoticeAsk();
+  }
+
+  ngOnDestroy(): void {
+    if (this.noticeAskingInterval) clearInterval(this.noticeAskingInterval);
   }
 
   startNoticeAsk(): void {

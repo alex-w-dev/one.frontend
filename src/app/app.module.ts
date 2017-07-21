@@ -14,13 +14,13 @@ import { AccountModule } from './account/account.module';
 import { ModalWindowModule } from './shared/components/modal/modal.module';
 import { CalendarComponent } from './shared/components/calendar/calendar.component';
 import { PageInDev2Component } from './page-in-dev2/page-in-dev2.component';
+import { PageInDev2Module } from './page-in-dev2/page-in-dev2.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     PageInDevComponent,
-    PageInDev2Component,
     DropDownButtonDirective,
   ],
   imports: [
@@ -29,6 +29,7 @@ import { PageInDev2Component } from './page-in-dev2/page-in-dev2.component';
     RouterModule,
     AccountModule,
     ModalWindowModule,
+    PageInDev2Module,
   ],
   exports: [
     BrowserModule,

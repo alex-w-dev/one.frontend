@@ -1,3 +1,39 @@
 <div class="row">
-  as
+  <div class="form-group">
+    <div class="btn"
+         (click)="addField()">Добавить поле</div>
+  </div>
+  <div class="form-group use-access" *ngIf="getToken()">
+    <label>
+      <span>Использовать токен?</span>
+      <input type="checkbox"
+             [(ngModel)]="useAccessToken">
+    </label>
+  </div>
+</div>
+<div class="row">
+  <table>
+    <tr>
+      <td><input type="text" [(ngModel)]="method"> </td>
+      <td>(писать то что будет после http://api.biogenom.ru/api/)</td>
+    </tr>
+  </table>
+</div>
+<div class="row">
+  <table>
+    <tr>
+      <th>Ключ</th>
+      <th>Значение</th>
+    </tr>
+    <tr *ngFor="let field of fields">
+      <td><input type="text" [(ngModel)]="field.name"></td>
+      <td><input type="text" [(ngModel)]="field.value"></td>
+    </tr>
+  </table>
+</div>
+<div class="row">
+  <div class="button"
+       (click)="testApi()">
+    Тест
+  </div>
 </div>

@@ -30,10 +30,10 @@ export class ApiService {
   }
 
   isPublicPage(): boolean {
-    return ['/login', '/registration'].indexOf(location.pathname) !== -1;
+    return ['/login', '/dev', '/dev2', '/registration'].indexOf(location.pathname) !== -1;
   }
 
-  request(route: string, data: any = {}): Promise<{ success: boolean, result: any}> {
+  request(route: string, data: any = {}, ignoreToken?: boolean): Promise<{ success: boolean, result: any}> {
     route = this.apiServerUrl + route;
 
     let headers = new Headers({
@@ -46,7 +46,7 @@ export class ApiService {
     let request;
 
     let postBody = new URLSearchParams();
-    if (this.accessToken) postBody.append('token', this.accessToken);
+    if (this.accessToken && !ignoreToken) postBody.append('token', this.accessToken);
 
     Object.keys(data).forEach(key => {
       let dataType = typeof data[key];

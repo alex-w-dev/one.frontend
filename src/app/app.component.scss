@@ -1103,14 +1103,18 @@ select.form-control option{}
   resize: none;
 }
 
-input[type="radio"]:not(:checked), input[type="radio"]:checked{
+input[type="radio"]:not(:checked), input[type="radio"]:checked,
+input[type="checkbox"]:not(:checked), input[type="checkbox"]:checked{
   position: relative;
+  opacity: 1;
+  left: 0;
+}
+
+input[type="radio"]:not(:checked), input[type="radio"]:checked{
   margin: 0;
   width: 16px;
   height: 14px;
   margin-right: 12px;
-  opacity: 1;
-  left: 0;
 }
 .radio{
   display: block;
