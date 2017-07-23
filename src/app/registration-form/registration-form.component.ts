@@ -37,21 +37,13 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
 
   constructor(private userService: UserService, private apiService: ApiService, private router: Router) {
     this.birthDays = [];
-    this.birthDays.push({
-      value: '0',
-      text: 'День',
-    });
     for (let i = 1; i <= 31; i++) {
       this.birthDays.push({
-        value: i.toString(),
+        value: (i < 10 ) ? '0' + i.toString() : i.toString(),
         text: i.toString(),
       });
     }
     this.birthYears = [];
-    this.birthDays.push({
-      value: '0',
-      text: 'Год',
-    });
     for (let i = 1910; i <= 2017; i++) {
       this.birthYears.push({
         value: i.toString(),
@@ -59,18 +51,18 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
       });
     }
     this.birthMonths = [
-      {value: 'Январь', text: 'Январь'},
-      {value: 'Февраль', text: 'Февраль'},
-      {value: 'Март', text: 'Март'},
-      {value: 'Апрель', text: 'Апрель'},
-      {value: 'Май', text: 'Май'},
-      {value: 'Июнь', text: 'Июнь'},
-      {value: 'Июль', text: 'Июль'},
-      {value: 'Август', text: 'Август'},
-      {value: 'Сентябрь', text: 'Сентябрь'},
-      {value: 'Октябрь', text: 'Октябрь'},
-      {value: 'Ноябрь', text: 'Ноябрь'},
-      {value: 'Декабрь', text: 'Декабрь'},
+      {value: '01', text: 'Январь'},
+      {value: '02', text: 'Февраль'},
+      {value: '03', text: 'Март'},
+      {value: '04', text: 'Апрель'},
+      {value: '05', text: 'Май'},
+      {value: '06', text: 'Июнь'},
+      {value: '07', text: 'Июль'},
+      {value: '08', text: 'Август'},
+      {value: '09', text: 'Сентябрь'},
+      {value: '10', text: 'Октябрь'},
+      {value: '11', text: 'Ноябрь'},
+      {value: '12', text: 'Декабрь'},
     ];
   }
 
@@ -92,7 +84,7 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
           limit++;
 
           this.districtNames.push({
-            value: data.result[districtKey]['dist_name'], // code
+            value: data.result[districtKey]['dist_code'], // code
             text: data.result[districtKey]['dist_name'],
           });
         });

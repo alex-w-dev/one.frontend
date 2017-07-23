@@ -2,7 +2,7 @@ import { IUser, IUserInfoFromServer, IUserLeftMenuItem, IUserLogin } from '../..
 import { HelpersService } from '../services/helpers.service';
 
 export class User implements IUser {
-  typeValue: 'doctor' | 'patient' = 'patient';
+  typeValue = 'patient';
   get type() {
     return this.typeValue;
   }
@@ -18,8 +18,8 @@ export class User implements IUser {
   patronymic = '';
   email = '';
   phone = '';
-  birthDay = '1';
-  birthMonth = 'Январь';
+  birthDay = '01';
+  birthMonth = '01';
   birthYear = '1910';
   male = '1';
   avatar = '';
@@ -29,7 +29,7 @@ export class User implements IUser {
 
   promo = '';
   license = '';
-  district_name = '';
+  district_code = '';
 
   private locationProtocol: string;
 
@@ -38,7 +38,7 @@ export class User implements IUser {
     this.locationProtocol = window.location.protocol;
 
     if (user) {
-      user.user_info.type.replace('pacient', 'patient');
+      this.type = user.user_info.type;
 
       this.avatar = HelpersService.deepFind(user, 'avatar.big') || '';
       this.avatarSmall = HelpersService.deepFind(user, 'avatar.min') || '';
@@ -51,6 +51,7 @@ export class User implements IUser {
           Object.assign(this, user.doctor_info);
       }
 
+console.log(this.type, user.doctor_info, this.license)
       Object.assign(this, user.user_info);
 
       /* check string values from server */
@@ -61,9 +62,20 @@ export class User implements IUser {
           tempUser &&
           self &&
           self[tempUserParameterName] &&
-          tempUser[tempUserParameterName] &&
+          typeof tempUser[tempUserParameterName] !== 'undefined' &&
           typeof tempUser[tempUserParameterName] === 'string'
-        ) self[tempUserParameterName] = self[tempUserParameterName].toString();
+        ) {
+          self[tempUserParameterName] = self[tempUserParameterName].toString();
+          if (self[tempUserParameterName] === 'null' || self[tempUserParameterName] === 'false') self[tempUserParameterName] = '';
+        }
+
+        // if (
+        //   tempUser &&
+        //   self &&
+        //   !self[tempUserParameterName]
+        // ) {
+        //
+        // }
       });
 
     }
@@ -74,13 +86,13 @@ export class User implements IUser {
     return this.isDoctor() ? '/public/img/doctor-main-avatar.png' : '/public/img/main-avatar.png';
   }
 
-  getFio(user: IUser = this): string {
-    return `${user.surname || ''} ${user.name || ''} ${user.patronymic || ''}`;
-  }
-
   getAvatarSmallUrl(): string {
     if (this.avatarSmall) return `${this.locationProtocol}//api.biogenom.ru/${this.avatarSmall}`;
-    return this.isDoctor() ? '/public/img/top-avatar.png' : '/public/img/top-avatar.png';
+    return this.isDoctor() ? '/public/img/doctor-main-avatar.png' : '/public/img/main-avatar.png';
+  }
+
+  getFio(user: IUser = this): string {
+    return `${user.surname || ''} ${user.name || ''} ${user.patronymic || ''}`;
   }
 
   getLeftMenu(): IUserLeftMenuItem[] {

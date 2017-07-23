@@ -7,7 +7,7 @@ export interface IUserLeftMenuItem {
 }
 
 export interface IUser {
-  type: 'doctor' | 'patient';
+  type: 'doctor' | 'patient' | string;
   id?: string;
   name: string;
   surname: string;
@@ -18,7 +18,7 @@ export interface IUser {
   birthMonth?: string;
   birthYear?: string;
   male?: '0' | '1' | string;  // 0 - female | 1 male
-  district_name?: string;
+  district_code?: string;
   license?: string;
 
   password?: string;

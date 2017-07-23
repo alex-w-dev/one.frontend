@@ -19,7 +19,8 @@
         <span *ngSwitchCase="'doctor_pacient_connect'">
           <span *ngIf="user.isPatient()">Доктор (ИД: {{notice.extra_data.doctor_id}}) просит у Вас доступы</span>
           <span *ngIf="user.isDoctor()">Пациент (ИД: {{notice.extra_data.pacient_id}}) просит у Вас доступы</span>
-          <span class="notice-actions">
+          <!--  TODO: изменить это в будущем - тут строго акшоны только у пациента -->
+          <span class="notice-actions" *ngIf="user.isPatient()">
             <span class="notice-action" (click)="approveConnection(notice)">Подтвердить</span> |
             <span class="notice-action" (click)="disconnectPacientFromDoctor(notice)">Отказать</span>
           </span>

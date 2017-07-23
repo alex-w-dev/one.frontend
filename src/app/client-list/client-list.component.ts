@@ -119,6 +119,7 @@ export class ClientListComponent implements OnInit {
             this.patientId = '';
             this.patientName = '';
             this.getPatientList();
+            this.dialogService.alert('Ваш запрос успешно отправлен!');
           } else {
             this.dialogService.alert(HelpersService.deepFind(data, 'result.doctor_id.0') || 'Что-то пошло не так. ...');
           }

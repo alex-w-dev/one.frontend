@@ -87,11 +87,11 @@
               [placeholder]="'Лицензия'"
               ngDefaultControl></text-input>
   <select-input *ngIf="user.isPatient()"
-                [(ngModel)]="user.district_name"
-                [name]="'district_name'"
+                [(ngModel)]="user.district_code"
+                [name]="'district_code'"
                 [options]="districtNames"
-                [className]="'field-registrationform-district_name'"
-                [(errorText)]="formErrors.district_name"
+                [className]="'field-registrationform-district_code'"
+                [(errorText)]="formErrors.district_code"
                 ngDefaultControl></select-input>
   <text-input *ngIf="!isEditMode"
               [(ngModel)]="user.email"

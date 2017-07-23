@@ -10,15 +10,11 @@
                (keyup)="getPossiblePatients()"
                [(ngModel)]="patientName"
                materialize="autocomplete"
+               placeholder="Введите ИД или ФИО"
                [materializeParams]="possiblePatientsMaterializeParams"
                [ngModelOptions]="{standalone: true}">
         <button type="submit" class="btn" [disabled]="!patientId">Запросить</button>
       </form>
-    </div>
-    <hr>
-    <div class="big-search-box">
-      <input type="text" [(ngModel)]="searchValue" placeholder="Поиск по клиенту...">
-      <div class="search-button btn" (click)="search()"></div>
     </div>
 
     <div class="client-list-table">
