@@ -7,7 +7,7 @@ export interface IUserLeftMenuItem {
 }
 
 export interface IUser {
-  type: 'doctor' | 'patient' | string;
+  type: 'doctor' | 'patient' | 'partner' | string;
   id?: string;
   name: string;
   surname: string;
@@ -29,6 +29,7 @@ export interface IUser {
   avatarSmall?: string;
 
   isDoctor?(): boolean;
+  isPartner?(): boolean;
   isPatient?(): boolean;
   getLeftMenu?(): IUserLeftMenuItem[];
   getAvatarUrl?(): string;

@@ -27,6 +27,11 @@ export class RegistrationComponent implements OnInit {
       value: 'doctor',
       text: 'Доктор',
     });
+    this.roleTypes.push({
+      value: 'partner',
+      text: 'Партнер',
+    });
+    console.log(this.roleTypes);
   }
 
   ngOnInit() {

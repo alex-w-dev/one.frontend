@@ -51,7 +51,6 @@ export class User implements IUser {
           Object.assign(this, user.doctor_info);
       }
 
-console.log(this.type, user.doctor_info, this.license)
       Object.assign(this, user.user_info);
 
       /* check string values from server */
@@ -61,21 +60,13 @@ console.log(this.type, user.doctor_info, this.license)
         if (
           tempUser &&
           self &&
-          self[tempUserParameterName] &&
-          typeof tempUser[tempUserParameterName] !== 'undefined' &&
+          typeof self[tempUserParameterName] === 'number' &&
           typeof tempUser[tempUserParameterName] === 'string'
         ) {
           self[tempUserParameterName] = self[tempUserParameterName].toString();
-          if (self[tempUserParameterName] === 'null' || self[tempUserParameterName] === 'false') self[tempUserParameterName] = '';
         }
 
-        // if (
-        //   tempUser &&
-        //   self &&
-        //   !self[tempUserParameterName]
-        // ) {
-        //
-        // }
+        if (self[tempUserParameterName] === 'null' || self[tempUserParameterName] === 'false') self[tempUserParameterName] = '';
       });
 
     }
@@ -83,12 +74,24 @@ console.log(this.type, user.doctor_info, this.license)
 
   getAvatarUrl(): string {
     if (this.avatar) return `${this.locationProtocol}//api.biogenom.ru/${this.avatar}`;
-    return this.isDoctor() ? '/public/img/doctor-main-avatar.png' : '/public/img/main-avatar.png';
+    switch (this.type) {
+      case 'doctor':
+      case 'partner':
+        return '/public/img/doctor-main-avatar.png';
+      default:
+        return '/public/img/main-avatar.png';
+    }
   }
 
   getAvatarSmallUrl(): string {
     if (this.avatarSmall) return `${this.locationProtocol}//api.biogenom.ru/${this.avatarSmall}`;
-    return this.isDoctor() ? '/public/img/doctor-main-avatar.png' : '/public/img/main-avatar.png';
+    switch (this.type) {
+      case 'doctor':
+      case 'partner':
+        return '/public/img/doctor-main-avatar.png';
+      default:
+        return '/public/img/main-avatar.png';
+    }
   }
 
   getFio(user: IUser = this): string {
@@ -100,8 +103,15 @@ console.log(this.type, user.doctor_info, this.license)
       return [
         {text: 'Мой профиль', link: '/account'},
         {text: 'Список клиентов', link: '/client-list'},
-        {text: 'Рассписание', link: '/schedule'},
+        {text: 'Расписание', link: '/schedule'},
         {text: 'Сотрудничество c Biogenom', link: '/cooperation'},
+      ];
+    }
+
+    if (this.isPartner()) {
+      return [
+        {text: 'Мой профиль', link: '/account'},
+        {text: 'Заполнить анализы', link: '/tests'},
       ];
     }
 
@@ -129,6 +139,10 @@ console.log(this.type, user.doctor_info, this.license)
 
   isDoctor(): boolean {
     return this.type === 'doctor';
+  }
+
+  isPartner(): boolean {
+    return this.type === 'partner';
   }
 }
 

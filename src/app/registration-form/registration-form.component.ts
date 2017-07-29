@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterViewChecked, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ISelectInputOption } from '../shared/components/form/select-input/select-input.component';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../shared/services/user.service';
@@ -34,6 +34,8 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
 
   registrationForm: NgForm;
   @ViewChild('registrationForm') currentForm: NgForm;
+
+  private autoSave;
 
   constructor(private userService: UserService, private apiService: ApiService, private router: Router) {
     this.birthDays = [];
@@ -97,7 +99,6 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
     if (this.isEditMode) {
       this.userService.edit(Object.assign({}, this.registrationForm.value))
         .then((data: any) => {
-          console.log(data);
           this.userService.afterGetUserFromServer(data.result);
         })
         .catch((data) => {
@@ -129,6 +130,12 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
     }
     this.registrationForm = this.currentForm;
     this.registrationForm.valueChanges.subscribe(value => {
+      if (this.isEditMode) {
+        if (this.autoSave) clearTimeout(this.autoSave);
+        this.autoSave = setTimeout(() => {
+          this.onSubmit();
+        }, 1000);
+      }
     });
   }
 

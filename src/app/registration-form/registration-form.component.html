@@ -60,7 +60,7 @@
                    [(ngModel)]="user.male"
                    name="male"
                    required
-                   value="0">
+                   [value]="'0'">
             Женский
           </label>
         </div>
@@ -70,7 +70,7 @@
                    [(ngModel)]="user.male"
                    name="male"
                    required
-                   value="1">
+                   [value]="'1'">
             Мужской
           </label>
         </div>
@@ -86,7 +86,7 @@
               [className]="'field-registrationform-license'"
               [placeholder]="'Лицензия'"
               ngDefaultControl></text-input>
-  <select-input *ngIf="user.isPatient()"
+  <select-input *ngIf="user.isPatient() || user.isPartner() "
                 [(ngModel)]="user.district_code"
                 [name]="'district_code'"
                 [options]="districtNames"

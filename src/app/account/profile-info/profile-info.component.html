@@ -54,7 +54,11 @@
   </div>
   <div class="col-sm-8 prfl-contacts">
     <div class="prfl-main-title mobile-hide">
-      <h1>Личные данные {{user.isDoctor() ? 'доктора' : 'пациента'}}</h1>
+      <ng-container [ngSwitch]="user.type">
+        <h1 *ngSwitchCase="'doctor'">Личные данные доктора</h1>
+        <h1 *ngSwitchCase="'partner'">Личные данные партнера</h1>
+        <h1 *ngSwitchDefault>Личные данные пациента</h1>
+      </ng-container>
     </div>
     <div class="contacts-table" *ngIf="user.isPatient()">
       <table>
@@ -65,7 +69,7 @@
         </tr>
         <tr class="mobile-hide">
           <td>ФИО</td>
-          <td>{{user.name}}</td>
+          <td>{{user.getFio()}}</td>
         </tr>
         <tr class="mobile-hide">
           <td>Телефон</td>
@@ -87,7 +91,29 @@
         </tr>
         <tr class="mobile-hide">
           <td>ФИО</td>
-          <td>{{user.name}}</td>
+          <td>{{user.getFio()}}</td>
+        </tr>
+        <tr class="mobile-hide">
+          <td>Телефон</td>
+          <td>{{user.phone}}</td>
+        </tr>
+        <tr class="mobile-hide">
+          <td>Emaiil</td>
+          <td>{{user.email}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="contacts-table" *ngIf="user.isPartner()">
+      <table>
+        <tbody>
+        <tr class="mobile-hide">
+          <td>Ид</td>
+          <td>{{user.id}}</td>
+        </tr>
+        <tr class="mobile-hide">
+          <td>ФИО</td>
+          <td>{{user.getFio()}}</td>
         </tr>
         <tr class="mobile-hide">
           <td>Телефон</td>

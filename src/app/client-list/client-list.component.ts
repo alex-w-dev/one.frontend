@@ -73,7 +73,7 @@ export class ClientListComponent implements OnInit {
           Object.keys(data.result).forEach(userId => {
             let userInfo = data.result[userId].user_info;
             if (userInfo) {
-              let fio = `${userInfo.surname || ''} ${userInfo.name || ''} ${userInfo.patronymic || ''}`;
+              let fio = `${userInfo.surname || ''} ${userInfo.name || ''} ${userInfo.patronymic || ''} (ид: ${userId})`;
 
               materializeData[fio] = null;
 
@@ -103,6 +103,7 @@ export class ClientListComponent implements OnInit {
         Object.keys(data.result).forEach(serverUserId => {
           this.clients.push(new User(data.result[serverUserId]));
         });
+        console.log(this.clients);
       }
     });
   }

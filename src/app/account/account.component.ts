@@ -25,4 +25,8 @@ export class AccountComponent implements OnInit {
     return this.user && this.user.isDoctor();
   }
 
+  isPartner() {
+    return this.user && this.user.isPartner();
+  }
+
 }
