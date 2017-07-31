@@ -23,6 +23,7 @@ import { ClientListModule } from '../client-list/client-list.module';
 import { CooperationModule } from '../cooperation/cooperation.module';
 import { ScheduleModule } from '../schedule/schedule.module';
 import { DialogService } from '../shared/services/dialog/dialog.service';
+import { TestsModule } from '../tests/tests.module';
 
 
 
@@ -41,6 +42,7 @@ import { DialogService } from '../shared/services/dialog/dialog.service';
     ClientListModule,
     CooperationModule,
     ScheduleModule,
+    TestsModule,
     RouterModule.forRoot(memberAreaRoutes)
   ],
   exports: [
