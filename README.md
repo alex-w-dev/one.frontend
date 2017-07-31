@@ -29,6 +29,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 yarn install - установить пакеты
 
-npm run - запустить приложение (http://localhost:4200) 
+npm start - запустить приложение (http://localhost:4200) 
 
 ng build --env=prod --output-path=../lk2
