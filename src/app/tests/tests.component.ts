@@ -58,8 +58,8 @@ export class TestsComponent implements OnInit {
   }
 
   loadAnketa(id_measure) {
+    console.log(id_measure);
     this.questions = [];
-
     this.apiService.request('account/anketa', {'id_parent': id_measure}).then(data => {
       if (data.success && data.result) {
         Object.keys(data.result.groups).forEach(questionKey => {
@@ -78,7 +78,6 @@ export class TestsComponent implements OnInit {
         });
       }
     });
-    console.log(this.questions);
   }
 
   onSubmit() {
