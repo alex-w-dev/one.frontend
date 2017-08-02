@@ -1,5 +1,15 @@
 
-
+export interface IAnketaQuestion {
+  id_measure: number | string;
+  id_parent: number | string;
+  name: string;
+  typevalue: number | string;
+  sort_order: number | string;
+  age_low: number | string;
+  age_high: number | string;
+  male: number | string;
+  section: number | string;
+}
 
 export interface IUserLeftMenuItem {
   text: string;
