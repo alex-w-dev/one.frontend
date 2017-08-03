@@ -1,7 +1,7 @@
 import { AfterContentChecked, AfterViewChecked, Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ISelectInputOption } from '../shared/components/form/select-input/select-input.component';
 import { NgForm } from '@angular/forms';
-import { IAnketaQuestion } from '../../interfaces';
+import { IAnketaQuestion, ISetTests } from '../../interfaces';
 import { UserService } from '../shared/services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../shared/classes/user';
@@ -18,6 +18,8 @@ export class TestsComponent implements OnInit {
   @Input() roleType: string = 'patient';
 
   questions: IAnketaQuestion[] = [];
+  group: IAnketaQuestion[] = [];
+  answer: ISetTests;
 
   typeValues: string | number = 0;
 
@@ -61,6 +63,7 @@ export class TestsComponent implements OnInit {
     console.log(id_measure);
     this.questions = [];
     this.apiService.request('account/anketa', {'id_parent': id_measure}).then(data => {
+      console.log(data.result);
       if (data.success && data.result && !!data.result.groups) {
         this.typeValues = 0;
         Object.keys(data.result.groups).forEach(questionKey => {
@@ -79,6 +82,18 @@ export class TestsComponent implements OnInit {
       }
       if (data.success && data.result && !!data.result.questions) {
         this.typeValues = 1;
+        this.group.push({
+          id_measure: data.result.group.id_measure,
+          id_parent: data.result.group.id_parent,
+          name: data.result.group.name,
+          typevalue: data.result.group.typevalue,
+          sort_order: data.result.group.sort_order,
+          age_low: data.result.group.age_low,
+          age_high: data.result.group.age_high,
+          male: data.result.group.male,
+          section: data.result.group.section,
+        });
+        console.log(this.group);
         Object.keys(data.result.questions).forEach(questionKey => {
           this.questions.push({
             id_measure: data.result.questions[questionKey]['id_measure'],
@@ -97,26 +112,9 @@ export class TestsComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.isEditMode) {
-      this.userService.edit(Object.assign({}, this.questionsForm.value))
-        .then((data: any) => {
-          this.userService.afterGetUserFromServer(data.result);
-        })
-        .catch((data) => {
-          this.formErrors = data.result;
-        });
-      this.submitted = true;
-    } else {
-      this.userService.register(Object.assign({}, this.questionsForm.value, { type: this.user.type.replace('patient', 'pacient') }))
-        .then((data: any) => {
-          this.userService.afterGetUserFromServer(data.result);
-          this.router.navigate(['/account']);
-        })
-        .catch((data) => {
-          this.formErrors = data.result;
-        });
-      this.submitted = true;
-    }
+    this.apiService.request('account/set-tests-results-for-partners', {}).then(data => {
+
+    });
   }
 
   ngAfterViewChecked() {

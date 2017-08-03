@@ -11,6 +11,17 @@ export interface IAnketaQuestion {
   section: number | string;
 }
 
+export interface ISetAnswer {
+  type_value: number | string;
+  value: number | string;
+  measure_id: number | string;
+}
+
+interface ISetTests extends  ISetAnswer {
+  user_id: number | string;
+  measure_data: ISetAnswer;
+}
+
 export interface IUserLeftMenuItem {
   text: string;
   link: string;
