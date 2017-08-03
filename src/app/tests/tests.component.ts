@@ -30,17 +30,17 @@ export class TestsComponent implements OnInit {
   /* example : {name: 'Name is required'} */
   formErrors = {} as any;
 
-  registrationForm: NgForm;
-  @ViewChild('registrationForm') currentForm: NgForm;
+  questionsForm: NgForm;
+  @ViewChild('questionsForm') currentForm: NgForm;
 
   constructor(private userService: UserService, private apiService: ApiService, private router: Router) {
   }
 
   ngOnInit() {
     this.apiService.request('account/anketa', {'id_parent': 800}).then(data => {
-      if (data.success && data.result) {
+      if (data.success && data.result && !!data.result.groups) {
+        this.typeValues = 0;
         Object.keys(data.result.groups).forEach(questionKey => {
-          this.typeValues = data.result.groups[questionKey]['typevalue'];
           this.questions.push({
             id_measure: data.result.groups[questionKey]['id_measure'],
             id_parent: data.result.groups[questionKey]['id_parent'],
@@ -61,9 +61,9 @@ export class TestsComponent implements OnInit {
     console.log(id_measure);
     this.questions = [];
     this.apiService.request('account/anketa', {'id_parent': id_measure}).then(data => {
-      if (data.success && data.result) {
+      if (data.success && data.result && !!data.result.groups) {
+        this.typeValues = 0;
         Object.keys(data.result.groups).forEach(questionKey => {
-          this.typeValues = data.result.groups[questionKey]['typevalue'];
           this.questions.push({
             id_measure: data.result.groups[questionKey]['id_measure'],
             id_parent: data.result.groups[questionKey]['id_parent'],
@@ -77,12 +77,28 @@ export class TestsComponent implements OnInit {
           });
         });
       }
+      if (data.success && data.result && !!data.result.questions) {
+        this.typeValues = 1;
+        Object.keys(data.result.questions).forEach(questionKey => {
+          this.questions.push({
+            id_measure: data.result.questions[questionKey]['id_measure'],
+            id_parent: data.result.questions[questionKey]['id_parent'],
+            name: data.result.questions[questionKey]['name'],
+            typevalue: data.result.questions[questionKey]['typevalue'],
+            sort_order: data.result.questions[questionKey]['sort_order'],
+            age_low: data.result.questions[questionKey]['age_low'],
+            age_high: data.result.questions[questionKey]['age_high'],
+            male: data.result.questions[questionKey]['male'],
+            section: data.result.questions[questionKey]['section'],
+          });
+        });
+      }
     });
   }
 
   onSubmit() {
     if (this.isEditMode) {
-      this.userService.edit(Object.assign({}, this.registrationForm.value))
+      this.userService.edit(Object.assign({}, this.questionsForm.value))
         .then((data: any) => {
           this.userService.afterGetUserFromServer(data.result);
         })
@@ -91,7 +107,7 @@ export class TestsComponent implements OnInit {
         });
       this.submitted = true;
     } else {
-      this.userService.register(Object.assign({}, this.registrationForm.value, { type: this.user.type.replace('patient', 'pacient') }))
+      this.userService.register(Object.assign({}, this.questionsForm.value, { type: this.user.type.replace('patient', 'pacient') }))
         .then((data: any) => {
           this.userService.afterGetUserFromServer(data.result);
           this.router.navigate(['/account']);

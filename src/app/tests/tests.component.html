@@ -6,14 +6,27 @@
   </div>
 </div>
 
-<div class="anketa anketa-questions" *ngIf="typeValues != 0">
+<form
+      *ngIf="typeValues != 0"
+      #questionsForm="ngForm"
+      (ngSubmit)="onSubmit()">
+<div class="anketa anketa-questions">
   <div class="anketa-question-list">
     <div class="anketa-question-list-item" *ngFor="let question of questions">
       <div class="anketa-question-list-item-title">{{question.name}}</div>
-      <div class="anketa-question-list-item-values"></div>
+      <div class="anketa-question-list-item-values">
+        <textarea class="js-only-float" placeholder="Введите число / номер"></textarea>
+      </div>
     </div>
   </div>
+  <text-input
+              [name]="'user_id'"
+              [(errorText)]="formErrors.user_id"
+              [placeholder]="'ID клиента'"
+              ngDefaultControl></text-input>
+  <div class="anketa-questions-buttonset" style="width: 994px; left: 375px;">Добавить</div>
 </div>
+</form>
 
 
 
