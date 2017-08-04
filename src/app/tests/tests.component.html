@@ -2,42 +2,47 @@
   <div class="test-header"> Заполнить анализ</div>
   <div class="anketa">
     <div class="anketa-group-list">
-      <a class="anketa-group-list-item" *ngFor="let question of questions"><div (click)="loadAnketa(question.id_measure)" class="anketa-group-list-item-title"> {{question.name}}</div></a>
+      <a class="anketa-group-list-item" style="min-height: 130px;" *ngFor="let question of questions"><div (click)="loadAnketa(question.id_measure)" class="anketa-group-list-item-title" style="font-weight: bold"> {{question.name}}</div></a>
     </div>
   </div>
 </div>
-<form
-      *ngIf="typeValues != 0"
-      #questionsForm="ngForm"
-      (ngSubmit)="onSubmit()">
 <div class="anketa anketa-questions">
-  <h1 class="anketa-question-title">{{group[0].name}}</h1>
-  <div class="anketa-question-list">
-    <div class="anketa-question-list-item" *ngFor="let question of questions">
-      <div class="anketa-question-list-item-title">{{question.name}}</div>
-      <div class="anketa-question-list-item-values">
-        <text-input
-                    [(ngModel)]="answer[question.array_key].value"
-                    [name]="'value'"
-                    [placeholder]="'Введите число / номер'"
-                    ngDefaultControl></text-input>
-        <!--<textarea class="js-only-float" rows="1" placeholder="Введите число / номер"></textarea>-->
+  <form
+    *ngIf="typeValues != 0"
+    #questionsForm="ngForm"
+    (ngSubmit)="onSubmit()">
+
+    <h1 class="anketa-question-title">{{group[0].name}}</h1>
+    <div class="anketa-question-list">
+      <div class="anketa-question-list-item" *ngFor="let question of questions">
+        <div class="anketa-question-list-item-title">{{question.name}}</div>
+        <div class="anketa-question-list-item-values">
+          <text-input
+            [(ngModel)]="answer[question.array_key].value"
+            [name]="'value'"
+            [placeholder]="'Введите число / номер'"
+            ngDefaultControl></text-input>
+          <!--<textarea class="js-only-float" rows="1" placeholder="Введите число / номер"></textarea>-->
+        </div>
       </div>
     </div>
-  </div>
-  <text-input [(ngModel)]="user_id"
-              [name]="'user_id'"
-              [placeholder]="'ID клиента'"
-              ngDefaultControl></text-input>
-  <div class="anketa-questions-buttonset" style="width: 994px; left: 375px;">
-    <button type="submit"
-            class="button"
-            name="answer-button">
-      Добавить
-    </button>
-  </div>
+    <div class="anketa-questions-buttonset" style="width: 994px; left: 375px;">
+      <div class="user-id-input">
+        <text-input style="border: 1px;"
+                    [(ngModel)]="user_id"
+                    [className]="'user-id-input'"
+                    [name]="'user_id'"
+                    [placeholder]="'ID клиента'"
+                    ngDefaultControl></text-input>
+      </div>
+      <button type="submit"
+              class="button answer-button"
+              name="answer-button">
+        Добавить
+      </button>
+    </div>
+  </form>
 </div>
-</form>
 
 
 

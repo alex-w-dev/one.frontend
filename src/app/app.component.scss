@@ -3,15 +3,19 @@
 }
 ::-webkit-input-placeholder {
   color : #B2B2B2;
+  opacity:  0.5;
 }
 ::-moz-placeholder          {
   color : #B2B2B2;
+  opacity:  0.5;
 }/* Firefox 19+ */
 :-moz-placeholder           {
   color : #B2B2B2;
+  opacity:  0.5;
 }/* Firefox 18- */
 :-ms-input-placeholder      {
   color : #B2B2B2;
+  opacity:  0.5;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -136,7 +140,7 @@ a:focus {
   input {
     height: 40px;
   }
-  input:not(.button) {
+  input:not(.button, .anketa-questions) {
     padding-left: 15px;
   }
 }
