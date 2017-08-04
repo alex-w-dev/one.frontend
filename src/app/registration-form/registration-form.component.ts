@@ -70,6 +70,7 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.renewDistrictsList();
+    console.log(this.user);
   }
 
   renewDistrictsList() {

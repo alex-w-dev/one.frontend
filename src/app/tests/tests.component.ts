@@ -1,7 +1,7 @@
 import { AfterContentChecked, AfterViewChecked, Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ISelectInputOption } from '../shared/components/form/select-input/select-input.component';
 import { NgForm } from '@angular/forms';
-import { IAnketaQuestion, ISetTests } from '../../interfaces';
+import { IAnketaQuestion, ISetTests, ISetAnswer } from '../../interfaces';
 import { UserService } from '../shared/services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../shared/classes/user';
@@ -19,7 +19,8 @@ export class TestsComponent implements OnInit {
 
   questions: IAnketaQuestion[] = [];
   group: IAnketaQuestion[] = [];
-  answer: ISetTests;
+  answer: ISetAnswer[] = [];
+  user_id: string | number;
 
   typeValues: string | number = 0;
 
@@ -63,7 +64,6 @@ export class TestsComponent implements OnInit {
     console.log(id_measure);
     this.questions = [];
     this.apiService.request('account/anketa', {'id_parent': id_measure}).then(data => {
-      console.log(data.result);
       if (data.success && data.result && !!data.result.groups) {
         this.typeValues = 0;
         Object.keys(data.result.groups).forEach(questionKey => {
@@ -93,7 +93,7 @@ export class TestsComponent implements OnInit {
           male: data.result.group.male,
           section: data.result.group.section,
         });
-        console.log(this.group);
+        let i = 0;
         Object.keys(data.result.questions).forEach(questionKey => {
           this.questions.push({
             id_measure: data.result.questions[questionKey]['id_measure'],
@@ -105,6 +105,12 @@ export class TestsComponent implements OnInit {
             age_high: data.result.questions[questionKey]['age_high'],
             male: data.result.questions[questionKey]['male'],
             section: data.result.questions[questionKey]['section'],
+            array_key : i++,
+          });
+          this.answer.push({
+            type_value: data.result.questions[questionKey]['typevalue'],
+            value: '',
+            measure_id: data.result.questions[questionKey]['id_measure'],
           });
         });
       }
@@ -112,8 +118,8 @@ export class TestsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.apiService.request('account/set-tests-results-for-partners', {}).then(data => {
-
+    this.apiService.request('account/set-tests-results-for-partners', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
+      console.log(data);
     });
   }
 

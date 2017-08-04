@@ -11,30 +11,22 @@
       #questionsForm="ngForm"
       (ngSubmit)="onSubmit()">
 <div class="anketa anketa-questions">
-  <h1 class="anketa-question-title">{{group[0].name}}12</h1>
+  <h1 class="anketa-question-title">{{group[0].name}}</h1>
   <div class="anketa-question-list">
     <div class="anketa-question-list-item" *ngFor="let question of questions">
       <div class="anketa-question-list-item-title">{{question.name}}</div>
       <div class="anketa-question-list-item-values">
-        <!--<input type="text"
-               class="js-only-float"
-               [attr.placeholder]="'Введите число / номер'"
-               [attr.name]="'value'"
-               [(ngModel)]="answer.measure_data.value"
-               (change)="errorText = ''"
-        >-->
-        <!--<text-input [(ngModel)]="answer.measure_data.value"
-                    [name]="'user_id'"
-                    [(errorText)]="formErrors.measure_data.value"
+        <text-input
+                    [(ngModel)]="answer[question.array_key].value"
+                    [name]="'value'"
                     [placeholder]="'Введите число / номер'"
-                    ngDefaultControl></text-input>-->
-        <textarea class="js-only-float" style="display: block;" placeholder="Введите число / номер"></textarea>
+                    ngDefaultControl></text-input>
+        <!--<textarea class="js-only-float" rows="1" placeholder="Введите число / номер"></textarea>-->
       </div>
     </div>
   </div>
-  <text-input [(ngModel)]="answer.user_id"
+  <text-input [(ngModel)]="user_id"
               [name]="'user_id'"
-              [(errorText)]="formErrors.user_id"
               [placeholder]="'ID клиента'"
               ngDefaultControl></text-input>
   <div class="anketa-questions-buttonset" style="width: 994px; left: 375px;">

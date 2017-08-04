@@ -9,6 +9,7 @@ export interface IAnketaQuestion {
   age_high: number | string;
   male: number | string;
   section: number | string;
+  array_key?: number | string;
 }
 
 export interface ISetAnswer {
