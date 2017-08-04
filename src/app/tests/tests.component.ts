@@ -13,20 +13,14 @@ import { ApiService } from '../shared/services/api.service';
   styleUrls: ['./tests.component.scss']
 })
 export class TestsComponent implements OnInit {
-  @Input() isEditMode: boolean = false;
-
   @Input() roleType: string = 'patient';
 
   questions: IAnketaQuestion[] = [];
   group: IAnketaQuestion[] = [];
   answer: ISetAnswer[] = [];
   user_id: string | number;
-
   typeValues: string | number = 0;
-
   @Input() user: User;
-
-  submitted = false;
 
   active = true;
 
@@ -119,6 +113,9 @@ export class TestsComponent implements OnInit {
 
   onSubmit() {
     this.apiService.request('account/set-tests-results-for-partners', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
+      if(data.success) {
+        this.router.navigate(['/account']);
+      }
       console.log(data);
     });
   }
