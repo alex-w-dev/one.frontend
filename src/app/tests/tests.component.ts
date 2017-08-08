@@ -6,6 +6,7 @@ import { UserService } from '../shared/services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../shared/classes/user';
 import { ApiService } from '../shared/services/api.service';
+import { DialogService } from '../shared/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-tests',
@@ -30,7 +31,7 @@ export class TestsComponent implements OnInit {
   questionsForm: NgForm;
   @ViewChild('questionsForm') currentForm: NgForm;
 
-  constructor(private userService: UserService, private apiService: ApiService, private router: Router) {
+  constructor(private userService: UserService, private apiService: ApiService, private router: Router, private dialogService: DialogService) {
   }
 
   ngOnInit() {
@@ -114,6 +115,7 @@ export class TestsComponent implements OnInit {
   onSubmit() {
     this.apiService.request('account/set-tests-results-for-partners', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
       if(data.success) {
+        this.dialogService.alert('Вы успешно добавили результаты анализов "' + this.group[0].name + '" для пациента (ИД ' + this.user_id + ')');
         this.router.navigate(['/account']);
       }
       console.log(data);

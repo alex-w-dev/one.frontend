@@ -118,6 +118,8 @@ interface INotice {
   extra_data: {
     doctor_id?: string,
     pacient_id?: string,
+    partner_id?: string,
+    tests_name?: string,
   };
 
 }

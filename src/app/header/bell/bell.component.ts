@@ -129,7 +129,7 @@ export class BellComponent implements OnInit, OnDestroy {
         if (data.success) this.dialogService.alert('Вы запретили показывать вашу четную запиь пациенту (ИД ' + notice.extra_data.pacient_id + ')');
       });
     }
-
   }
+
 
 }

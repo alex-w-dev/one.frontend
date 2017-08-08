@@ -20,7 +20,7 @@ export class User implements IUser {
   phone = '';
   birthDay = '01';
   birthMonth = '01';
-  birthYear = '1910';
+  birthYear = '2017';
   male = '1';
   avatar = '';
   avatarSmall = '';

@@ -39,6 +39,11 @@
           <span *ngIf="user.isDoctor()">Пациент (ИД: {{notice.extra_data.pacient_id}}) теперь не имеет доступ к вашей учетной записи</span>
         </span>
 
+        <span *ngSwitchCase="'partner_send_tests_result'">
+          <span *ngIf="user.isPatient()">Партнер (ИД: {{notice.extra_data.partner_id}}) прислал результаты ваших анализов "{{notice.extra_data.tests_name}}"</span>
+          <span *ngIf="user.isDoctor()">Пациент (ИД: {{notice.extra_data.pacient_id}}) получил результаты анализа "{{notice.extra_data.tests_name}}" от партнера (ИД: {{notice.extra_data.partner_id}})</span>
+        </span>
+
         <span *ngSwitchDefault="">
           <span>Неизвестный тип уведомления</span>
         </span>

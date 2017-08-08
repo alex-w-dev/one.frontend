@@ -46,7 +46,7 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
       });
     }
     this.birthYears = [];
-    for (let i = 1910; i <= 2017; i++) {
+    for (let i = 2017; i >= 1910; i--) {
       this.birthYears.push({
         value: i.toString(),
         text: i.toString(),
@@ -70,15 +70,15 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.renewDistrictsList();
-    console.log(this.user);
   }
 
   renewDistrictsList() {
     this.districtNames = [
       {value: '0', text: 'Регоин проживания'},
+      {value: '1157000000', text: 'Пермский край'},
     ];
     /* TODO; too long initialisation - needs to FIX */
-    let limit: number = 0;
+    /*let limit: number = 0;
     this.apiService.request('settings/districts').then(data => {
       if (data.success && data.result) {
         Object.keys(data.result).forEach(districtKey => {
@@ -92,7 +92,7 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
           });
         });
       }
-    });
+    });*/
   }
 
 

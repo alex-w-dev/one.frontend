@@ -2,15 +2,15 @@
       *ngIf="user"
       #registrationForm="ngForm"
       (ngSubmit)="onSubmit()">
-  <text-input [(ngModel)]="user.name"
-              [name]="'name'"
-              [(errorText)]="formErrors.name"
-              [placeholder]="'Имя'"
-              ngDefaultControl></text-input>
   <text-input [(ngModel)]="user.surname"
               [name]="'surname'"
               [(errorText)]="formErrors.surname"
               [placeholder]="'Фамилия'"
+              ngDefaultControl></text-input>
+  <text-input [(ngModel)]="user.name"
+              [name]="'name'"
+              [(errorText)]="formErrors.name"
+              [placeholder]="'Имя'"
               ngDefaultControl></text-input>
   <text-input [(ngModel)]="user.patronymic"
               [name]="'patronymic'"
@@ -111,7 +111,7 @@
               [name]="'promo'"
               [(errorText)]="formErrors.promo"
               [className]="'field-registrationform-promo'"
-              [placeholder]="'Промокод'"
+              [placeholder]="'ИД врача'"
               ngDefaultControl></text-input>
 
   <div class="form-group field-registrationform-password relative"
