@@ -1,0 +1,42 @@
+.test-header{
+  color: black;
+  font-size: 35px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+.anketa-question-title{
+  font-family: Ubuntu Medium;
+  font-size: 26px;
+  color: #000000;
+  color: rgb(0, 0, 0);
+  margin-bottom: 25px;
+}
+.user-id-input {
+  width: 100px;
+  border: 1px;
+}
+
+.answer-button{
+  margin-right: 70%;
+}
+
+::-webkit-input-placeholder {
+  color : #B2B2B2;
+  opacity:  0.5;
+}
+::-moz-placeholder          {
+  color : #B2B2B2;
+  opacity:  0.5;
+}/* Firefox 19+ */
+:-moz-placeholder           {
+  color : #B2B2B2;
+  opacity:  0.5;
+}/* Firefox 18- */
+:-ms-input-placeholder      {
+  color : #B2B2B2;
+  opacity:  0.5;
+}
+textarea::-webkit-input-placeholder {
+  color : #B2B2B2;
+  opacity:  0.25;
+}

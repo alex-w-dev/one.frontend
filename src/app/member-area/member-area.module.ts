@@ -24,6 +24,7 @@ import { CooperationModule } from '../cooperation/cooperation.module';
 import { ScheduleModule } from '../schedule/schedule.module';
 import { DialogService } from '../shared/services/dialog/dialog.service';
 import { TestsModule } from '../tests/tests.module';
+import { QuestionnaireModule } from '../questionnaire/questionnaire.module';
 
 
 
@@ -43,6 +44,7 @@ import { TestsModule } from '../tests/tests.module';
     CooperationModule,
     ScheduleModule,
     TestsModule,
+    QuestionnaireModule,
     RouterModule.forRoot(memberAreaRoutes)
   ],
   exports: [
