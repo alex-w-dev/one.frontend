@@ -18,25 +18,20 @@
         <div class="anketa-question-list-item-title">{{question.name}}</div>
         <div class="anketa-question-list-item-values">
           <text-input
+            *ngIf="question.values.length == 0"
             [(ngModel)]="answer[question.array_key].value"
             [name]="'value'"
             [placeholder]="'Введите число / номер'"
             ngDefaultControl></text-input>
+
+
           <!--<textarea class="js-only-float" rows="1" placeholder="Введите число / номер"></textarea>-->
         </div>
       </div>
     </div>
-    <div class="anketa-questions-buttonset" style="width: 994px; left: 375px;">
-      <div class="user-id-input">
-        <text-input style="border: 1px;"
-                    [(ngModel)]="user_id"
-                    [className]="'user-id-input'"
-                    [name]="'user_id'"
-                    [placeholder]="'ID клиента'"
-                    ngDefaultControl></text-input>
-      </div>
+    <div class="anketa-questions-buttonset" style="width: 994px; left: 375px;" *ngIf="showSaveButton">
       <button type="submit"
-              class="button answer-button"
+              class="button"
               name="answer-button">
         Добавить
       </button>

@@ -1,3 +1,9 @@
+export interface IAnketaOptionValues {
+  id_measure: number | string;
+  id_valnominal: number | string;
+  sort_order: number | string;
+  valnominal: number | string;
+}
 
 export interface IAnketaQuestion {
   id_measure: number | string;
@@ -10,6 +16,8 @@ export interface IAnketaQuestion {
   male: number | string;
   section: number | string;
   array_key?: number | string;
+  value?: number | string | null;
+  values?: IAnketaOptionValues[];
 }
 
 export interface ISetAnswer {

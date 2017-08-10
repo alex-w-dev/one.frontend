@@ -1,7 +1,7 @@
 import { AfterContentChecked, AfterViewChecked, Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ISelectInputOption } from '../shared/components/form/select-input/select-input.component';
 import { NgForm } from '@angular/forms';
-import { IAnketaQuestion, ISetTests, ISetAnswer } from '../../interfaces';
+import { IAnketaQuestion, ISetTests, ISetAnswer, IAnketaOptionValues, IUser } from '../../interfaces';
 import { UserService } from '../shared/services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../shared/classes/user';
@@ -21,7 +21,8 @@ export class QuestionnaireComponent implements OnInit {
   answer: ISetAnswer[] = [];
   user_id: string | number;
   typeValues: string | number = 0;
-  @Input() user: User;
+  user: IUser;
+  showSaveButton = true;
 
   active = true;
 
@@ -35,7 +36,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.request('account/anketa', {'id_parent': 800}).then(data => {
+    this.apiService.request('account/anketa', {'id_parent': 0}).then(data => {
       if (data.success && data.result && !!data.result.groups) {
         this.typeValues = 0;
         Object.keys(data.result.groups).forEach(questionKey => {
@@ -53,12 +54,17 @@ export class QuestionnaireComponent implements OnInit {
         });
       }
     });
+
+    this.user = this.userService.getUser(this);
   }
 
   loadAnketa(id_measure) {
-    console.log(id_measure);
+    if( id_measure == 800){
+      this.showSaveButton = false;
+    }
     this.questions = [];
     this.apiService.request('account/anketa', {'id_parent': id_measure}).then(data => {
+      // console.log(data.result);
       if (data.success && data.result && !!data.result.groups) {
         this.typeValues = 0;
         Object.keys(data.result.groups).forEach(questionKey => {
@@ -100,13 +106,31 @@ export class QuestionnaireComponent implements OnInit {
             age_high: data.result.questions[questionKey]['age_high'],
             male: data.result.questions[questionKey]['male'],
             section: data.result.questions[questionKey]['section'],
-            array_key : i++,
+            array_key : i,
           });
+
+          if( data.result.questions[questionKey].values != null){
+            this.questions[i].values = [];
+            Object.keys(data.result.questions[questionKey].values).forEach(valueKey => {
+              this.questions[i].values.push({
+                id_measure: data.result.questions[questionKey].values[valueKey]['id_measure'],
+                id_valnominal: data.result.questions[questionKey].values[valueKey]['id_valnominal'],
+                sort_order: data.result.questions[questionKey].values[valueKey]['sort_order'],
+                valnominal: data.result.questions[questionKey].values[valueKey]['valnominal'],
+              });
+            });
+          }
+
+          let answerValue: number | string = '';
+          if( data.result.questions[questionKey]['value'] !== null){
+            answerValue = data.result.questions[questionKey]['value']['value'];
+          }
           this.answer.push({
             type_value: data.result.questions[questionKey]['typevalue'],
-            value: '',
+            value : answerValue,
             measure_id: data.result.questions[questionKey]['id_measure'],
           });
+          i++;
         });
       }
     });
@@ -118,7 +142,6 @@ export class QuestionnaireComponent implements OnInit {
         this.dialogService.alert('Вы успешно добавили результаты анализов "' + this.group[0].name + '" для пациента (ИД ' + this.user_id + ')');
         this.router.navigate(['/account']);
       }
-      console.log(data);
     });
   }
 
