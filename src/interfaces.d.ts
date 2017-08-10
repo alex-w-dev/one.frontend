@@ -1,4 +1,6 @@
 export interface IAnketaOptionValues {
+  id: number | string;
+  name: number | string;
   id_measure: number | string;
   id_valnominal: number | string;
   sort_order: number | string;

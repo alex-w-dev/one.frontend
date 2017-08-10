@@ -113,12 +113,15 @@ export class QuestionnaireComponent implements OnInit {
             this.questions[i].values = [];
             Object.keys(data.result.questions[questionKey].values).forEach(valueKey => {
               this.questions[i].values.push({
+                id: data.result.questions[questionKey].values[valueKey]['id_valnominal'],
+                name: data.result.questions[questionKey].values[valueKey]['valnominal'],
                 id_measure: data.result.questions[questionKey].values[valueKey]['id_measure'],
                 id_valnominal: data.result.questions[questionKey].values[valueKey]['id_valnominal'],
                 sort_order: data.result.questions[questionKey].values[valueKey]['sort_order'],
                 valnominal: data.result.questions[questionKey].values[valueKey]['valnominal'],
               });
             });
+            console.log(this.questions);
           }
 
           let answerValue: number | string = '';
@@ -137,12 +140,14 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   onSubmit() {
-    this.apiService.request('account/set-tests-results-for-partners', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
+    console.log(this.answer);
+
+    /*this.apiService.request('account/set-tests-results-for-partners', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
       if(data.success) {
         this.dialogService.alert('Вы успешно добавили результаты анализов "' + this.group[0].name + '" для пациента (ИД ' + this.user_id + ')');
         this.router.navigate(['/account']);
       }
-    });
+    });*/
   }
 
   ngAfterViewChecked() {

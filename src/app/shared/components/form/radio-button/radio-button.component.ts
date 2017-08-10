@@ -11,6 +11,7 @@ export interface IRadioButton {
   styleUrls: ['./radio-button.component.scss']
 })
 export class RadioButtonComponent implements OnInit {
+
   ngModelValue: string = '';
 
   @Input()
@@ -44,7 +45,12 @@ export class RadioButtonComponent implements OnInit {
   @Input() className: string = '';
 
   constructor() {
+    // console.log(this.options);
   }
+
+  /*getValue(optionid) {
+    this.selectedOption = this.options.filter((item)=> item.id == optionid)[0];
+  }*/
 
   ngOnInit() {
   }

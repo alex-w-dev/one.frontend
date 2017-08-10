@@ -12,7 +12,7 @@ import { RadioButtonModule } from '../shared/components/form/radio-button/radio-
     FormsModule,
     TextInputModule,
     SelectInputModule,
-    RadioButtonModule
+    RadioButtonModule,
   ],
   exports: [
     QuestionnaireComponent

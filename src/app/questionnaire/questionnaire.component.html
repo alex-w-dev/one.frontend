@@ -23,8 +23,12 @@
             [name]="'value'"
             [placeholder]="'Введите число / номер'"
             ngDefaultControl></text-input>
-
-
+          <radio-button
+            *ngIf="question.values.length > 0"
+            [(ngModel)]="answer[question.array_key].value"
+            [options]="question.values"
+            [name]="'value'"
+            ngDefaultControl></radio-button>
           <!--<textarea class="js-only-float" rows="1" placeholder="Введите число / номер"></textarea>-->
         </div>
       </div>
