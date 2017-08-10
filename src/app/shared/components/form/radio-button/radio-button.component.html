@@ -1,0 +1,10 @@
+<div class="form-group {{className}}"
+     [ngClass]="{'has-danger': !!errorText}">
+  <select class="form-control"
+          [attr.name]="name"
+          [(ngModel)]="ngModel"
+          (change)="errorText = ''">
+    <option *ngFor="let option of options" [value]="option.value">{{option.text}}</option>
+  </select>
+  <div class="form-control-feedback">{{errorText}}</div>
+</div>
