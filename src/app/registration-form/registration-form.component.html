@@ -106,7 +106,7 @@
               [className]="'field-registrationform-phone'"
               [placeholder]="'Ваш телефон'"
               ngDefaultControl></text-input>
-  <text-input *ngIf="user.isPatient()"
+  <text-input *ngIf="user.isPatient() && !isEditMode"
               [(ngModel)]="user.promo"
               [name]="'promo'"
               [(errorText)]="formErrors.promo"

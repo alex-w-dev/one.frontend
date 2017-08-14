@@ -2,13 +2,13 @@
      [ngClass]="{'has-danger': !!errorText}">
   <label class="radio" *ngFor="let option of options">
     <input type="radio"
-           value = {{option.id}}
            [attr.name]="name"
            [(ngModel)]="ngModel"
-           (change)="errorText = ''">
+           [value] = "option.id"
+           [checked] = "option.id"
+           (change)="onSelectionChange(option.id)" >
     <span>{{option.name}}</span>
   </label>
-
   <!--<select class="form-control"
           [attr.name]="name"
           [(ngModel)]="ngModel"

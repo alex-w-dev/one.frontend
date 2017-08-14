@@ -1,6 +1,7 @@
 export interface IAnketaOptionValues {
   id: number | string;
   name: number | string;
+  value_group?: number | string;
   id_measure: number | string;
   id_valnominal: number | string;
   sort_order: number | string;
@@ -24,7 +25,7 @@ export interface IAnketaQuestion {
 
 export interface ISetAnswer {
   type_value: number | string;
-  value: number | string;
+  value: any;
   measure_id: number | string;
 }
 

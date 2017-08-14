@@ -74,7 +74,6 @@ export class RegistrationFormComponent implements OnInit, AfterViewChecked {
 
   renewDistrictsList() {
     this.districtNames = [
-      {value: '0', text: 'Регоин проживания'},
       {value: '1157000000', text: 'Пермский край'},
     ];
     /* TODO; too long initialisation - needs to FIX */

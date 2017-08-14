@@ -115,6 +115,7 @@ export class QuestionnaireComponent implements OnInit {
               this.questions[i].values.push({
                 id: data.result.questions[questionKey].values[valueKey]['id_valnominal'],
                 name: data.result.questions[questionKey].values[valueKey]['valnominal'],
+                value_group : data.result.questions[questionKey].values[valueKey]['id_measure'],
                 id_measure: data.result.questions[questionKey].values[valueKey]['id_measure'],
                 id_valnominal: data.result.questions[questionKey].values[valueKey]['id_valnominal'],
                 sort_order: data.result.questions[questionKey].values[valueKey]['sort_order'],
@@ -136,7 +137,9 @@ export class QuestionnaireComponent implements OnInit {
           i++;
         });
       }
+      console.log(this.answer);
     });
+
   }
 
   onSubmit() {
