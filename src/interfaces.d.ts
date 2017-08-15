@@ -21,6 +21,13 @@ export interface IAnketaQuestion {
   array_key?: number | string;
   value?: number | string | null;
   values?: IAnketaOptionValues[];
+  answered?: IAnswered;
+}
+
+export interface IAnswered {
+  need: number;
+  answered: string | number;
+  proc: number;
 }
 
 export interface ISetAnswer {

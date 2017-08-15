@@ -50,6 +50,11 @@ export class QuestionnaireComponent implements OnInit {
             age_high: data.result.groups[questionKey]['age_high'],
             male: data.result.groups[questionKey]['male'],
             section: data.result.groups[questionKey]['section'],
+            answered: {
+              need: data.result.groups[questionKey]['answered']['need'],
+              answered: data.result.groups[questionKey]['answered']['answered'],
+              proc: data.result.groups[questionKey]['answered']['proc'],
+            }
           });
         });
       }
@@ -78,6 +83,11 @@ export class QuestionnaireComponent implements OnInit {
             age_high: data.result.groups[questionKey]['age_high'],
             male: data.result.groups[questionKey]['male'],
             section: data.result.groups[questionKey]['section'],
+            answered: {
+              need: data.result.groups[questionKey]['answered']['need'],
+              answered: data.result.groups[questionKey]['answered']['answered'],
+              proc: data.result.groups[questionKey]['answered']['proc'],
+            }
           });
         });
       }
@@ -137,9 +147,13 @@ export class QuestionnaireComponent implements OnInit {
           i++;
         });
       }
-      console.log(this.answer);
+      console.log(this.questions);
     });
 
+  }
+
+  getWidth(width): any {
+    return { 'width': width + '%'};
   }
 
   onSubmit() {

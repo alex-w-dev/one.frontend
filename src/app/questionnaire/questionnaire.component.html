@@ -2,16 +2,27 @@
   <div class="test-header"> Заполнить анализ</div>
   <div class="anketa">
     <div class="anketa-group-list">
-      <a class="anketa-group-list-item" style="min-height: 130px;" *ngFor="let question of questions"><div (click)="loadAnketa(question.id_measure)" class="anketa-group-list-item-title" style="font-weight: bold"> {{question.name}}</div></a>
+      <a class="anketa-group-list-item" style="min-height: 130px;" *ngFor="let question of questions"><div (click)="loadAnketa(question.id_measure)" class="anketa-group-list-item-title" style="font-weight: bold"> {{question.name}}</div>
+      <div class="anketa-group-list-item-scale">
+        <div class="anketa-group-list-item-scale__text">
+          <span>Готово</span>
+          <span>{{question.answered.proc}}%</span>
+        </div>
+        <div class="anketa-group-list-item-scale__scale-container">
+          <div class="anketa-group-list-item-scale__scale-scale" style.width="{{question.answered.proc}}%"></div>
+        </div>
+      </div>
+      <div class="anketa-group-list-item-lost">
+        Вы ответили на {{question.answered.answered}} вопросов из {{question.answered.need}}
+      </div>
+      </a>
     </div>
   </div>
 </div>
-<div class="anketa anketa-questions">
+<div class="anketa anketa-questions" *ngIf="typeValues != 0">
   <form
-    *ngIf="typeValues != 0"
     #questionsForm="ngForm"
     (ngSubmit)="onSubmit()">
-
     <h1 class="anketa-question-title">{{group[0].name}}</h1>
     <div class="anketa-question-list">
       <div class="anketa-question-list-item" *ngFor="let question of questions">
