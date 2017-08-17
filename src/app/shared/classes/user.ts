@@ -111,7 +111,7 @@ export class User implements IUser {
     if (this.isPartner()) {
       return [
         {text: 'Мой профиль', link: '/account'},
-        {text: 'Заполнить анализы', link: '/tests'},
+        {text: 'Заполнить анализы', link: '/questionnaire'},
       ];
     }
 

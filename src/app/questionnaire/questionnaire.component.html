@@ -2,8 +2,9 @@
   <div class="test-header"> Заполнить анализ</div>
   <div class="anketa">
     <div class="anketa-group-list">
-      <a class="anketa-group-list-item" style="min-height: 130px;" *ngFor="let question of questions"><div (click)="loadAnketa(question.id_measure)" class="anketa-group-list-item-title" style="font-weight: bold"> {{question.name}}</div>
-      <div class="anketa-group-list-item-scale">
+      <a class="anketa-group-list-item" style="min-height: 130px;" *ngFor="let question of questions" (click)="changeUrl(question.id_measure)" >
+        <div class="anketa-group-list-item-title" style="font-weight: bold"> {{question.name}}</div>
+      <div class="anketa-group-list-item-scale" *ngIf="isPatient">
         <div class="anketa-group-list-item-scale__text">
           <span>Готово</span>
           <span>{{question.answered.proc}}%</span>
@@ -12,7 +13,7 @@
           <div class="anketa-group-list-item-scale__scale-scale" style.width="{{question.answered.proc}}%"></div>
         </div>
       </div>
-      <div class="anketa-group-list-item-lost">
+      <div class="anketa-group-list-item-lost" *ngIf="isPatient">
         Вы ответили на {{question.answered.answered}} вопросов из {{question.answered.need}}
       </div>
       </a>
@@ -47,6 +48,21 @@
     <div class="anketa-questions-buttonset" style="width: 994px; left: 375px;" *ngIf="showSaveButton">
       <button type="submit"
               class="button"
+              name="answer-button">
+        Добавить
+      </button>
+    </div>
+    <div class="anketa-questions-buttonset" style="width: 994px; left: 375px;" *ngIf="isPatient == false">
+      <div class="user-id-input">
+        <text-input style="border: 1px;"
+                    [(ngModel)]="user_id"
+                    [className]="'user-id-input'"
+                    [name]="'user_id'"
+                    [placeholder]="'ID клиента'"
+                    ngDefaultControl></text-input>
+      </div>
+      <button type="submit"
+              class="button answer-button"
               name="answer-button">
         Добавить
       </button>

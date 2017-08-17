@@ -8,7 +8,6 @@ import { ClientListComponent } from '../client-list/client-list.component';
 import { CooperationComponent } from '../cooperation/cooperation.component';
 import { ScheduleComponent } from '../schedule/schedule.component';
 import { PageInDev2Component } from '../page-in-dev2/page-in-dev2.component';
-import { TestsComponent } from '../tests/tests.component';
 import { QuestionnaireComponent } from '../questionnaire/questionnaire.component';
 
 export const memberAreaRoutes: Routes = [
@@ -27,10 +26,6 @@ export const memberAreaRoutes: Routes = [
     path: 'questionnaire',
     component: QuestionnaireComponent,
     data: { title: 'Анкета' }
-  },
-  {
-    path: 'tests',
-    component: TestsComponent,
   },
   {
     path: 'schedule',

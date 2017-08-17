@@ -5,6 +5,7 @@ import * as intrfaces from '../interfaces';
 
 import { AppComponent } from './app.component';
 import { MemberAreaModule } from './member-area/member-area.module';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
@@ -17,19 +18,24 @@ import { PageInDev2Component } from './page-in-dev2/page-in-dev2.component';
 import { PageInDev2Module } from './page-in-dev2/page-in-dev2.module';
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    MemberAreaModule,
+    RouterModule.forRoot([
+      {
+        path: 'questionnaire/:id_measure',
+        component: QuestionnaireComponent
+      }
+    ]),
+    AccountModule,
+    ModalWindowModule,
+    PageInDev2Module,
+  ],
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     PageInDevComponent,
     DropDownButtonDirective,
-  ],
-  imports: [
-    BrowserModule,
-    MemberAreaModule,
-    RouterModule,
-    AccountModule,
-    ModalWindowModule,
-    PageInDev2Module,
   ],
   exports: [
     BrowserModule,
@@ -39,5 +45,9 @@ import { PageInDev2Module } from './page-in-dev2/page-in-dev2.module';
   providers: [],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule {
 }
+
+

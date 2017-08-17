@@ -1,42 +1,58 @@
-import { AfterContentChecked, AfterViewChecked, Component, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ISelectInputOption } from '../shared/components/form/select-input/select-input.component';
+import { AfterContentChecked, AfterViewChecked, Component, Input, OnInit, Output, ViewChild, OnDestroy  } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IAnketaQuestion, ISetTests, ISetAnswer, IAnketaOptionValues, IUser } from '../../interfaces';
 import { UserService } from '../shared/services/user.service';
-import { Router } from '@angular/router';
-import { User } from '../shared/classes/user';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../shared/services/api.service';
 import { DialogService } from '../shared/services/dialog/dialog.service';
+import { Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
   styleUrls: ['./questionnaire.component.scss']
 })
-export class QuestionnaireComponent implements OnInit {
+
+export class QuestionnaireComponent implements OnInit, OnDestroy {
+
   @Input() roleType: string = 'patient';
 
   questions: IAnketaQuestion[] = [];
   group: IAnketaQuestion[] = [];
   answer: ISetAnswer[] = [];
-  user_id: string | number;
+  user_id: string | number = '';
   typeValues: string | number = 0;
   user: IUser;
   showSaveButton = true;
-
+  id_measure: number = 0;
   active = true;
-
-  /* example : {name: 'Name is required'} */
-  formErrors = {} as any;
+  isPatient = true;
 
   questionsForm: NgForm;
   @ViewChild('questionsForm') currentForm: NgForm;
 
-  constructor(private userService: UserService, private apiService: ApiService, private router: Router, private dialogService: DialogService) {
+  private subscription: Subscription;
+
+  constructor (private userService: UserService, private apiService: ApiService, private router: Router, private dialogService: DialogService, private route: ActivatedRoute, private _router: Router) {
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+
   ngOnInit() {
-    this.apiService.request('account/anketa', {'id_parent': 0}).then(data => {
+    this.subscription = this.route.params.subscribe(params => this.id_measure = params['id_measure']);
+    this.user = this.userService.getUser(this);
+    if(this.user){
+      if(this.user.isPartner()){
+        this.id_measure = 800;
+        this.isPatient = false;
+        this.showSaveButton = false;
+      }
+    }
+
+    this.apiService.request('account/anketa', {'id_parent': this.id_measure}).then(data => {
       if (data.success && data.result && !!data.result.groups) {
         this.typeValues = 0;
         Object.keys(data.result.groups).forEach(questionKey => {
@@ -59,17 +75,15 @@ export class QuestionnaireComponent implements OnInit {
         });
       }
     });
-
-    this.user = this.userService.getUser(this);
   }
 
-  loadAnketa(id_measure) {
-    if( id_measure == 800){
+  getAnketa(id_measure) {
+    this.id_measure = id_measure;
+    if( this.id_measure == 800 && this.isPatient){
       this.showSaveButton = false;
     }
     this.questions = [];
-    this.apiService.request('account/anketa', {'id_parent': id_measure}).then(data => {
-      // console.log(data.result);
+    this.apiService.request('account/anketa', {'id_parent': this.id_measure}).then(data => {
       if (data.success && data.result && !!data.result.groups) {
         this.typeValues = 0;
         Object.keys(data.result.groups).forEach(questionKey => {
@@ -132,7 +146,6 @@ export class QuestionnaireComponent implements OnInit {
                 valnominal: data.result.questions[questionKey].values[valueKey]['valnominal'],
               });
             });
-            console.log(this.questions);
           }
 
           let answerValue: number | string = '';
@@ -147,30 +160,24 @@ export class QuestionnaireComponent implements OnInit {
           i++;
         });
       }
-      console.log(this.questions);
     });
-
   }
 
-  getWidth(width): any {
-    return { 'width': width + '%'};
+  changeUrl(id) {
+    this._router.navigate(["/questionnaire", id]);
+    this.getAnketa(id);
   }
 
   onSubmit() {
-    console.log(this.answer);
-
-    /*this.apiService.request('account/set-tests-results-for-partners', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
+    this.apiService.request('account/set-tests-results', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
       if(data.success) {
-        this.dialogService.alert('Вы успешно добавили результаты анализов "' + this.group[0].name + '" для пациента (ИД ' + this.user_id + ')');
+        if(this.isPatient){
+          this.dialogService.alert('Вы успешно добавили информацию "' + this.group[0].name + '"');
+        } else {
+          this.dialogService.alert('Вы успешно добавили результаты анализов "' + this.group[0].name + '" для пациента (ИД ' + this.user_id + ')');
+        }
         this.router.navigate(['/account']);
       }
-    });*/
-  }
-
-  ngAfterViewChecked() {
-    this.formChanged();
-  }
-
-  formChanged() {
+    });
   }
 }
