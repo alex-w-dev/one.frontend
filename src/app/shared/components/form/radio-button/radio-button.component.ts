@@ -24,13 +24,10 @@ export class RadioButtonComponent implements OnInit {
 
   @Input()
   get ngModel() {
-    // console.log(this.ngModel);
-    console.log(this.ngModelValue);
     return this.ngModelValue;
   }
 
   set ngModel(value) {
-    //console.log(this.ngModel);
     this.ngModelValue = value;
     this.onNgModelChanged.emit(this.ngModelValue);
   }
@@ -58,7 +55,6 @@ export class RadioButtonComponent implements OnInit {
   @Input() className: string = '';
 
   constructor() {
-    console.log(this.options);
   }
 
   onSelectionChange(option) {
