@@ -156,6 +156,9 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
           if( data.result.questions[questionKey]['value'] !== null){
             answerValue = data.result.questions[questionKey]['value']['value'];
           }
+          if( data.result.questions[questionKey]['typevalue'] == 2 && data.result.questions[questionKey]['value'] == null ){
+            answerValue = this.questions[i].values[0].id;
+          }
           this.answer.push({
             type_value: data.result.questions[questionKey]['typevalue'],
             value : answerValue,
