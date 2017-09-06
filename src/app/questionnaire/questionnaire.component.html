@@ -49,6 +49,7 @@
             <label class="radio" *ngFor="let option of question.values">
               <input type="checkbox"
                      value = "{{option.id}}"
+                     [attr.checked] = "answer[question.array_key].value.indexOf(option.id) != -1 ? true : null"
                      (change)="checkboxClick(question.array_key, option)"
               >
               <span>{{option.name}}</span>

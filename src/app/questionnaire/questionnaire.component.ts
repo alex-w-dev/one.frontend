@@ -27,6 +27,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
   id_measure: number = 0;
   active = true;
   isPatient = true;
+  remove = false;
 
   questionsForm: NgForm;
   @ViewChild('questionsForm') currentForm: NgForm;
@@ -164,12 +165,23 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
         });
       }
     });
+    console.log(this.answer);
   }
 
   checkboxClick(key, question)  {
-    // console.log(this.answer);
-    console.log(this.answer[key].value.push(question.id));
-    console.log(question);
+    this.answer[key].value = this.answer[key].value.length == '' ? [] : this.answer[key].value ;
+    this.remove = false;
+    if(this.answer[key].value.length > 0){
+      for( let j = 0; j < this.answer[key].value.length; j++){
+        if(this.answer[key].value[j] == question.id){
+          this.answer[key].value.splice(j, 1);
+          this.remove = true;
+        }
+      }
+    }
+    if(this.remove == false){
+      this.answer[key].value.push(question.id);
+    }
   }
 
   changeUrl(id) {
@@ -179,7 +191,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log(this.answer);
-    /*this.apiService.request('account/set-tests-results', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
+    this.apiService.request('account/set-tests-results', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
       if(data.success) {
         if(this.isPatient){
           this.dialogService.alert('Вы успешно добавили информацию "' + this.group[0].name + '"');
@@ -188,6 +200,6 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
         }
         this.router.navigate(['/account']);
       }
-    });*/
+    });
   }
 }
