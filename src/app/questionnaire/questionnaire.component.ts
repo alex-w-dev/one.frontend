@@ -1,5 +1,5 @@
 import { AfterContentChecked, AfterViewChecked, Component, Input, OnInit, Output, ViewChild, OnDestroy  } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl } from '@angular/forms';
 import { IAnketaQuestion, ISetTests, ISetAnswer, IAnketaOptionValues, IUser } from '../../interfaces';
 import { UserService } from '../shared/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -84,6 +84,9 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
     }
     this.questions = [];
     this.apiService.request('account/anketa', {'id_parent': this.id_measure}).then(data => {
+
+      console.log(data);
+
       if (data.success && data.result && !!data.result.groups) {
         this.typeValues = 0;
         Object.keys(data.result.groups).forEach(questionKey => {
@@ -163,13 +166,20 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
     });
   }
 
+  checkboxClick(key, question)  {
+    // console.log(this.answer);
+    console.log(this.answer[key].value.push(question.id));
+    console.log(question);
+  }
+
   changeUrl(id) {
     this._router.navigate(["/questionnaire", id]);
     this.getAnketa(id);
   }
 
   onSubmit() {
-    this.apiService.request('account/set-tests-results', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
+    console.log(this.answer);
+    /*this.apiService.request('account/set-tests-results', {'user_id': this.user_id, 'measure_data': JSON.stringify(this.answer)}).then(data => {
       if(data.success) {
         if(this.isPatient){
           this.dialogService.alert('Вы успешно добавили информацию "' + this.group[0].name + '"');
@@ -178,6 +188,6 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
         }
         this.router.navigate(['/account']);
       }
-    });
+    });*/
   }
 }

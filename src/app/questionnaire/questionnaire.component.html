@@ -30,18 +30,30 @@
         <div class="anketa-question-list-item-title">{{question.name}}</div>
         <div class="anketa-question-list-item-values">
           <text-input
-            *ngIf="question.values.length == 0"
+            *ngIf="question.typevalue == 1 || question.typevalue == 0"
             [(ngModel)]="answer[question.array_key].value"
             [name]="'value'"
             [placeholder]="'Введите число / номер'"
             ngDefaultControl></text-input>
-          <radio-button
-            *ngIf="question.values.length > 0"
-            [(ngModel)]="answer[question.array_key].value"
-            [options]="question.values"
-            [controlName]="answer[question.array_key].value"
-            [name]="'value'"
-            ngDefaultControl></radio-button>
+          <div *ngIf="question.typevalue == 2">
+            <label class="radio" *ngFor="let option of question.values">
+              <input type="radio"
+                     [(ngModel)]="answer[question.array_key].value"
+                     value = "{{option.id}}"
+                     name = "{{option.name}}"
+                     [checked] = "option.name == answer[question.array_key].value">
+              <span>{{option.name}}</span>
+            </label>
+          </div>
+          <div *ngIf="question.typevalue == 3">
+            <label class="radio" *ngFor="let option of question.values">
+              <input type="checkbox"
+                     value = "{{option.id}}"
+                     (change)="checkboxClick(question.array_key, option)"
+              >
+              <span>{{option.name}}</span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
