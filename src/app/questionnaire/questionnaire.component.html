@@ -25,39 +25,45 @@
     #questionsForm="ngForm"
     (ngSubmit)="onSubmit()">
     <h1 class="anketa-question-title">{{group[0].name}}</h1>
-    <div class="anketa-question-list">
-      <div class="anketa-question-list-item" *ngFor="let question of questions">
-        <div class="anketa-question-list-item-title">{{question.name}}</div>
-        <div class="anketa-question-list-item-values">
-          <text-input
-            *ngIf="question.typevalue == 1 || question.typevalue == 0"
-            [(ngModel)]="answer[question.array_key].value"
-            [name]="'value'"
-            [placeholder]="'Введите число / номер'"
-            ngDefaultControl></text-input>
-          <div *ngIf="question.typevalue == 2">
-            <label class="radio" *ngFor="let option of question.values">
-              <input type="radio"
-                     [(ngModel)]="answer[question.array_key].value"
-                     value = "{{option.id}}"
-                     name = "{{option.name}}"
-                     [checked] = "option.name == answer[question.array_key].value">
-              <span>{{option.name}}</span>
-            </label>
+      <div class="anketa-question-list">
+        <ng-template #recursiveList let-list>
+          <div class="anketa-question-list-item" *ngFor="let question of list">
+            <div class="anketa-question-list-item-title">{{question.name}}</div>
+            <div class="anketa-question-list-item-values">
+              <text-input
+                *ngIf="question.typevalue == 1 || question.typevalue == 0"
+                [(ngModel)]="answer[question.array_key].value"
+                [name]="'value'"
+                [placeholder]="'Введите число / номер'"
+                ngDefaultControl></text-input>
+              <div *ngIf="question.typevalue == 2">
+                <label class="radio" *ngFor="let option of question.values">
+                  <input type="radio"
+                         [(ngModel)]="answer[question.array_key].value"
+                         value = "{{option.id}}"
+                         name = "{{option.name}}"
+                         [checked] = "option.name == answer[question.array_key].value">
+                  <span>{{option.name}}</span>
+                </label>
+              </div>
+              <div *ngIf="question.typevalue == 3">
+                <label class="radio" *ngFor="let option of question.values">
+                  <input type="checkbox"
+                         value = "{{option.id}}"
+                         [attr.checked] = "answer[question.array_key].value.indexOf(option.id) != -1 ? true : null"
+                         (change)="checkboxClick(question.array_key, option)"
+                  >
+                  <span>{{option.name}}</span>
+                </label>
+              </div>
+            </div>
+            <div *ngIf="question.children.length > 0">
+              <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: question.children }"></ng-container>
+            </div>
           </div>
-          <div *ngIf="question.typevalue == 3">
-            <label class="radio" *ngFor="let option of question.values">
-              <input type="checkbox"
-                     value = "{{option.id}}"
-                     [attr.checked] = "answer[question.array_key].value.indexOf(option.id) != -1 ? true : null"
-                     (change)="checkboxClick(question.array_key, option)"
-              >
-              <span>{{option.name}}</span>
-            </label>
-          </div>
-        </div>
+        </ng-template>
+        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: questions }"></ng-container>
       </div>
-    </div>
     <div class="anketa-questions-buttonset" style="width: 994px; left: 375px;" *ngIf="showSaveButton">
       <button type="submit"
               class="button"
@@ -82,7 +88,3 @@
     </div>
   </form>
 </div>
-
-
-
-

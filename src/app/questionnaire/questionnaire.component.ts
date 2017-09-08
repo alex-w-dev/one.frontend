@@ -86,7 +86,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
     this.questions = [];
     this.apiService.request('account/anketa', {'id_parent': this.id_measure}).then(data => {
 
-      console.log(data);
+      console.log(this.questions);
 
       if (data.success && data.result && !!data.result.groups) {
         this.typeValues = 0;
@@ -135,7 +135,11 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
             male: data.result.questions[questionKey]['male'],
             section: data.result.questions[questionKey]['section'],
             array_key : i,
+            children: []
           });
+
+          // делает сет чайлдов
+          this.setChildrenSection(this.questions[i].children, data.result.questions[questionKey]['children']);
 
           if( data.result.questions[questionKey].values != null){
             this.questions[i].values = [];
@@ -151,7 +155,6 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
               });
             });
           }
-
           let answerValue: number | string = '';
           if( data.result.questions[questionKey]['value'] !== null){
             answerValue = data.result.questions[questionKey]['value']['value'];
@@ -168,7 +171,56 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
         });
       }
     });
-    console.log(this.answer);
+  }
+
+  setChildrenSection(parent, children) {
+    let j = 0;
+    if(children.length > 0){
+      Object.keys(children).forEach(childrenKey =>{
+         parent.push({
+           id_measure: children[childrenKey]['id_measure'],
+           id_parent: children[childrenKey]['id_parent'],
+           name: children[childrenKey]['name'],
+           typevalue: children[childrenKey]['typevalue'],
+           sort_order: children[childrenKey]['sort_order'],
+           age_low: children[childrenKey]['age_low'],
+           age_high: children[childrenKey]['age_high'],
+           male: children[childrenKey]['male'],
+           section: children[childrenKey]['section'],
+           children: [],
+           array_key : j,
+         });
+         this.setChildrenSection(parent[j].children, children[childrenKey]['children']);
+
+         if(children[childrenKey].values != null) {
+           parent[j].values = [];
+           Object.keys(children[childrenKey].values).forEach(childrenValueKey => {
+             parent[j].values.push({
+               id: children[childrenKey].values[childrenValueKey]['id_valnominal'],
+               name: children[childrenKey].values[childrenValueKey]['valnominal'],
+               value_group : children[childrenKey].values[childrenValueKey]['id_measure'],
+               id_measure: children[childrenKey].values[childrenValueKey]['id_measure'],
+               id_valnominal: children[childrenKey].values[childrenValueKey]['id_valnominal'],
+               sort_order: children[childrenKey].values[childrenValueKey]['sort_order'],
+               valnominal: children[childrenKey].values[childrenValueKey]['valnominal'],
+             });
+           });
+         }
+        let answerValue: number | string = '';
+        if( children[childrenKey]['value'] !== null){
+          answerValue = children[childrenKey]['value']['value'];
+        }
+        if( children[childrenKey]['typevalue'] == 2 && children[childrenKey]['value'] == null ){
+          // answerValue = parent[j].values[0].id;
+        }
+        this.answer.push({
+          type_value: children[childrenKey]['typevalue'],
+          value : answerValue,
+          measure_id: children[childrenKey]['id_measure'],
+        });
+         j++;
+       });
+    }
   }
 
   checkboxClick(key, question)  {

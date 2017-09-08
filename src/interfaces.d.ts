@@ -22,6 +22,7 @@ export interface IAnketaQuestion {
   value?: number | string | null;
   values?: IAnketaOptionValues[];
   answered?: IAnswered;
+  children?: any;
 }
 
 export interface IAnswered {
