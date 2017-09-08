@@ -41,7 +41,6 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => this.id_measure = params['id_measure']);
     this.user = this.userService.getUser(this);
@@ -211,7 +210,10 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
           answerValue = children[childrenKey]['value']['value'];
         }
         if( children[childrenKey]['typevalue'] == 2 && children[childrenKey]['value'] == null ){
-          // answerValue = parent[j].values[0].id;
+          if(!!parent[j].values[0]) {
+            answerValue = parent[j].values[0].id;
+            console.log(parent[j].values[0]);
+          }
         }
         this.answer.push({
           type_value: children[childrenKey]['typevalue'],
