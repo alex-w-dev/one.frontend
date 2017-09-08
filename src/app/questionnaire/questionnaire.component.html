@@ -36,7 +36,7 @@
                 [name]="'value'"
                 [placeholder]="'Введите число / номер'"
                 ngDefaultControl></text-input>
-              <div *ngIf="question.typevalue == 2">
+              <div *ngIf="question.typevalue == 2 && question.values.length > 0">
                 <label class="radio" *ngFor="let option of question.values">
                   <input type="radio"
                          [(ngModel)]="answer[question.array_key].value"
