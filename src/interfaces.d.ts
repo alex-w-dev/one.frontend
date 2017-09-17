@@ -8,6 +8,19 @@ export interface IAnketaOptionValues {
   valnominal: number | string;
 }
 
+export interface IScheduleForm {
+  clinic_id: number | string;
+  clinic_name?: string;
+  price: number | string;
+  reception: number | string;
+  start_time: number | string;
+  end_time: number | string;
+  start_time_formated?: number | string;
+  end_time_formated?: number | string;
+  reception_time: number | string;
+  reception_date: number | string;
+}
+
 export interface IAnketaQuestion {
   id_measure: number | string;
   id_parent: number | string;

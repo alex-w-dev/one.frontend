@@ -287,7 +287,7 @@ h2{
 .ui-datepicker {
   width: auto;
   padding: 0;
-  border: 1px solid #53C4CE;
+  border: 1px solid #edf7f9;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
@@ -320,8 +320,7 @@ h2{
 .ui-datepicker-header {
   font-family: 'Ubuntu', serif;
   font-size: 18px;
-  color: white;
-  background: #53c4ce;
+  background: #edf7f9;
   position: relative;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
@@ -358,12 +357,15 @@ h2{
   height: 34px;
 }
 
+.ui-datepicker td .ui-state-active{
+  color: white;
+}
+
 .ui-datepicker th {
-  background: #53c4ce;
+  background: #edf7f9;
   font-family: 'Ubuntu', serif;
   font-weight: 300;
   font-size: 15px;
-  color: white;
   padding: 3px 3px;
 }
 
@@ -721,7 +723,7 @@ h2{
   font-family: 'Ubuntu', serif;
   font-weight: 300;
   font-size: 16px;
-  color: #53C4CE;
+
   border-bottom: 1px dashed;
 }
 

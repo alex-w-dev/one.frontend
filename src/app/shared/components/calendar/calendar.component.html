@@ -1,30 +1,26 @@
 <div class="main-calendar hasDatepicker" id="main-calendar">
   <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
        style="display: block;">
-    <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all"><a
-      class="ui-datepicker-prev ui-corner-all" data-handler="prev" data-event="click" title="<Пред"><span
-      class="ui-icon ui-icon-circle-triangle-w">&lt;Пред</span></a><a class="ui-datepicker-next ui-corner-all"
-                                                                      data-handler="next" data-event="click"
-                                                                      title="След>"><span
-      class="ui-icon ui-icon-circle-triangle-e">След&gt;</span></a>
-      <div class="ui-datepicker-title"><span class="ui-datepicker-month">{{currentMonth}}</span>&nbsp;<span
-        class="ui-datepicker-year">{{currentYear}}</span></div>
+    <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+      <a class="ui-datepicker-prev ui-corner-all" (click)="getPrevMont()"> &lt; </a>
+      <a class="ui-datepicker-next ui-corner-all" (click)="getNextMonth()"> > </a>
+      <div class="ui-datepicker-title"><span class="ui-datepicker-month">{{titleMonth}}</span></div>
     </div>
     <table class="ui-datepicker-calendar">
       <thead>
       <tr>
-        <th scope="col"><span title="понедельник">Пн</span></th>
-        <th scope="col"><span title="вторник">Вт</span></th>
-        <th scope="col"><span title="среда">Ср</span></th>
-        <th scope="col"><span title="четверг">Чт</span></th>
-        <th scope="col"><span title="пятница">Пт</span></th>
-        <th scope="col" class="ui-datepicker-week-end"><span title="суббота">Сб</span></th>
-        <th scope="col" class="ui-datepicker-week-end"><span title="воскресенье">Вс</span></th>
+        <th scope="col"><span title="понедельник">пн</span></th>
+        <th scope="col"><span title="вторник">вт</span></th>
+        <th scope="col"><span title="среда">ср</span></th>
+        <th scope="col"><span title="четверг">чт</span></th>
+        <th scope="col"><span title="пятница">пт</span></th>
+        <th scope="col" class="ui-datepicker-week-end"><span title="суббота">сб</span></th>
+        <th scope="col" class="ui-datepicker-week-end"><span title="воскресенье">вс</span></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let row of daysArray">
-        <td  [ngClass]="{'ui-state-disabled': cell[0].type=='prev' || cell[0].type=='next'}" (click)="getSchedule(cell[0].day_num)" *ngFor="let cell of row" >{{cell[0].day_num}}</td>
+        <td class="data-handler=selectDay"  [ngClass]="{'ui-state-disabled': cell[0].type=='prev' || cell[0].type=='next'}" (click)="getSchedule(cell[0].day_num)" *ngFor="let cell of row" ><a [ngClass]="{'ui-state-active': cell[0].active == 'true'}">{{cell[0].day_num}}</a></td>
       </tr>
       </tbody>
     </table>

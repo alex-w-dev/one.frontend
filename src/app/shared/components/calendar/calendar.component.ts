@@ -7,21 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
-  daysOfWeek = ['понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье'];
   months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ];
-  format = 'dd/mm/yyyy';
-  currentMonth = '';
-  currentYear = '';
-  f = 'M';
+  titleMonth = '';
+  currentMonth = (new Date()).getMonth();
+  currentYear = (new Date()).getFullYear();
   daysArray: any[] = [[], [], [], [], [], []];
 
   constructor() { }
 
   ngOnInit() {
-    this.drawCalendar(2017, 5);
+    this.drawCalendar(this.currentYear, this.currentMonth, (new Date()).getDate());
   }
 
-  drawCalendar(y, m) {
+  drawCalendar(y, m, day) {
+    this.daysArray = [[], [], [], [], [], []];
     // 1st day of the selected month
     let firstDayOfCurrentMonth = new Date(y, m, 1).getDay();
     // Last date of the selected month
@@ -31,18 +30,15 @@ export class CalendarComponent implements OnInit {
     if (m === 0) {
       lastDateOfLastMonth =  new Date(y - 1, 11, 0).getDate();
     }
-    this.currentMonth = this.months[m];
-    this.currentYear = y;
+
+    this.titleMonth = this.months[m];
     let p, dm;
-    if (this.f === 'M') {
-      p = dm = 2;
+    if (firstDayOfCurrentMonth === 0) {
+      p = dm = -5;
     } else {
-      if (firstDayOfCurrentMonth === 0) {
-        p = dm = -5;
-      } else {
-        p = dm = 2;
-      }
+      p = dm = 2;
     }
+
     let cellvalue;
     for (let d, i = 0, j = 0, z0 = 0; z0 < 6; z0++) {
       for (let z0a = 0, k = 0; z0a < 7; z0a++) {
@@ -53,7 +49,7 @@ export class CalendarComponent implements OnInit {
           this.daysArray[j][k] = [];
           this.daysArray[j][k].push({
               type: 'prev',
-              day_num: cellvalue
+              day_num: cellvalue,
             });
           k++;
           // Dates from next month
@@ -61,15 +57,20 @@ export class CalendarComponent implements OnInit {
           this.daysArray[j][k] = [];
           this.daysArray[j][k].push({
             type: 'next',
-            day_num: p
+            day_num: p++,
           });
           k++;
           // Current month dates
         } else {
           this.daysArray[j][k] = [];
+          let active = 'false';
+          if (d === day) {
+            active = 'true';
+          }
           this.daysArray[j][k].push({
             type: 'current',
-            day_num: d
+            day_num: d,
+            active: active,
           });
           k++;
           p = 1;
@@ -82,12 +83,29 @@ export class CalendarComponent implements OnInit {
       }
       j++;
     }
-    console.log(this.daysArray);
   }
 
   getSchedule(day) {
-    console.log(day);
+    this.drawCalendar(this.currentYear, this.currentMonth, day);
   }
 
+  getNextMonth() {
+    if (this.currentMonth === 11) {
+      this.currentYear = this.currentYear + 1;
+      this.currentMonth = 0;
+    } else {
+      this.currentMonth = this.currentMonth + 1;
+    }
+    this.drawCalendar(this.currentYear, this.currentMonth, 1);
+  }
 
+  getPrevMont() {
+    if (this.currentMonth === 0) {
+      this.currentYear = this.currentYear - 1;
+      this.currentMonth = 11;
+    } else {
+      this.currentMonth = this.currentMonth - 1;
+    }
+    this.drawCalendar(this.currentYear, this.currentMonth, 1);
+  }
 }
