@@ -36,7 +36,7 @@
         </div>
 
         <div class="calendar-more"
-             [ngClass]="{'calendar-more__editable': editable}" *ngIf="entries.length==0">
+             [ngClass]="{'calendar-more__editable': editable}" *ngIf="entries.length==0 || toEditSchedule == true">
           <div class="calendar-more-title">
             <span>Выбрать время приема</span>
           </div>
@@ -91,20 +91,32 @@
               </tr>
             </table>
           </div>
-          <div class="calendar-more-actions">
+          <div class="calendar-more-actions" *ngIf="toEditSchedule == false">
             <div class="calendar-more-action"
                  (click)="addAction()">
               Сохранить
             </div>
             <div class="calendar-more-action"
-                 (click)="deleteAction()">
+                 (click)="clearFormAction()">
               Очистить все поля
             </div>
           </div>
+
+          <div class="calendar-more-actions" *ngIf="toEditSchedule == true">
+            <div class="calendar-more-action"
+                 (click)="editAction()">
+              Изменить
+            </div>
+            <div class="calendar-more-action"
+                 (click)="deleteAction()">
+              Удалить из расписания
+            </div>
+          </div>
+
         </div>
 
         <div style="background: #EDF7F9;" class="calendar-more"
-             [ngClass]="{'calendar-more__editable': editable}" *ngIf="entries.length>0">
+             [ngClass]="{'calendar-more__editable': editable}" *ngIf="entries.length>0 && toEditSchedule == false">
           <div class="calendar-more-title">
             <span>Текущий график на {{currentDay}} {{titleMonth}}</span>
           </div>
@@ -138,7 +150,7 @@
           </div>
           <div class="calendar-more-actions">
             <div class="calendar-more-action"
-                 (click)="addAction()">
+                 (click)="showEditForm()">
               Изменить
             </div>
             <div class="calendar-more-action"
@@ -147,8 +159,6 @@
             </div>
           </div>
         </div>
-
-
 
 
       </div>
