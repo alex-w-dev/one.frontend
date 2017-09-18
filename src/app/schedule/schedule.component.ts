@@ -192,7 +192,7 @@ export class ScheduleComponent implements OnInit {
   getDaysResult(y, m, day) {
     this.apiService.request('user/get-day-schedule', {'reception_date': y + '-' + this.getMonthOfRightFormat(m) + '-' + day}).then(data => {
       if( data.success) {
-        this.daysDoted[this.daysDoted.length] = day;
+        this.daysDoted[this.daysDoted.length] = m + '.' + day;
       }
     });
   }

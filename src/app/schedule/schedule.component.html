@@ -10,8 +10,8 @@
           <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
                style="display: block;">
             <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-              <a class="ui-datepicker-prev ui-corner-all" (click)="getPrevMont()"> &lt; </a>
-              <a class="ui-datepicker-next ui-corner-all" (click)="getNextMonth()"> > </a>
+              <a class="ui-datepicker-prev ui-corner-all" (click)="getPrevMont()"> <img class="calendar-arrow" src="../../public/img/arrow-left.png"> </a>
+              <a class="ui-datepicker-next ui-corner-all" (click)="getNextMonth()"> <img src="../../public/img/arrow-right.png"> </a>
               <div class="ui-datepicker-title"><span class="ui-datepicker-month">{{titleMonth}}</span></div>
             </div>
             <table class="ui-datepicker-calendar">
@@ -28,7 +28,7 @@
               </thead>
               <tbody>
               <tr *ngFor="let row of daysArray">
-                <td class="data-handler=selectDay"  [ngClass]="{'ui-state-disabled': cell[0].type=='prev' || cell[0].type=='next'}" (click)="getSchedule(cell[0].day_num)" *ngFor="let cell of row" ><div *ngIf="daysDoted.indexOf(cell[0].day_num) !== -1" class="calendar-dot">.</div><a style="cursor: pointer" [ngClass]="{'ui-state-active': cell[0].active == 'true'}">{{cell[0].day_num}}</a></td>
+                <td class="data-handler=selectDay"  [ngClass]="{'ui-state-disabled': cell[0].type=='prev' || cell[0].type=='next'}" (click)="getSchedule(cell[0].day_num)" *ngFor="let cell of row" ><div *ngIf="daysDoted.indexOf(currentMonth + '.' + cell[0].day_num) !== -1" class="calendar-dot">.</div><a style="cursor: pointer" [ngClass]="{'ui-state-active': cell[0].active == 'true'}">{{cell[0].day_num}}</a></td>
               </tr>
               </tbody>
             </table>
@@ -164,7 +164,7 @@
       </div>
       <div class="prfl-calendar-right">
         <div class="prfl-calendar-list">
-          <div class="prfl-calendar-list-title">
+          <div class="prfl-calendar-list-title" style="font-weight: bold">
             Запись на {{currentDay}} {{titleMonth}}
           </div>
           <div class="prfl-calendar-list-item" *ngFor="let entry of entries">

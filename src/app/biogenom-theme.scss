@@ -431,14 +431,23 @@ button.ui-button::-moz-focus-inner {
 .ui-datepicker .ui-datepicker-next-hover {
 	right: 1px;
 }
-.ui-datepicker .ui-datepicker-prev span,
-.ui-datepicker .ui-datepicker-next span {
+.ui-datepicker .ui-datepicker-next img {
 	display: block;
 	position: absolute;
 	left: 50%;
-	margin-left: -8px;
 	top: 50%;
-	margin-top: -8px;
+  margin-top: -3px;
+  margin-left: -16px;
+  cursor: pointer;
+}
+.ui-datepicker .ui-datepicker-prev img{
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -3px;
+  cursor: pointer;
+  margin-left: 12px;
 }
 .ui-datepicker .ui-datepicker-title {
 	margin: 0 2.3em;
