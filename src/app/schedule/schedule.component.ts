@@ -30,6 +30,7 @@ export class ScheduleComponent implements OnInit {
   currentYear = (new Date()).getFullYear();
   currentDay = (new Date()).getDate();
   daysArray: any[] = [[], [], [], [], [], []];
+  daysDoted: any[] = [];
 
   @Input() editable: boolean = true;
 
@@ -188,8 +189,17 @@ export class ScheduleComponent implements OnInit {
       }});
   }
 
+  getDaysResult(y, m, day) {
+    this.apiService.request('user/get-day-schedule', {'reception_date': y + '-' + this.getMonthOfRightFormat(m) + '-' + day}).then(data => {
+      if( data.success) {
+        this.daysDoted[this.daysDoted.length] = day;
+      }
+    });
+  }
+
   // work with calendar
   drawCalendar(y, m, day) {
+    this.getDaysResult(y, m, day);
     this.daysArray = [[], [], [], [], [], []];
     // 1st day of the selected month
     let firstDayOfCurrentMonth = new Date(y, m, 1).getDay();

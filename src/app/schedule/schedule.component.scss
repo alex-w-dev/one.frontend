@@ -32,6 +32,14 @@
     display: none;
   }
 }
+.calendar-dot{
+  font-size: 20px;
+  font-weight: bold;
+  color: #BABABB;
+  margin-bottom: -9px;
+  margin-top: -16px;
+}
+
 .calendar-more__editable{
   .calendar-more-actions{
     display: flex;
