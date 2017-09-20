@@ -29,6 +29,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
   isPatient = true;
   remove = false;
   male: string = '';
+  answerKeyIterator: number = 0;
 
   questionsForm: NgForm;
   @ViewChild('questionsForm') currentForm: NgForm;
@@ -90,6 +91,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
     this.apiService.request('account/anketa', {'id_parent': this.id_measure}).then(data => {
 
        console.log(data);
+       console.log(this.answer);
        console.log(this.questions);
 
       if (data.success && data.result && !!data.result.groups) {
@@ -141,13 +143,9 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
               age_high: data.result.questions[questionKey]['age_high'],
               male: data.result.questions[questionKey]['male'],
               section: data.result.questions[questionKey]['section'],
-              array_key: i,
+              array_key: this.answerKeyIterator++,
               children: []
             });
-
-
-            // делает сет чайлдов
-            this.setChildrenSection(this.questions[i].children, data.result.questions[questionKey]['children']);
 
             if (data.result.questions[questionKey].values != null) {
               this.questions[i].values = [];
@@ -177,6 +175,9 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
               value: answerValue,
               measure_id: data.result.questions[questionKey]['id_measure'],
             });
+
+            // делает сет чайлдов
+            this.setChildrenSection(this.questions[i].children, data.result.questions[questionKey]['children']);
             i++;
           }
         });
@@ -200,9 +201,8 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
             male: children[childrenKey]['male'],
             section: children[childrenKey]['section'],
             children: [],
-            array_key: j,
+            array_key: this.answerKeyIterator++,
           });
-          this.setChildrenSection(parent[j].children, children[childrenKey]['children']);
 
           if (children[childrenKey].values != null) {
             parent[j].values = [];
@@ -224,7 +224,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
           }
           if (children[childrenKey]['typevalue'] == 2 && children[childrenKey]['value'] == null) {
             if (!!parent[j].values[0]) {
-              // answerValue = parent[j].values[0].id;
+               answerValue = parent[j].values[0].id;
             }
           }
           this.answer.push({
@@ -232,6 +232,8 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
             value: answerValue,
             measure_id: children[childrenKey]['id_measure'],
           });
+
+          this.setChildrenSection(parent[j].children, children[childrenKey]['children']);
           j++;
         }
        });
@@ -239,6 +241,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
   }
 
   checkboxClick(key, question)  {
+    console.log(question);
     this.answer[key].value = this.answer[key].value.length == '' ? [] : this.answer[key].value ;
     this.remove = false;
     if(this.answer[key].value.length > 0){

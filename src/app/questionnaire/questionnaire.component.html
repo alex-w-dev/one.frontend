@@ -41,8 +41,8 @@
                   <input type="radio"
                          [(ngModel)]="answer[question.array_key].value"
                          value = "{{option.id}}"
-                         name = "{{option.name}}"
-                         [checked] = "option.name == answer[question.array_key].value">
+                         name = "{{option.id_measure}}"
+                         [checked] = "option.id === answer[question.array_key].value">
                   <span>{{option.name}}</span>
                 </label>
               </div>

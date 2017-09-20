@@ -24,6 +24,7 @@ export class ScheduleComponent implements OnInit {
   clinics: ISelectInputOption[] = [];
   toEditSchedule: boolean = false;
   toAddSchedule: boolean = true;
+  allowToEditAndAddSchedule: boolean = true;
   entries: IScheduleEntry[] = [];
   months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ];
   titleMonth = '';
@@ -65,8 +66,21 @@ export class ScheduleComponent implements OnInit {
     }
 
     this.getClinicsList();
+    this.checkAllowToEditAndAddSchedule();
     this.drawCalendar(this.currentYear, this.currentMonth, this.currentDay);
   }
+
+  checkAllowToEditAndAddSchedule() {
+    let dateStr = this.currentYear + '-' + this.getMonthOfRightFormat(this.currentMonth) + '-' + (this.currentDay + 1);
+    let selectedDate = (new Date(dateStr).getTime());
+    let currentDate = (new Date().getTime());
+    if (currentDate > selectedDate) {
+      this.allowToEditAndAddSchedule = false;
+    } else {
+      this.allowToEditAndAddSchedule = true;
+    }
+  }
+
 
   getDaySchedule() {
     this.clearFormAction();
@@ -209,34 +223,9 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // work with calendar
   drawCalendar(y, m, day) {
-    this.getDaysResult(y, m, day);
+
     this.daysArray = [[], [], [], [], [], []];
     // 1st day of the selected month
     let firstDayOfCurrentMonth = new Date(y, m, 1).getDay();
@@ -284,6 +273,7 @@ export class ScheduleComponent implements OnInit {
           if (d === day) {
             active = 'true';
           }
+          this.getDaysResult(y, m, d);
           this.daysArray[j][k].push({
             type: 'current',
             day_num: d,
@@ -306,6 +296,8 @@ export class ScheduleComponent implements OnInit {
     this.currentDay = day;
     this.getDaySchedule();
     this.toEditSchedule = false;
+    this.toAddSchedule = true;
+    this.checkAllowToEditAndAddSchedule();
     this.drawCalendar(this.currentYear, this.currentMonth, day);
   }
 
@@ -318,7 +310,9 @@ export class ScheduleComponent implements OnInit {
     }
     this.currentDay = 1;
     this.getDaySchedule();
+    this.toAddSchedule = true;
     this.toEditSchedule = false;
+    this.checkAllowToEditAndAddSchedule();
     this.drawCalendar(this.currentYear, this.currentMonth, 1);
   }
 
@@ -331,7 +325,9 @@ export class ScheduleComponent implements OnInit {
     }
     this.currentDay = 1;
     this.getDaySchedule();
+    this.toAddSchedule = true;
     this.toEditSchedule = false;
+    this.checkAllowToEditAndAddSchedule();
     this.drawCalendar(this.currentYear, this.currentMonth, 1);
   }
 }
