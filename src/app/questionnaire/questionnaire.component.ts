@@ -54,32 +54,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
         this.showSaveButton = false;
       }
     }
-
-    this.apiService.request('account/anketa', {'id_parent': this.id_measure}).then(data => {
-      if (data.success && data.result && !!data.result.groups) {
-        this.typeValues = 0;
-        Object.keys(data.result.groups).forEach(questionKey => {
-          if( data.result.groups[questionKey]['male'] === '2' || data.result.groups[questionKey]['male'] === this.male) {
-            this.questions.push({
-              id_measure: data.result.groups[questionKey]['id_measure'],
-              id_parent: data.result.groups[questionKey]['id_parent'],
-              name: data.result.groups[questionKey]['name'],
-              typevalue: data.result.groups[questionKey]['typevalue'],
-              sort_order: data.result.groups[questionKey]['sort_order'],
-              age_low: data.result.groups[questionKey]['age_low'],
-              age_high: data.result.groups[questionKey]['age_high'],
-              male: data.result.groups[questionKey]['male'],
-              section: data.result.groups[questionKey]['section'],
-              answered: {
-                need: data.result.groups[questionKey]['answered']['need'],
-                answered: data.result.groups[questionKey]['answered']['answered'],
-                proc: data.result.groups[questionKey]['answered']['proc'],
-              }
-            });
-          }
-        });
-      }
-    });
+    this.getAnketa(this.id_measure);
   }
 
   getAnketa(id_measure) {
@@ -93,9 +68,9 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
        console.log(data);
        console.log(this.answer);
        console.log(this.questions);
+       console.log(this.group);
 
       if (data.success && data.result && !!data.result.groups) {
-        this.typeValues = 0;
         Object.keys(data.result.groups).forEach(questionKey => {
           if( data.result.groups[questionKey]['male'] === '2' || data.result.groups[questionKey]['male'] === this.male) {
             this.questions.push({
@@ -136,7 +111,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
             this.questions.push({
               id_measure: data.result.questions[questionKey]['id_measure'],
               id_parent: data.result.questions[questionKey]['id_parent'],
-              name: data.result.questions[questionKey]['name'],
+              name: data.result.questions[questionKey]['name'].replace(/\s/g, ''),
               typevalue: data.result.questions[questionKey]['typevalue'],
               sort_order: data.result.questions[questionKey]['sort_order'],
               age_low: data.result.questions[questionKey]['age_low'],
@@ -181,6 +156,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
             i++;
           }
         });
+        this.typeValues = 1;
       }
     });
   }
@@ -193,7 +169,7 @@ export class QuestionnaireComponent implements OnInit, OnDestroy {
           parent.push({
             id_measure: children[childrenKey]['id_measure'],
             id_parent: children[childrenKey]['id_parent'],
-            name: children[childrenKey]['name'],
+            name: children[childrenKey]['name'].replace(/\s/g, ''),
             typevalue: children[childrenKey]['typevalue'],
             sort_order: children[childrenKey]['sort_order'],
             age_low: children[childrenKey]['age_low'],
