@@ -19,6 +19,7 @@ export interface IScheduleForm {
   end_time_formated?: number | string;
   reception_time: number | string;
   reception_date: number | string;
+  schedule_id?: number | string;
 }
 
 export interface IAnketaQuestion {

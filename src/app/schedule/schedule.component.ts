@@ -18,11 +18,12 @@ interface IScheduleEntry {
 })
 export class ScheduleComponent implements OnInit {
   newSchedule: IScheduleForm = {clinic_id: 1, price: '', start_time: '0', end_time: '0', reception_time: 30, reception: '', reception_date: ''};
-
+  scheduleList: IScheduleForm[] = [];
   startTimes: ISelectInputOption[] = [];
   endTimes: ISelectInputOption[] = [];
   clinics: ISelectInputOption[] = [];
   toEditSchedule: boolean = false;
+  toAddSchedule: boolean = true;
   entries: IScheduleEntry[] = [];
   months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ];
   titleMonth = '';
@@ -70,19 +71,26 @@ export class ScheduleComponent implements OnInit {
   getDaySchedule() {
     this.clearFormAction();
     this.entries = [];
+    this.scheduleList = [];
     this.apiService.request('user/get-day-schedule', {'reception_date': this.currentYear + '-' + this.getMonthOfRightFormat(this.currentMonth) + '-' + this.currentDay}).then(data => {
-      if(data.success) {
-        this.newSchedule = {
-          clinic_id: data.result.info.clinic_id,
-          price: data.result.info.price,
-          start_time: data.result.info.start_time,
-          end_time: data.result.info.end_time,
-          reception_time: data.result.info.reception_time,
-          reception: data.result.info.reception,
-          reception_date: data.result.info.reception_date,
-        };
-        this.getClinicNameById(data.result.info.clinic_id);
-        this.getTimeFromDate(data.result.info.start_time, data.result.info.end_time);
+      if( data.success) {
+
+        Object.keys(data.result.info).forEach(scheduleKey => {
+          let i = 0;
+          this.scheduleList.push({
+            clinic_id: data.result.info[scheduleKey]['clinic_id'],
+            price: data.result.info[scheduleKey]['price'],
+            start_time: data.result.info[scheduleKey]['start_time'],
+            end_time: data.result.info[scheduleKey]['end_time'],
+            reception_time: data.result.info[scheduleKey]['reception_time'],
+            reception: data.result.info[scheduleKey]['reception'],
+            reception_date: data.result.info[scheduleKey]['reception_date'],
+            schedule_id: data.result.info[scheduleKey]['schedule_id'],
+            clinic_name: data.result.info[scheduleKey]['clinic_name'],
+            start_time_formated: data.result.info[scheduleKey]['start_time_formated'],
+            end_time_formated: data.result.info[scheduleKey]['end_time_formated'],
+          });
+        });
 
         Object.keys(data.result.schedule).forEach(visitKey => {
           this.entries.push({
@@ -94,6 +102,8 @@ export class ScheduleComponent implements OnInit {
         });
       }
     });
+
+    console.log(this.scheduleList);
   }
 
   getClinicsList(){
@@ -108,26 +118,6 @@ export class ScheduleComponent implements OnInit {
       }});
   }
 
-  getClinicNameById(id) {
-    if(this.clinics.length > 0){
-      Object.keys(this.clinics).forEach(clinicKey => {
-        if (this.clinics[clinicKey].value == id) {
-          this.newSchedule.clinic_name = this.clinics[clinicKey].text;
-        }
-      });
-    }
-  }
-
-  getTimeFromDate(start_date, end_date) {
-    let hours =  new Date(Date.parse(start_date)).getHours();
-    let minutes = new Date(Date.parse(start_date)).getMinutes();
-    this.newSchedule.start_time_formated = hours + ':' + minutes + '0';
-
-    let hours_end =  new Date(Date.parse(end_date)).getHours();
-    let minutes_end = new Date(Date.parse(end_date)).getMinutes();
-    this.newSchedule.end_time_formated = hours_end + ':' + minutes_end + '0';
-  }
-
   getMonthOfRightFormat(month) {
     let result = month + 1;
     if(result < 10) {
@@ -136,8 +126,23 @@ export class ScheduleComponent implements OnInit {
     return result;
   }
 
-  showEditForm() {
+  showEditForm(schedule_id) {
     this.toEditSchedule = true;
+    this.toAddSchedule = false;
+    Object.keys(this.scheduleList).forEach(scheduleKey => {
+      if(this.scheduleList[scheduleKey]['schedule_id'] === schedule_id){
+        this.newSchedule = {
+          clinic_id: this.scheduleList[scheduleKey]['clinic_id'],
+          price: this.scheduleList[scheduleKey]['price'],
+          start_time: this.scheduleList[scheduleKey]['start_time'],
+          end_time: this.scheduleList[scheduleKey]['end_time'],
+          reception_time: this.scheduleList[scheduleKey]['reception_time'],
+          reception: this.scheduleList[scheduleKey]['reception'],
+          reception_date: this.scheduleList[scheduleKey]['reception_date'],
+          schedule_id: schedule_id
+        };
+      }
+    });
   }
 
   editAction() {
@@ -149,6 +154,7 @@ export class ScheduleComponent implements OnInit {
       start_time: this.newSchedule.start_time,
       end_time: this.newSchedule.end_time,
       reception_time: this.newSchedule.reception_time,
+      schedule_id: this.newSchedule.schedule_id,
       reception: this.newSchedule.reception
     }).then(data => {
       if (data.success) {
@@ -159,11 +165,16 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
-  deleteAction() {
-    this.apiService.request('user/delete-schedule', {'reception_date': this.currentYear + '-' + this.getMonthOfRightFormat(this.currentMonth) + '-' + this.currentDay}).then(data => {
+  addNewForm(){
+    this.newSchedule = {clinic_id: 1, price: '', start_time: this.newSchedule.end_time, end_time: '0', reception_time: 30, reception: '', reception_date: ''};
+    this.toEditSchedule = true;
+  }
+
+  deleteAction(schedue_id) {
+    this.apiService.request('user/delete-schedule', {'schedule_id': schedue_id}).then(data => {
+      console.log(data);
       if (data.success) {
-        this.clearFormAction();
-        this.entries = [];
+        this.getDaySchedule();
         this.dialogService.alert('Вы успешно удалили график на ' + this.currentDay + ' ' + this.titleMonth);
       }
     });
@@ -184,6 +195,7 @@ export class ScheduleComponent implements OnInit {
       reception_time: this.newSchedule.reception_time,
       reception: this.newSchedule.reception}).then(data => {
       if(data.success) {
+        this.toEditSchedule = false;
         this.dialogService.alert('Вы успешно добавили график на ' + this.currentDay + ' ' + this.titleMonth);
         this.getDaySchedule();
       }});
@@ -196,6 +208,31 @@ export class ScheduleComponent implements OnInit {
       }
     });
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // work with calendar
   drawCalendar(y, m, day) {

@@ -35,8 +35,8 @@
           </div>
         </div>
 
-        <div class="calendar-more"
-             [ngClass]="{'calendar-more__editable': editable}" *ngIf="entries.length==0 || toEditSchedule == true">
+        <div class="calendar-more calendar-more__editable"
+              *ngIf="entries.length==0 || toEditSchedule == true">
           <div class="calendar-more-title">
             <span>Выбрать время приема</span>
           </div>
@@ -91,7 +91,7 @@
               </tr>
             </table>
           </div>
-          <div class="calendar-more-actions" *ngIf="toEditSchedule == false">
+          <div class="calendar-more-actions" *ngIf="toAddSchedule == true">
             <div class="calendar-more-action"
                  (click)="addAction()">
               Сохранить
@@ -101,8 +101,7 @@
               Очистить все поля
             </div>
           </div>
-
-          <div class="calendar-more-actions" *ngIf="toEditSchedule == true">
+          <div class="calendar-more-actions" *ngIf="toEditSchedule == true && toAddSchedule == false">
             <div class="calendar-more-action"
                  (click)="editAction()">
               Изменить
@@ -112,55 +111,55 @@
               Удалить из расписания
             </div>
           </div>
-
         </div>
 
-        <div style="background: #EDF7F9;" class="calendar-more"
-             [ngClass]="{'calendar-more__editable': editable}" *ngIf="entries.length>0 && toEditSchedule == false">
+        <div style="background: #EDF7F9;" class="calendar-more calendar-more__editable"
+             *ngIf="entries.length>0 && toEditSchedule == false">
           <div class="calendar-more-title">
             <span>Текущий график на {{currentDay}} {{titleMonth}}</span>
           </div>
-          <div class="calendar-more-content">
+          <div class="calendar-more-content" style="border-bottom: 3px;" *ngFor="let schedule of scheduleList">
             <table>
               <tr>
                 <td colspan="2"></td>
               </tr>
               <tr>
                 <td>
-                  <span style="font-weight: bold">{{newSchedule.clinic_name}}</span>
+                  <span style="font-weight: bold">{{schedule.clinic_name}}</span>
+                </td>
+                <td>
+                  <span (click)="deleteAction(schedule.schedule_id)" style="color: #C9DEE2; margin-left: 80%; cursor: pointer">X</span>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <span>Цена:</span>
+                  <span>Цена: {{schedule.price}}</span>
                 </td>
                 <td>
-                  <span>{{newSchedule.price}}</span>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <span>Работа:</span>
+                  <span>Работа: с {{schedule.start_time_formated}} до {{schedule.end_time_formated}}</span>
                 </td>
                 <td>
-                  <span>с {{newSchedule.start_time_formated}} до {{newSchedule.end_time_formated}}</span>
+                  <div class="calendar-more-actions" style="margin-top: -1px;">
+                    <div class="calendar-more-action"
+                         (click)="showEditForm(schedule.schedule_id)">
+                      Изменить
+                    </div>
+                  </div>
                 </td>
               </tr>
             </table>
           </div>
           <div class="calendar-more-actions">
             <div class="calendar-more-action"
-                 (click)="showEditForm()">
-              Изменить
-            </div>
-            <div class="calendar-more-action"
-                 (click)="deleteAction()">
-              Удалить из расписания
+                 (click)="addNewForm()">
+              Добавить еще
             </div>
           </div>
         </div>
-
-
       </div>
       <div class="prfl-calendar-right">
         <div class="prfl-calendar-list">
