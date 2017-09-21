@@ -83,7 +83,7 @@ export class User implements IUser {
        if (this.male === '1') {
           return '/public/img/main-avatar-male.png';
         } else {
-          return '/public/img/main-avatar.png';
+          return '/public/img/main-avatar-female.png';
         }
     }
   }
