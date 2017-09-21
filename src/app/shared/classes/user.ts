@@ -38,6 +38,7 @@ export class User implements IUser {
     this.locationProtocol = window.location.protocol;
 
     if (user) {
+      console.log(user);
       this.type = user.user_info.type;
 
       this.avatar = HelpersService.deepFind(user, 'avatar.big') || '';
@@ -79,7 +80,11 @@ export class User implements IUser {
       case 'partner':
         return '/public/img/doctor-main-avatar.png';
       default:
-        return '/public/img/main-avatar.png';
+       if (this.male === '1') {
+          return '/public/img/main-avatar-male.png';
+        } else {
+          return '/public/img/main-avatar.png';
+        }
     }
   }
 
