@@ -76,6 +76,7 @@
               <tr>
                 <td>
                     <select-input [(ngModel)]="newSchedule.start_time"
+                                      (change) = "startTimeSelectorChange(newSchedule.schedule_id)"
                                       [name]="'start_time'"
                                       [options]="startTimes"
                                       ngDefaultControl>
@@ -83,6 +84,7 @@
                 </td>
                 <td>
                   <select-input [(ngModel)]="newSchedule.end_time"
+                                (change) = "endTimeSelectorChange()"
                                 [name]="'end_time'"
                                 [options]="endTimes"
                                 ngDefaultControl>

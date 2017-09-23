@@ -21,7 +21,9 @@ export class ScheduleComponent implements OnInit {
   scheduleList: IScheduleForm[] = [];
   templateList: IScheduleTemplate[] = [];
   startTimes: ISelectInputOption[] = [];
+  actualStartTimes: ISelectInputOption[] = [];
   endTimes: ISelectInputOption[] = [];
+  actualEndTimes: ISelectInputOption[] = [];
   clinics: ISelectInputOption[] = [];
   toEditSchedule: boolean = false;
   toAddSchedule: boolean = true;
@@ -38,6 +40,7 @@ export class ScheduleComponent implements OnInit {
   templateListOpen: boolean = false;
   templateName: string | number = '';
 
+
   @Input() editable: boolean = true;
 
   constructor(private apiService: ApiService, private dialogService: DialogService) {
@@ -45,9 +48,17 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.getDaySchedule();
+    this.getClinicsList();
+    this.getTemplatesList();
+    this.checkAllowToEditAndAddSchedule();
+    this.drawCalendar(this.currentYear, this.currentMonth, this.currentDay);
+  }
 
+  getTimeSelectorValues() {
     let start_work = 7;
     let end_work = 21;
+    this.startTimes = [];
+    this.endTimes = [];
     this.startTimes.push({
       value: '0',
       text: 'C',
@@ -58,21 +69,24 @@ export class ScheduleComponent implements OnInit {
     });
 
     for (let i = 0; i < end_work - start_work; i++) {
-      let hour = start_work + i;
-      this.startTimes.push({
-        value: this.currentYear + '-' + this.getMonthOfRightFormat(this.currentMonth) + '-' + this.currentDay + ' ' + hour + ':00:00',
-        text: hour + ':00',
-      });
-      this.endTimes.push({
-        value: this.currentYear + '-' + this.getMonthOfRightFormat(this.currentMonth) + '-' + this.currentDay + ' ' + hour + ':00:00',
-        text: hour + ':00',
-      });
+      let hour: number | string = start_work + i;
+      let availToSet: boolean = true;
+      if (hour < 10) {
+        hour = '0' + hour;
+      }
+      let value = this.currentYear + '-' + this.getMonthOfRightFormat(this.currentMonth) + '-' + this.currentDay + ' ' + hour + ':00:00';
+      if (availToSet == true) {
+        this.startTimes.push({
+          value: this.currentYear + '-' + this.getMonthOfRightFormat(this.currentMonth) + '-' + this.currentDay + ' ' + hour + ':00:00',
+          text: hour + ':00',
+        });
+        this.endTimes.push({
+          value: this.currentYear + '-' + this.getMonthOfRightFormat(this.currentMonth) + '-' + this.currentDay + ' ' + hour + ':00:00',
+          text: hour + ':00',
+        });
+      }
     }
 
-    this.getClinicsList();
-    this.getTemplatesList();
-    this.checkAllowToEditAndAddSchedule();
-    this.drawCalendar(this.currentYear, this.currentMonth, this.currentDay);
   }
 
   checkAllowToEditAndAddSchedule() {
@@ -124,14 +138,77 @@ export class ScheduleComponent implements OnInit {
     return result;
   }
 
+  startTimeSelectorChange(schedule_id) {
+    this.getTimeSelectorValues();
+    Object.keys(this.scheduleList).forEach(scheduleKey => {
+      if (this.scheduleList[scheduleKey]['schedule_id'] !== schedule_id){
+        let startT = new Date(this.scheduleList[scheduleKey]['start_time']).getTime();
+        let endT = new Date(this.scheduleList[scheduleKey]['end_time']).getTime();
+        this.setAvailableTimeIntervals(startT, endT);
+      }
+    });
+    let i = 0;
+    let startT = new Date(<number>this.newSchedule.start_time).getTime();
+    while (i < this.endTimes.length) {
+      let valueT = new Date(this.endTimes[i].value).getTime();
+      if (startT >= valueT && valueT !== 0) {
+        this.endTimes.splice(i, 1);
+      } else {
+        i++;
+      }
+    }
+    /*if (this.endTimes.length > 2) {
+      let iterCount = this.endTimes.length;
+      let j = 0;
+      while (j < iterCount) {
+        let firstj = new Date(this.endTimes[j].value).getTime();
+        let secondj = new Date(this.endTimes[j + 1].value).getTime();
+        if ((secondj - firstj) > 3600000) {
+          this.endTimes.splice(j + 1, iterCount - (j + 1));
+          break;
+        }
+      }
+    }*/
+  }
+
+  endTimeSelectorChange() {
+    console.log(this.newSchedule.end_time);
+  }
+
+  setAvailableTimeIntervals(startT, endT) {
+    let timeArrayIndexStart = 0;
+    let timeArrayIndexEnd = 0;
+    while (timeArrayIndexStart < this.startTimes.length) {
+      let valueT = new Date(this.startTimes[timeArrayIndexStart].value).getTime();
+      if ( endT >= valueT && valueT >= startT) {
+        this.startTimes.splice(timeArrayIndexStart, 1);
+      } else {
+        timeArrayIndexStart++;
+      }
+    }
+    while (timeArrayIndexEnd < this.endTimes.length) {
+      let valueT = new Date(this.endTimes[timeArrayIndexEnd].value).getTime();
+      if ( endT >= valueT && valueT > startT) {
+        this.endTimes.splice(timeArrayIndexEnd, 1);
+      } else {
+        timeArrayIndexEnd++;
+      }
+    }
+  }
+
   getDaySchedule() {
     this.clearFormAction();
+    this.getTimeSelectorValues();
     this.entries = [];
     this.scheduleList = [];
     this.apiService.request('user/get-day-schedule', {'reception_date': this.currentYear + '-' + this.getMonthOfRightFormat(this.currentMonth) + '-' + this.currentDay}).then(data => {
       if( data.success) {
         Object.keys(data.result.info).forEach(scheduleKey => {
-          let i = 0;
+
+          let startT = new Date(data.result.info[scheduleKey]['start_time']).getTime();
+          let endT = new Date(data.result.info[scheduleKey]['end_time']).getTime();
+          this.setAvailableTimeIntervals(startT, endT);
+
           this.scheduleList.push({
             clinic_id: data.result.info[scheduleKey]['clinic_id'],
             price: data.result.info[scheduleKey]['price'],
@@ -159,6 +236,7 @@ export class ScheduleComponent implements OnInit {
   }
 
   showEditForm(schedule_id) {
+    this.getTimeSelectorValues();
     this.toEditSchedule = true;
     this.toAddSchedule = false;
     Object.keys(this.scheduleList).forEach(scheduleKey => {
@@ -173,6 +251,10 @@ export class ScheduleComponent implements OnInit {
           reception_date: this.scheduleList[scheduleKey]['reception_date'],
           schedule_id: schedule_id
         };
+      } else {
+        let startT = new Date(this.scheduleList[scheduleKey]['start_time']).getTime();
+        let endT = new Date(this.scheduleList[scheduleKey]['end_time']).getTime();
+        this.setAvailableTimeIntervals(startT, endT);
       }
     });
   }
@@ -239,18 +321,23 @@ export class ScheduleComponent implements OnInit {
 
   useTemplate(template_id) {
     this.apiService.request('user/get-schedule-template-data', {'template_id': template_id}).then(data => {
+      console.log(data);
       if (data.success) {
         let reception_date = this.currentYear + '-' + this.getMonthOfRightFormat(this.currentMonth) + '-' + this.currentDay;
         let addSuccess = 0;
+        console.log(77);
         Object.keys(data.result.info).forEach(scheduleKey => {
           console.log(data.result.info);
-
+          let hours_start = new Date(data.result.info[scheduleKey]['start_time']).getHours();
+          let minutes_start = new Date(data.result.info[scheduleKey]['start_time']).getMinutes();
+          let hours_end = new Date(data.result.info[scheduleKey]['end_time']).getHours();
+          let minutes_end = new Date(data.result.info[scheduleKey]['end_time']).getMinutes();
           this.apiService.request('user/create-schedule', {
             reception_date: reception_date,
             clinic_id: data.result.info[scheduleKey]['clinic_id'],
             price: data.result.info[scheduleKey]['price'],
-            start_time: data.result.info[scheduleKey]['start_time'],
-            end_time: data.result.info[scheduleKey]['end_time'],
+            start_time: reception_date + ' ' + hours_start + ':' + minutes_start + ':00',
+            end_time: reception_date + ' ' + hours_end + ':' + minutes_end + ':00',
             reception_time: data.result.info[scheduleKey]['reception_time'],
             reception: data.result.info[scheduleKey]['reception']
           }).then(data2 => {
@@ -294,7 +381,6 @@ export class ScheduleComponent implements OnInit {
       }
     });
   }
-
 
   // work with calendar
   drawCalendar(y, m, day) {
