@@ -35,6 +35,10 @@ export class ModalWindow implements OnInit {
     this.modalId = `modal-${Date.now()}`;
   }
 
+  saveTemplate(){
+    console.log();
+  }
+
   closeByCross() {
     this.isOpen = false;
   }

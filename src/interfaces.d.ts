@@ -8,6 +8,13 @@ export interface IAnketaOptionValues {
   valnominal: number | string;
 }
 
+export interface IScheduleTemplate {
+  template_id: number | string;
+  template_name: number | string;
+  doctor_id?: number | string;
+  link_date: number | string;
+}
+
 export interface IScheduleForm {
   clinic_id: number | string;
   clinic_name?: string;

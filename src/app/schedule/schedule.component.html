@@ -36,7 +36,35 @@
         </div>
 
         <div class="calendar-more calendar-more__editable"
-              *ngIf="(entries.length==0 || toEditSchedule == true) && allowToEditAndAddSchedule == true">
+             *ngIf="templateListOpen == true && entries.length==0 ">
+          <div class="calendar-more-title">
+            <span style="font-weight: bold">Все шаблоны</span>
+          </div>
+          <div class="calendar-more-content" >
+            <table>
+              <tr>
+                <td colspan="2"></td>
+              </tr>
+              <tr *ngFor="let template of templateList">
+                <td style="cursor: pointer" (click)="useTemplate(template.template_id)">{{template.template_name}}
+                  <hr>
+                </td>
+                <td>
+                  <span (click)="deleteTemplate(template.template_id,template.template_name)" style="color: #C9DEE2; margin-left: 50px; cursor: pointer">X</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="calendar-more calendar-more__editable"
+              *ngIf="(entries.length==0 || toEditSchedule == true) && allowToEditAndAddSchedule == true && templateListOpen == false">
+          <div class="calendar-more-actions" style="margin-bottom: 25px; margin-top: 1px;">
+            <div *ngIf="entries.length==0" class="calendar-more-action"
+                 (click)="viewTemplateList()">
+              Использовать шаблон
+            </div>
+          </div>
           <div class="calendar-more-title">
             <span>Выбрать время приема</span>
           </div>
@@ -114,7 +142,7 @@
         </div>
 
         <div style="background: #EDF7F9;" class="calendar-more calendar-more__editable"
-             *ngIf="entries.length>0 && toEditSchedule == false">
+             *ngIf="entries.length>0 && toEditSchedule == false && templateListOpen == false">
           <div class="calendar-more-title">
             <span>Текущий график на {{currentDay}} {{titleMonth}}</span>
           </div>
@@ -159,6 +187,10 @@
                  (click)="addNewForm()">
               Добавить еще
             </div>
+            <div class="calendar-more-action"
+                 (click)="addTemplate()">
+              Сделать шаблоном
+            </div>
           </div>
         </div>
       </div>
@@ -182,3 +214,20 @@
     </div>
   </div>
 </div>
+
+<modal-window [(isOpen)]="addTemplateOpen" id="add-template-popup" >
+  <div modal-content>
+    <text-input [(ngModel)]="templateName"
+                [name]="'templateName'"
+                [placeholder]="'Введите название шаблона'"
+                ngDefaultControl></text-input>
+    <div class="calendar-more-actions pop-up-add-template">
+      <div class="calendar-more-action"
+           (click)="saveTemplate()">
+        Сохранить
+      </div>
+    </div>
+  </div>
+</modal-window>
+
+
