@@ -95,7 +95,11 @@ export class User implements IUser {
       case 'partner':
         return '/public/img/doctor-main-avatar.png';
       default:
-        return '/public/img/main-avatar.png';
+        if (this.male === '1') {
+          return '/public/img/main-avatar-male.png';
+        } else {
+          return '/public/img/main-avatar-female.png';
+        }
     }
   }
 

@@ -317,6 +317,7 @@ export class ScheduleComponent implements OnInit {
 
   viewTemplateList() {
     this.templateListOpen = true;
+    console.log(this.templateList);
   }
 
   useTemplate(template_id) {
@@ -376,8 +377,9 @@ export class ScheduleComponent implements OnInit {
       console.log(data);
       if (data.success) {
         this.addTemplateOpen = false;
+        this.dialogService.alert('Вы успешно добавили шаблон "' + this.templateName + '"');
         this.templateName = '';
-        this.dialogService.alert('Вы успешно добавили шаблон ' + this.templateName);
+        this.getTemplatesList();
       }
     });
   }
