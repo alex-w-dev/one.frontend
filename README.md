@@ -27,8 +27,10 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+# Комментарии от Саши
+
 yarn install - установить пакеты
 
 npm start - запустить приложение (http://localhost:4200) 
 
-ng build --env=prod --output-path=../lk2
+ng build --env=prod --output-path=../lk2 - скомпилировать фронтенд приложение
