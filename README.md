@@ -33,4 +33,4 @@ yarn install - установить пакеты
 
 npm start - запустить приложение (http://localhost:4200) 
 
-ng build --env=prod --output-path=../lk2 - скомпилировать фронтенд приложение
+ng build --env=prod --output-path=../lk2 - скомпилировать фронтенд приложение в папку ../lk2
